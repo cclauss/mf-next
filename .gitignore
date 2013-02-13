@@ -9,3 +9,6 @@ buildout/parts/
 development.ini
 production.ini
 geoadmin/static/build/*
+MANIFEST
+geoadmin.egg-info
+
