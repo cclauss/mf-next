@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GeoAdmin Spec Runner</title>
+
+  <link rel="shortcut icon" type="image/png" href="../../ol3/test/jasmine-1.2.0/jasmine_favicon.png">
+  <link rel="stylesheet" type="text/css" href="../../ol3/test/jasmine-1.2.0/jasmine.css">
+  <script type="text/javascript" src="../../ol3/test/jasmine-1.2.0/jasmine.js"></script>
+  <script type="text/javascript" src="../../ol3/test/jasmine-1.2.0/jasmine-html.js"></script>
+
+  <script type="text/javascript" src="../../../build/geoadmin.js"></script>
+
+  <script type="text/javascript" src="spec/ga/model/layers.js"></script>
+  <script type="text/javascript">
+
+  (function() {
+    var jasmineEnv = jasmine.getEnv();
+    jasmineEnv.updateInterval = 1000;
+
+    var htmlReporter = new jasmine.HtmlReporter();
+
+    jasmineEnv.addReporter(htmlReporter);
+
+    jasmineEnv.specFilter = function(spec) {
+      return htmlReporter.specFilter(spec);
+    }
+
+    function execJasmine() {
+      jasmineEnv.execute();
+    }
+
+    //delayed execution because of problems with onload in webkit browsers...
+    setTimeout(execJasmine, 100);
+  })();
+
+
+  </script>
+
+
+</head>
+
+<body>
+  <div id="container" style="display: none;"></div>
+</body>
+</html>
