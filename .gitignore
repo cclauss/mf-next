@@ -1,0 +1,11 @@
+*.pyc
+*.swp
+.installed.cfg
+apache/wsgi.conf
+buildout/bin/
+buildout/develop-eggs/
+buildout/eggs/
+buildout/parts/
+development.ini
+production.ini
+geoadmin/static/build/*

@@ -13,7 +13,7 @@ requires = [
     ]
 
 setup(name='geoadmin',
-      version='0.0',
+      version='0.0.1',
       description='geoadmin',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
