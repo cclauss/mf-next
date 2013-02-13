@@ -7,19 +7,19 @@ The next generation geo.admin.ch API
 
 Checkout the source code:
 
-  git clone https://github.com/geoadmin/mf-next.git
+    git clone https://github.com/geoadmin/mf-next.git
 
 or when you're using ssh key (see https://help.github.com/articles/generating-ssh-keys):
 
-  git clone git://github.com/geoadmin/mf-next.git
+    git clone git://github.com/geoadmin/mf-next.git
 
 Bootstrap your build environment:
 
-  python bootstrap.py --version 1.5.2 --distribute --download-base http://pypi.camptocamp.net/distribute-0.6.22_fix-issue-227/ --setup-source http://pypi.camptocamp.net/distribute-0.6.22_fix-issue-227/distribute_setup.py
+    python bootstrap.py --version 1.5.2 --distribute --download-base http://pypi.camptocamp.net/distribute-0.6.22_fix-issue-227/ --setup-source http://pypi.camptocamp.net/distribute-0.6.22_fix-issue-227/distribute_setup.py
 
 Create a build:
 
-  buildout/bin/buildout
+    buildout/bin/buildout
 
 Create a developer specific build configuration:
 
