@@ -1,0 +1,6 @@
+[submodule "geoadmin/static/lib/ol3"]
+	path = geoadmin/static/lib/ol3
+	url = https://github.com/openlayers/ol3.git
+[submodule "geoadmin/static/lib/closure"]
+	path = geoadmin/static/lib/closure
+	url = https://github.com/jarib/google-closure-library.git
