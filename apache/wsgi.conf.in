@@ -36,7 +36,7 @@ RewriteRule ^${vars:apache-entry-point}$ /${vars:instanceid}/wsgi/ [PT]
 
 # define a process group
 # WSGIDaemonProcess must be commented/removed when running the project on windows
-WSGIDaemonProcess mf-geoadmin3:${vars:instanceid} display-name=%{GROUP} user=${vars:modwsgi_user}
+WSGIDaemonProcess mf-next:${vars:instanceid} display-name=%{GROUP} user=${vars:modwsgi_user}
 
 # define the path to the WSGI app
 WSGIScriptAlias /${vars:instanceid}/wsgi ${buildout:directory/buildout/parts/modwsgi/wsgi}
@@ -46,6 +46,6 @@ WSGIScriptAlias /${vars:instanceid}/wsgi ${buildout:directory/buildout/parts/mod
 # the main interpreter
 <Location /${vars:instanceid}/wsgi>
     # WSGIProcessGroup must be commented/removed when running the project on windows
-    WSGIProcessGroup mf-geoadmin3:${vars:instanceid}
+    WSGIProcessGroup mf-next:${vars:instanceid}
     WSGIApplicationGroup %{GLOBAL}
 </Location>
