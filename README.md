@@ -11,7 +11,7 @@ Checkout the source code:
 
 or when you're using ssh key (see https://help.github.com/articles/generating-ssh-keys):
 
-    git clone git://github.com/geoadmin/mf-next.git
+    git clone git@github.com:geoadmin/mf-next.git
 
 Make sure that all submodules are up to date:
 
