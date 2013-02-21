@@ -1,4 +1,4 @@
-/*global goog:true, ol: true, ga:true */
+/*global goog:true, ga:true */
 /*jslint indent: 2, nomen: true, vars: true */
 
 goog.provide('ga.ui.LayerTree');

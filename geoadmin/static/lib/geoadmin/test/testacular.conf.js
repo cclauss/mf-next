@@ -1,3 +1,5 @@
+/*global singleRun:true, captureTimeout:true, browsers:true, autoWatch:true, LOG_DEBUG:true, logLevel:true, colors:true, runnerPort:true, port:true, reporters:true, exclude:true, JASMINE_ADAPTER:true, JASMINE:true basePath:true, files:true*/
+
 // Testacular configuration
 // Generated on Tue Feb 12 2013 15:53:57 GMT+0100 (CET)
 
