@@ -10,6 +10,13 @@ requires = [
     'pyramid',
     'pyramid_debugtoolbar',
     'waitress',
+    'SQLAlchemy',
+    'geoalchemy',
+    'transaction',
+    'pyramid_tm',
+    'geojson',
+    'shapely',
+    'httplib2',
     ]
 
 setup(name='geoadmin',

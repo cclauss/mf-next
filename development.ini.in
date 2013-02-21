@@ -34,7 +34,15 @@ port = 6543
 ###
 
 [loggers]
-keys = root, geoadmin
+keys = root, geoadmin, sqlalchemy
+
+[logger_sqlalchemy]
+level = INFO
+handlers =
+qualname = sqlalchemy.engine
+# "level = INFO" logs SQL queries.
+# "level = DEBUG" logs SQL queries and results.
+# "level = WARN" logs neither.  (Recommended for production systems.)
 
 [handlers]
 keys = console
