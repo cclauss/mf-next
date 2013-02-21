@@ -107,5 +107,7 @@ Publish
 
 Note: If you want to update individual submodules (to track branches or specific revisions), please refer to the official git documentation.
 
+## How to develop with pyramid
 
+    buildout/bin/pserve development.ini --reload
 
