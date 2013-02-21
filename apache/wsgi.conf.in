@@ -23,7 +23,6 @@ AddOutputFilterByType DEFLATE text/html text/plain text/xml
 # http://code.google.com/p/modwsgi/wiki/FrequentlyAskedQuestions#Access_Control_Mechanisms
 WSGIPassAuthorization On
 
-
 # Static files with aggressive cache:
 RewriteRule ^/${vars:instanceid}/wsgi/[0-9a-fA-F]*/(static)/(.*)$  ${buildout:directory/geoadmin/$1/$2}
 <LocationMatch "/${vars:instanceid}/wsgi/[0-9a-fA-F]*/(static)/">
@@ -49,3 +48,5 @@ WSGIScriptAlias /${vars:instanceid}/wsgi ${buildout:directory/buildout/parts/mod
     WSGIProcessGroup mf-next:${vars:instanceid}
     WSGIApplicationGroup %{GLOBAL}
 </Location>
+
+RewriteRule ^${vars:apache-entry-point}(hello)(.*)$ /${vars:instanceid}/wsgi/$1$2 [PT]
