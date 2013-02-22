@@ -3,6 +3,7 @@
 
 goog.provide('ga.model.layers');
 
+/** @export */
 ga.model.layers = [{
   name: 'Pixelkarte Farbe',
   technicalname: 'ch.swisstopo.pixelkarte-farbe-pk1000.noscale'

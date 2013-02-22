@@ -1,8 +1,6 @@
-/*global goog: true, ga: true, describe: true, it: true, expect: true */
+/*global ga: true, describe: true, it: true, expect: true */
 /*jslint indent: 2 */
 
-
-goog.provide('ga.test.model.layers');
 
 describe('ga.model.layers', function () {
   'use strict';
@@ -14,4 +12,3 @@ describe('ga.model.layers', function () {
   });
 });
 
-goog.require('ga.model.layers');

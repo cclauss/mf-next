@@ -5,6 +5,7 @@ goog.provide('ga.factory.OLLayer');
 
 goog.require('ol.source.TiledWMS');
 
+/** @export */
 ga.factory.OLLayer = function (options) {
   'use strict';
   return new ol.layer.TileLayer({

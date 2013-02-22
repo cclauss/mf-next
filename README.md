@@ -63,6 +63,16 @@ Client part can be found here: https://github.com/geoadmin/mf-next/wiki/Developi
 
 ## HowTos
 
+### How to have jshint checking javascript pre-commit
+
+Add the following line to your **.git/hooks/pre-commit** file
+    
+    exec buildout/bin/buildout install jshint
+
+You will be unable to commit when there are jshint errors in your javascript files.
+
+Note: pre-commit hooks can't be shared across clones. One idea would be to establish a pre-recieve hook on the server to jshint our code.
+
 ### How to update submodules to track latest trunk
 
 Update the local copy:

@@ -12,7 +12,7 @@ basePath = '../../..';
 files = [
   JASMINE,
   JASMINE_ADAPTER,
-// 'lib/closure/closure/goog/base.js',
+ 'lib/closure/closure/goog/base.js',
 //  'build/ol3_dep.js',
 //  'build/geoadmin_deps.js',
 //  'lib/geoadmin/src/ga/**/*.js',
@@ -75,5 +75,5 @@ captureTimeout = 5000;
 
 // Continuous Integration mode
 // if true, it capture browsers, run tests and exit
-singleRun = false;
+singleRun = true;
 

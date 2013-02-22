@@ -6,6 +6,7 @@ goog.provide('ga.MapProperty');
 
 goog.require('ol.Projection');
 
+/** @export */
 ga.MapProperty = {
   PROJECTION: new ol.Projection('EPSG:21781', ol.ProjectionUnits.METERS,
                                 new ol.Extent(485869.5728, 76443.1884, 837076.5648, 299941.7864))
