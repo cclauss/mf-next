@@ -13,6 +13,7 @@ window.onload = function() {
   var map = new ga.Map({
     target: 'map'
   });
-  map.getLayers();
+
+  map.addLayerWithDef(ga.model.layers[1]);
 };
 

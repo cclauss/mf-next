@@ -8,14 +8,20 @@
     <link rel="stylesheet" href="../../../build/closure.css" type="text/css">
     <link rel="stylesheet" href="../css/ga.css" type="text/css">
 
-    <!-- This base file does all the magic to load the dependant files on the fly -->
-    <script src="../../closure/closure/goog/base.js" type="text/javascript"></script>
-    <!-- For the magic above to work, we need to have dependencies defined for non closure libraries.
-         Right now, we have ol3 and geoadmin dependencies defined. -->
-    <script src="../../../build/ol3_dep.js" type="text/javascript"></script>
-    <script src="../../../build/ga_deps.js" type="text/javascript"></script>
-
     <script src="../../../build/geoadmin.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+    window.onload = function() {
+      'use strict';
+
+      var map = new ga.Map({
+        target: 'map'
+      });
+      map.addLayerWithDef(ga.model.layers[1]);
+    }
+
+    </script>
 
     <style type="text/css">
       html, body, #map {
@@ -41,12 +47,10 @@
       }
  
     </style>
-    <title>GeoAdmin RE3 Playground - Full map using existing WMS Service</title>
+    <title>Sample application using (compiled) API</title>
   </head>
   <body>
     <div id="map">
-      <div id="treeContainer">
-      </div>
     </div>
   </body>
 </html>

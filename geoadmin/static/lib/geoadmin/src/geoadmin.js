@@ -14,7 +14,6 @@ goog.require('ga.model.layers');
 goog.require('ga.ui.LayerTree');
 //./
 goog.require('ga.Map');
-goog.require('ga.MapProperty');
 
 
 //root namespace

@@ -16,9 +16,8 @@ goog.require('ol.source.TiledWMS');
 goog.require('ga.factory.OLLayer');
 goog.require('ga.ui.LayerTree');
 goog.require('ga.model.layers');
-goog.require('ga.MapProperty');
 
-goog.provide('ga.examples.layertree');
+goog.provide('ga.examples.sample');
 
 window.onload = function() {
   'use strict';
@@ -28,7 +27,10 @@ window.onload = function() {
     goog.debug.Logger.getLogger('ol').setLevel(goog.debug.Logger.Level.INFO);
   }
 
-  ol.Projection.addProjection(ga.MapProperty.PROJECTION);
+  var myProjection = new ol.Projection('EPSG:21781', ol.ProjectionUnits.METERS,
+                                new ol.Extent(485869.5728, 76443.1884, 837076.5648, 299941.7864));
+
+  ol.Projection.addProjection(myProjection);
 
   var get1Layer = function () {
     return [new ol.layer.TileLayer({
@@ -43,8 +45,8 @@ window.onload = function() {
           'LAYERS': 'ch.swisstopo.pixelkarte-farbe-pk1000.noscale',
           'FORMAT': 'image/jpeg'
         },
-        projection: ga.MapProperty.PROJECTION,
-        extent: ga.MapProperty.PROJECTION.getExtent()
+        projection: myProjection,
+        extent: myProjection.getExtent()
       })
     })];
   };
@@ -62,8 +64,8 @@ window.onload = function() {
         params: {
           'LAYERS': 'ch.bafu.schutzgebiete-paerke_nationaler_bedeutung'
         },
-        projection: ga.MapProperty.PROJECTION,
-        extent: ga.MapProperty.PROJECTION.getExtent()
+        projection: myProjection,
+        extent: myProjection.getExtent()
       })
     })]);
   };
@@ -73,7 +75,7 @@ window.onload = function() {
     renderers: ol.RendererHints.createFromQueryData(),
     target: 'map',
     view: new ol.View2D({
-      projection: ga.MapProperty.PROJECTION,
+      projection: myProjection,
       center: new ol.Coordinate(660000, 190000),
       zoom: 2
     })
@@ -87,8 +89,8 @@ window.onload = function() {
   var $local = goog.dom.getElement;
   layertree.render($local('treeContainer'));
   var layerdef = ga.model.layers[1];
-  layerdef.projection = ga.MapProperty.PROJECTION;
-  layerdef.extent = ga.MapProperty.PROJECTION.getExtent();
+  layerdef.projection = myProjection;
+  layerdef.extent = myProjection.getExtent();
   map.getLayers().push(new ga.factory.OLLayer(layerdef));
   var removedLayer = map.getLayers().removeAt(1);
   map.getLayers().push(removedLayer);
