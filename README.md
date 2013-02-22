@@ -51,9 +51,6 @@ that points to your working directory. If all is well, you can reach your pages 
 This sections contains points that needs to be done, discussed and decided upon. Either describe them directly here or use the github wiki pages:
 https://github.com/geoadmin/mf-next/wiki
 
-* plovr
-* linter/jslint/jshint integration, especially needed to check if code is closure-compiler compatible
-* export definitions (if we want to use ADVANCED_OPTIMIZATIONS for our API)
 * source code documentation automation* source code documentation automatio
 
 ## Project Structure
@@ -62,6 +59,10 @@ Short descirption of current project structure. Try to keep it up to date
 Client part can be found here: https://github.com/geoadmin/mf-next/wiki/Developing-GeoAdmin-Client-API
 
 ## HowTos
+
+### You're daily git workflow routine
+https://github.com/geoadmin/mf-next/wiki/Git-Workflows
+
 
 ### How to have jshint checking javascript pre-commit
 
