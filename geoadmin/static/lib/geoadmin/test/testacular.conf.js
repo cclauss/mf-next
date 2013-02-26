@@ -12,16 +12,10 @@ basePath = '../../..';
 files = [
   JASMINE,
   JASMINE_ADAPTER,
- 'lib/closure/closure/goog/base.js',
-//  'build/ol3_dep.js',
-//  'build/geoadmin_deps.js',
-//  'lib/geoadmin/src/ga/**/*.js',
-//  'lib/geoadmin/test/spec/ga/**/*.js'
-//  'closure/closure/goog/base.js',
-//  'closure/closure/goog/**/*.js',
-//  'ol3/src/ol/**/*.js',
-//  'geoadmin/src/ga/**/*.js',
-  'build/geoadmin.js',
+  'lib/closure/closure/goog/base.js',
+  'build/ol3_deps.js',
+  'build/ga_deps.js',
+  'lib/geoadmin/src/geoadmin.js',
   'lib/geoadmin/test/spec/ga/**/*.js'
 ];
 
