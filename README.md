@@ -60,7 +60,7 @@ Client part can be found here: https://github.com/geoadmin/mf-next/wiki/Developi
 
 ## HowTos
 
-### You're daily git workflow routine
+### Your daily git workflow routine
 https://github.com/geoadmin/mf-next/wiki/Git-Workflows
 
 
