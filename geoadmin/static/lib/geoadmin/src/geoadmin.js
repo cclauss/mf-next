@@ -7,7 +7,7 @@
  */
 
 //factory
-goog.require('ga.factory.OLLayer');
+goog.require('ga.factory.olLayer');
 //model
 goog.require('ga.model.layers');
 //ui

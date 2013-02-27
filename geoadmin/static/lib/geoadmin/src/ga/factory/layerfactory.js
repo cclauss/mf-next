@@ -1,13 +1,18 @@
 /*global goog:true, ga:true, ol:true*/
 /*jslint indent: 2 */
 
-goog.provide('ga.factory.OLLayer');
+goog.provide('ga.factory.olLayer');
 
 goog.require('ol.source.TiledWMS');
 
+goog.require('goog.debug.Logger');
+
 /** @export */
-ga.factory.OLLayer = function (options) {
+ga.factory.olLayer = function (options) {
   'use strict';
+  if (goog.DEBUG) {
+    goog.debug.Logger.getLogger('ga.factory.olLayer').info('Creating on openlayers layer');
+  }
   return new ol.layer.TileLayer({
     source: new ol.source.TiledWMS({
       url: 'http://wms.geo.admin.ch',

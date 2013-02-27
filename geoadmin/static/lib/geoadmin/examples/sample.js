@@ -13,7 +13,7 @@ goog.require('ol.RendererHints');
 goog.require('ol.View2D');
 goog.require('ol.source.TiledWMS');
 
-goog.require('ga.factory.OLLayer');
+goog.require('ga.factory.olLayer');
 goog.require('ga.ui.LayerTree');
 goog.require('ga.model.layers');
 
@@ -23,8 +23,13 @@ window.onload = function() {
   'use strict';
 
   if (goog.DEBUG) {
-    goog.debug.Console.autoInstall();
-    goog.debug.Logger.getLogger('ol').setLevel(goog.debug.Logger.Level.INFO);
+    //install the console as output. There are other possible outputs (as seperate window, for instance)
+    var debugConsole = new goog.debug.Console();
+    debugConsole.setCapturing(true);
+    //configure ga namespace logging level
+    goog.debug.Logger.getLogger('ga').setLevel(goog.debug.Logger.Level.ALL);
+    //configure ol namespace logging level
+    goog.debug.Logger.getLogger('ol').setLevel(goog.debug.Logger.Level.OFF);
   }
 
   var myProjection = new ol.Projection('EPSG:21781', ol.ProjectionUnits.METERS,
@@ -91,7 +96,7 @@ window.onload = function() {
   var layerdef = ga.model.layers[1];
   layerdef.projection = myProjection;
   layerdef.extent = myProjection.getExtent();
-  map.getLayers().push(new ga.factory.OLLayer(layerdef));
+  map.getLayers().push(ga.factory.olLayer(layerdef));
   var removedLayer = map.getLayers().removeAt(1);
   map.getLayers().push(removedLayer);
 
