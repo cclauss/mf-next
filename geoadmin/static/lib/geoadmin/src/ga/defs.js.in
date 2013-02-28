@@ -1,0 +1,34 @@
+/*global goog:true, ga:true*/
+/*jslint indent: 2, nomen: true, vars: true */
+
+/**
+ * @fileoverview ga.Defs is a singleton containing basic definitions used throughout the library
+ * * @author gilbert.jeiziner@swisstopo.ch
+ */
+
+goog.provide('ga.Defs');
+
+/**
+ * This is a singleton. The single instance of this class can be accessed wiht {ga.Defs.getInstance()}. It will always return the same instance.
+ * @constructor
+ * @export
+ */
+ga.Defs = function () {
+  'use strict';
+  //because this is a singleton, we can easily make this a closure variable
+  var protocol_ = null;
+
+  this.protocol = function () {
+    if (protocol_ === null) {
+      protocol_ = document.location.protocol;
+    }
+    return protocol_;
+  };
+
+  this.webServiceUrl = function () {
+    return this.protocol() + '${ga-webservice-url}';
+  };
+};
+
+goog.addSingletonGetter(ga.Defs);
+
