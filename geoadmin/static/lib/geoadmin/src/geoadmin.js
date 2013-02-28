@@ -13,6 +13,7 @@ goog.require('ga.model.layers');
 //ui
 goog.require('ga.ui.LayerTree');
 //./
+goog.require('ga.Defs');
 goog.require('ga.Map');
 
 

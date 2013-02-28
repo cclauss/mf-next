@@ -15,20 +15,48 @@ goog.provide('ga.Defs');
  */
 ga.Defs = function () {
   'use strict';
-  //because this is a singleton, we can easily make this a closure variable
-  var protocol_ = null;
 
-  this.protocol = function () {
-    if (protocol_ === null) {
-      protocol_ = document.location.protocol;
-    }
-    return protocol_;
-  };
+  if (ga.Defs.instance_) {
+    return ga.Defs.instance_;
+  }
 
-  this.webServiceUrl = function () {
-    return this.protocol() + '${ga-webservice-url}';
-  };
+  /**
+   * @type {string}
+   * @private
+   */
+  this.protocol_ = null;
+
+  ga.Defs.instance_ = this;
 };
 
-goog.addSingletonGetter(ga.Defs);
+/**
+ * Static function to get instance of singletong
+ * @export
+ */
+ga.Defs.getInstance = function () {
+  'use strict';
+  if (ga.Defs.instance_) {
+    return ga.Defs.instance_;
+  }
+  return new ga.Defs();
+};
+
+/**
+ * @export
+ */
+ga.Defs.prototype.protocol = function () {
+  'use strict';
+  if (this.protocol_ === null) {
+    this.protocol_ = document.location.protocol;
+  }
+  return this.protocol_;
+};
+
+/**
+ * @export
+ */
+ga.Defs.prototype.webServiceUrl = function () {
+  'use strict';
+  return this.protocol() + '${ga-webservice-url}';
+};
 
