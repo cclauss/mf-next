@@ -9,7 +9,8 @@
 goog.provide('ga.Defs');
 
 /**
- * This is a singleton. The single instance of this class can be accessed wiht {ga.Defs.getInstance()}. It will always return the same instance.
+ * This is a singleton. The single instance of this class can be accessed wiht {ga.Defs.getInstance()}.
+ * It will always return the same instance.
  * @constructor
  * @export
  */
@@ -49,7 +50,7 @@ ga.Defs.prototype.webServiceUrl = function () {
 };
 
 /**
- * Static function to get instance of singletong
+ * Static function to get instance of singleton
  * @export
  */
 ga.Defs.getInstance = function () {

@@ -12,6 +12,9 @@ goog.require('ga.factory.olLayer');
 goog.require('ga.model.layers');
 //ui
 goog.require('ga.ui.LayerTree');
+//net
+goog.require('ga.net.SwissSearch.EventType');
+goog.require('ga.net.SwissSearch');
 //./
 goog.require('ga.Defs');
 goog.require('ga.Map');
