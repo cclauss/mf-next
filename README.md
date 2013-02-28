@@ -51,7 +51,8 @@ that points to your working directory. If all is well, you can reach your pages 
 This sections contains points that needs to be done, discussed and decided upon. Either describe them directly here or use the github wiki pages:
 https://github.com/geoadmin/mf-next/wiki
 
-* source code documentation automation* source code documentation automatio
+* automate adding of unit tests to testing document (run_test.html and run_test_debug.html)
+* source code documentation automation
 
 ## Project Structure
 Short descirption of current project structure. Try to keep it up to date
