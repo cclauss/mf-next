@@ -53,6 +53,7 @@ https://github.com/geoadmin/mf-next/wiki
 
 * automate adding of unit tests to testing document (run_test.html and run_test_debug.html)
 * source code documentation automation
+* create eventing support in ga. see ga.net.SwissSearch component. The EventType enum and the Event calls could be generalised and re-used inside our ga namespace.
 
 ## Project Structure
 Short descirption of current project structure. Try to keep it up to date
