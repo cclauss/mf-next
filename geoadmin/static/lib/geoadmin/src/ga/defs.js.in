@@ -30,18 +30,6 @@ ga.Defs = function () {
 };
 
 /**
- * Static function to get instance of singletong
- * @export
- */
-ga.Defs.getInstance = function () {
-  'use strict';
-  if (ga.Defs.instance_) {
-    return ga.Defs.instance_;
-  }
-  return new ga.Defs();
-};
-
-/**
  * @export
  */
 ga.Defs.prototype.protocol = function () {
@@ -59,4 +47,17 @@ ga.Defs.prototype.webServiceUrl = function () {
   'use strict';
   return this.protocol() + '${ga-webservice-url}';
 };
+
+/**
+ * Static function to get instance of singletong
+ * @export
+ */
+ga.Defs.getInstance = function () {
+  'use strict';
+  if (ga.Defs.instance_) {
+    return ga.Defs.instance_;
+  }
+  return new ga.Defs();
+};
+
 
