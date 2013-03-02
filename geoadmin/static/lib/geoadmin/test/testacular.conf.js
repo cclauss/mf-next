@@ -5,18 +5,21 @@
 
 
 // base path, that will be used to resolve files and exclude
-basePath = '../../..';
+basePath = '../../../../../geoadmin/static';
 
 
 // list of files / patterns to load in the browser
 files = [
   JASMINE,
   JASMINE_ADAPTER,
-  'lib/closure/closure/goog/base.js',
-  'build/ol3_deps.js',
-  'build/ga_deps.js',
-  'lib/geoadmin/src/geoadmin.js',
-  'lib/geoadmin/test/spec/ga/**/*.js'
+  {pattern: 'lib/closure/closure/goog/base.js', watched: false},
+  {pattern: 'build/ol3_deps.js', watched: false},
+  {pattern: 'build/ga_deps.js'},
+  {pattern: 'lib/geoadmin/src/geoadmin.js'},
+  {pattern: 'lib/geoadmin/test/spec/ga/**/*.js'},
+  {pattern: 'lib/closure/closure/goog/**/*.js', watched: false, included: false},
+  {pattern: 'lib/ol3/**/*.js', watched: false, included: false},
+  {pattern: 'lib/geoadmin/**/*.js', watched: false, included: false}
 ];
 
 
@@ -69,5 +72,5 @@ captureTimeout = 5000;
 
 // Continuous Integration mode
 // if true, it capture browsers, run tests and exit
-singleRun = true;
+singleRun = false;
 
