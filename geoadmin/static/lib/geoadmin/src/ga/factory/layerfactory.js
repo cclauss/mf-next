@@ -11,7 +11,7 @@ goog.require('goog.debug.Logger');
 ga.factory.olLayer = function (options) {
   'use strict';
   if (goog.DEBUG) {
-    goog.debug.Logger.getLogger('ga.factory.olLayer').info('Creating on openlayers layer');
+    goog.debug.Logger.getLogger('ga.factory.olLayer').info('Creating one openlayers layer');
   }
   return new ol.layer.TileLayer({
     source: new ol.source.TiledWMS({
