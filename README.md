@@ -27,10 +27,6 @@ Initialize submodules:
     git submodule init
     git submodule update
 
-Create a build:
-
-    buildout/bin/buildout
-
 Create a developer specific build configuration:
 
     cp buildout_ltmoc.cfg buildout_xxx.cfg
@@ -48,7 +44,7 @@ that points to your working directory. If all is well, you can reach your pages 
     http://mf-next0t.bgdi.admin.ch/xxx/
 
 ## Todos - Questions - Decisions
-This sections contains points that needs to be done, discussed and decided upon. Either describe them directly here or use the github wiki pages:
+This section contains points that needs to be done, discussed and decided upon. Either describe them directly here or use the github wiki pages:
 https://github.com/geoadmin/mf-next/wiki
 
 * automate adding of unit tests to testing document (run_test.html and run_test_debug.html)
@@ -56,7 +52,7 @@ https://github.com/geoadmin/mf-next/wiki
 * create eventing support in ga. see ga.net.SwissSearch component. The EventType enum and the Event calls could be generalised and re-used inside our ga namespace.
 
 ## Project Structure
-Short descirption of current project structure. Try to keep it up to date
+Short description of current project structure. Try to keep it up to date.
 
 Client part can be found here: https://github.com/geoadmin/mf-next/wiki/Developing-GeoAdmin-Client-API
 
