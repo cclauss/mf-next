@@ -64,6 +64,25 @@ https://github.com/geoadmin/mf-next/wiki/Git-Workflows
 
 ### How to have jshint checking javascript pre-commit
 
+#### Install node locally
+
+    wget http://nodejs.org/dist/v0.8.21/node-v0.8.21-linux-x64.tar.gz
+    gzip -d node-v0.8.21-linux-x64.tar.gz
+    tar -xvf node-v0.8.21-linux-x64.tar
+
+#### Install jshint locally
+ 
+    ./node-v0.8.21-linux-x64/bin/npm install jshint
+
+#### Give access to jshint
+
+Put in .bahrc the following lines:
+
+    if [ -d ~/node_modules/jshint/bin ] ; then
+        PATH=~/node_modules/jshint/bin:"${PATH}"
+    fi
+
+#### Use jshint before the commits
 Add the following line to your **.git/hooks/pre-commit** file
     
     exec buildout/bin/buildout install jshint
