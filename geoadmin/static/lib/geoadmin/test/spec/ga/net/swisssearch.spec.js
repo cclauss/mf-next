@@ -41,7 +41,7 @@ describe('ga.net.SwissSearch', function () {
         mySS.query('cccc');
         mySS.query('llwler');
       });
-           
+
       expect(foo.callback).not.toHaveBeenCalled();
 
       waitsFor(function () {

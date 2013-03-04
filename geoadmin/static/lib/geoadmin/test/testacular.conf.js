@@ -1,4 +1,4 @@
-/*global singleRun:true, captureTimeout:true, browsers:true, autoWatch:true, LOG_DEBUG:true, logLevel:true, colors:true, runnerPort:true, port:true, reporters:true, exclude:true, JASMINE_ADAPTER:true, JASMINE:true basePath:true, files:true*/
+/*global basePath:true, singleRun:true, captureTimeout:true, browsers:true, autoWatch:true, LOG_DEBUG:true, logLevel:true, colors:true, runnerPort:true, port:true, reporters:true, exclude:true, JASMINE_ADAPTER:true, JASMINE:true basePath:true, files:true*/
 
 // Testacular configuration
 // Generated on Tue Feb 12 2013 15:53:57 GMT+0100 (CET)
@@ -10,22 +10,22 @@ basePath = '../../../../../geoadmin/static';
 
 // list of files / patterns to load in the browser
 files = [
-  JASMINE,
-  JASMINE_ADAPTER,
-  {pattern: 'lib/closure/closure/goog/base.js', watched: false},
-  {pattern: 'build/ol3_deps.js', watched: false},
-  {pattern: 'build/ga_deps.js'},
-  {pattern: 'lib/geoadmin/src/geoadmin.js'},
-  {pattern: 'lib/geoadmin/test/spec/ga/**/*.js'},
-  {pattern: 'lib/closure/closure/goog/**/*.js', watched: false, included: false},
-  {pattern: 'lib/ol3/**/*.js', watched: false, included: false},
-  {pattern: 'lib/geoadmin/**/*.js', watched: false, included: false}
+    JASMINE,
+    JASMINE_ADAPTER,
+    {pattern: 'lib/closure/closure/goog/base.js', watched: false},
+    {pattern: 'build/ol3_deps.js', watched: false},
+    {pattern: 'build/ga_deps.js'},
+    {pattern: 'lib/geoadmin/src/geoadmin.js'},
+    {pattern: 'lib/geoadmin/test/spec/ga/**/*.js'},
+    {pattern: 'lib/closure/closure/goog/**/*.js', watched: false, included: false},
+    {pattern: 'lib/ol3/**/*.js', watched: false, included: false},
+    {pattern: 'lib/geoadmin/**/*.js', watched: false, included: false}
 ];
 
 
 // list of files to exclude
 exclude = [
-  
+
 ];
 
 

@@ -57,7 +57,7 @@ ga.net.SwissSearch.prototype.query = function (queryText) {
       lang: 'fr',
       query: queryText
     };
-  
+
   var onSuccess = function (data) {
     that.dispatchEvent(new ga.net.SwissSearch.Event(ga.net.SwissSearch.EventType.DONE,
                                                   that,
@@ -95,7 +95,7 @@ ga.net.SwissSearch.EventType = {
 ga.net.SwissSearch.Event = function (type, target, data) {
   'use strict';
   goog.events.Event.call(this, type, target);
-  
+
   /**
    * is null to indicate error
    * @private

@@ -53,8 +53,6 @@ ga.Map = function (mapOptions) {
     ol.Projection.addProjection(ga.MapDefs.PROJECTION);
     ga.MapGlobals.projectionAdded = true;
   }
-  
- 
 };
 
 goog.inherits(ga.Map, ol.Map);
