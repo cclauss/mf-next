@@ -18,6 +18,6 @@
   <body>
       <h1 id="title">Examples</h1>
       <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/map.html'))}">Map Ol3</a><br>
-      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/wmtscapabilities.html'))}">GetCapabilities</a>
+      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/wmtscapabilities.html'))}">WMTS GetCapabilities</a>
   </body>
 </html>

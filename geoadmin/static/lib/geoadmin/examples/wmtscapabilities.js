@@ -4,16 +4,18 @@ goog.require('goog.debug.Console');
 goog.require('goog.debug.Logger');
 goog.require('goog.debug.Logger.Level');
 
-//goog.require('goog.net.XhrIo');
+goog.require('goog.net.XhrIo');
 
+goog.require('ol.Extent');
 goog.require('ol.parser.ogc.WMTSCapabilities');
 
 window.onload = function() {
     'use strict';
+    var debugConsole, extent, projection, parser, url;
 
     if (goog.DEBUG) {
         //install the console as output. There are other possible outputs (as seperate window, for instance)
-        var debugConsole = new goog.debug.Console();
+        debugConsole = new goog.debug.Console();
         debugConsole.setCapturing(true);
         //configure ga namespace logging level
         goog.debug.Logger.getLogger('ga').setLevel(goog.debug.Logger.Level.ALL);
@@ -21,26 +23,18 @@ window.onload = function() {
         goog.debug.Logger.getLogger('ol').setLevel(goog.debug.Logger.Level.OFF);
     }
 
-    var parser = new ol.parser.ogc.WMTSCapabilities();
-    var url = 'http://wmts.geo.admin.ch/1.0.0/WMTSCapabilities.xml';
+    extent = new ol.Extent(485869.5728, 76443.1884, 837076.5648, 299941.7864);
+    projection = new ol.Projection('urn:ogc:def:crs:EPSG:21781', ol.ProjectionUnits.METERS, extent);
+    ol.projection.addProjection(projection);
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
+    parser = new ol.parser.ogc.WMTSCapabilities();
+    url = 'http://wmts.geo.admin.ch/1.0.0/WMTSCapabilities.xml';
 
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            var result = parser.read(xhr.responseXML);
-            console.log(result);
-        }
-    };
-    xhr.send();
-
-    /*goog.net.XhrIo.send(url, function(e) {
-        var xhr, xml, obj, serviceIdentification, serviceProvider, operationsMetadata, contactInfo;
+    goog.net.XhrIo.send(url, function(e) {
+        var xhr, xml, obj, serviceIdentification, serviceProvider, operationsMetadata, contactInfo, html;
 
         xhr = e.target;
         xml = xhr.getResponseXml();
-        console.log(parser);
 
         obj = parser.read(xml);
         serviceIdentification = obj.serviceIdentification;
@@ -48,7 +42,10 @@ window.onload = function() {
         operationsMetadata = obj.operationsMetadata;
         contactInfo = serviceProvider.serviceContact.contactInfo;
 
-        console.log(serviceIdentification);
-        console.log(serviceProvider);
-    });*/
+        html = '<a>Title: ' + serviceIdentification.title + '</a><br>';
+        html += '<a>Abstract: ' + serviceIdentification.abstract + '</a><br>';
+        html += '<a>Provider Site: ' + serviceProvider.providerSite + '</a><br>';
+
+        document.getElementById('wmtscapabilities').innerHTML = html;
+    });
 };
