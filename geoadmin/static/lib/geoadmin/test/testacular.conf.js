@@ -5,27 +5,26 @@
 
 
 // base path, that will be used to resolve files and exclude
-basePath = '../../../../../geoadmin/static';
+basePath = '/home/ltjeg/mf-next/geoadmin/static/';
 
 
 // list of files / patterns to load in the browser
 files = [
     JASMINE,
     JASMINE_ADAPTER,
-    {pattern: 'lib/closure/closure/goog/base.js', watched: false},
-    {pattern: 'build/ol3_deps.js', watched: false},
+    {pattern: 'lib/closure/closure/goog/base.js'},
+    {pattern: 'build/ol3_deps.js'},
     {pattern: 'build/ga_deps.js'},
     {pattern: 'lib/geoadmin/src/geoadmin.js'},
     {pattern: 'lib/geoadmin/test/spec/ga/**/*.js'},
     {pattern: 'lib/closure/closure/goog/**/*.js', watched: false, included: false},
-    {pattern: 'lib/ol3/**/*.js', watched: false, included: false},
-    {pattern: 'lib/geoadmin/**/*.js', watched: false, included: false}
+    {pattern: 'lib/ol3/src/ol/**/*.js', watched: false, included: false},
+    {pattern: 'lib/geoadmin/src/**/*.js', included: false}
 ];
 
 
 // list of files to exclude
 exclude = [
-
 ];
 
 
@@ -35,7 +34,7 @@ reporters = ['progress'];
 
 
 // web server port
-port = 8080;
+port = 8081;
 
 
 // cli runner port
