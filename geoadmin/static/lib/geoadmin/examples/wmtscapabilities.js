@@ -6,7 +6,7 @@ goog.require('goog.debug.Logger.Level');
 
 //goog.require('goog.net.XhrIo');
 
-goog.require('ol.parser.ogc.WMTSCapabilities_v1_0_0');
+goog.require('ol.parser.ogc.WMTSCapabilities');
 
 window.onload = function() {
     'use strict';
@@ -21,7 +21,7 @@ window.onload = function() {
         goog.debug.Logger.getLogger('ol').setLevel(goog.debug.Logger.Level.OFF);
     }
 
-    var parser = new ol.parser.ogc.WMTSCapabilities_v1_0_0();
+    var parser = new ol.parser.ogc.WMTSCapabilities();
     var url = 'http://wmts.geo.admin.ch/1.0.0/WMTSCapabilities.xml';
 
     var xhr = new XMLHttpRequest();
