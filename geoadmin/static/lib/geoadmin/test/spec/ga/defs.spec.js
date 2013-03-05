@@ -1,15 +1,11 @@
 /*global ga: true, describe: true, it: true, expect: true */
 
-describe('ga.Defs', function () {
+describe('ga.defs', function () {
     'use strict';
 
-    describe('the ga.Defs object', function () {
-        it('should be a singleton', function () {
-            expect(ga.Defs.getInstance()).toEqual(ga.Defs.getInstance());
-        });
-
+    describe('the ga.defs object', function () {
         it('should point to the correct web protocol', function () {
-            expect(ga.Defs.getInstance().protocol()).toEqual(document.location.protocol);
+            expect(ga.defs.protocol()).toEqual(document.location.protocol);
         });
     });
 });

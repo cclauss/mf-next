@@ -17,7 +17,7 @@ goog.require('ga.net.SwissSearch');
 goog.require('ga.net.SwissSearch.Event');
 goog.require('ga.net.SwissSearch.EventType');
 //./
-goog.require('ga.Defs');
+goog.require('ga.defs');
 goog.require('ga.Map');
 
 
