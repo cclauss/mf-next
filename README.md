@@ -102,7 +102,7 @@ Publish
 
 Note: If you want to update individual submodules (to track branches or specific revisions), please refer to the official git documentation.
 
-## How to discard new commits in submodules (before rebasing for instance)
+### How to discard new commits in submodules (before rebasing for instance)
 
     git submodule update
 

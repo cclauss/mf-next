@@ -60,3 +60,9 @@ h6 {
 #shortdesc {
   margin-bottom: 2em;
 }
+.goog-tree-children {
+  background-image: url(http://ssl.gstatic.com/closure/tree/I.png) !important;
+}
+.goog-tree-icon {
+  background-image: url(http://ssl.gstatic.com/closure/tree/tree.png);
+}
