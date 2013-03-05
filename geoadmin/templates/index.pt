@@ -17,7 +17,13 @@
   </head>
   <body>
       <h1 id="title">Examples</h1>
+      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/sample-debug.html'))}">Sample Debug</a>  <br>
+      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/sample-api.html'))}">Sample API</a>  <br>
+      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/sample-app.html'))}">Sample App</a>  <br>
       <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/map.html'))}">Map Ol3</a>  <br>
       <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/wmscapabilities.html'))}">WMS Capabilities of wms.geo.admin.ch</a>
+      <h1 id="title">Tests</h1>
+      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/test/run_tests_debug.html'))}">Run Tests in Debug Mode</a>  <br>
+      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/test/run_tests.html'))}">Run Tests in Release Mode</a>  <br>
   </body>
 </html>
