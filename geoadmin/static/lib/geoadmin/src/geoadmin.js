@@ -1,5 +1,5 @@
 /*global goog:true */
-/*jslint indent: 2, nomen: true, vars: true */
+/*jslint nomen: true, vars: true */
 
 /**
  * This file contains all require statements for geoadmin namespace
