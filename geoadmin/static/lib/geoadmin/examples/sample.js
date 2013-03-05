@@ -42,7 +42,7 @@ window.onload = function() {
     var myProjection = new ol.Projection('EPSG:21781', ol.ProjectionUnits.METERS,
       new ol.Extent(485869.5728, 76443.1884, 837076.5648, 299941.7864));
 
-    ol.Projection.addProjection(myProjection);
+    ol.projection.addProjection(myProjection);
 
     var get1Layer = function () {
         return [new ol.layer.TileLayer({

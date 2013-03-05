@@ -1,5 +1,5 @@
 /*global goog:true, ga:true */
-/*jslint indent: 2, nomen: true, vars: true */
+/*jslint nomen: true, vars: true */
 
 goog.provide('ga.net.SwissSearch');
 goog.provide('ga.net.SwissSearch.EventType');
@@ -11,7 +11,7 @@ goog.require('goog.events.Event');
 
 goog.require('goog.net.Jsonp');
 
-goog.require('ga.Defs');
+goog.require('ga.defs');
 
 /**
  * @fileoverview ga.net.SwissSearch contains components to enable to user to use
@@ -25,19 +25,19 @@ goog.require('ga.Defs');
  * @export
  */
 ga.net.SwissSearch = function () {
-  'use strict';
-  goog.events.EventTarget.call(this);
+    'use strict';
+    goog.events.EventTarget.call(this);
 
-  /**
-   * @private
-   */
-  this.jsonp_ = new goog.net.Jsonp(ga.Defs.getInstance().webServiceUrl() + '/swisssearch/geocoding', 'cb');
-  this.jsonp_.setRequestTimeout(30 * 1000);
+    /**
+     * @private
+     */
+    this.jsonp_ = new goog.net.Jsonp(ga.defs.webServiceUrl() + '/swisssearch/geocoding', 'cb');
+    this.jsonp_.setRequestTimeout(30 * 1000);
 
-  /**
-   * @private
-   */
-  this.currentRequest_ = null;
+    /**
+     * @private
+     */
+    this.currentRequest_ = null;
 };
 
 goog.inherits(ga.net.SwissSearch, goog.events.EventTarget);
@@ -51,32 +51,32 @@ goog.inherits(ga.net.SwissSearch, goog.events.EventTarget);
  * @export
  */
 ga.net.SwissSearch.prototype.query = function (queryText) {
-  'use strict';
-  var that = this;
-  var payload = {
-      lang: 'fr',
-      query: queryText
+    'use strict';
+    var that = this;
+    var payload = {
+        lang: 'fr',
+        query: queryText
     };
 
-  var onSuccess = function (data) {
-    that.dispatchEvent(new ga.net.SwissSearch.Event(ga.net.SwissSearch.EventType.DONE,
-                                                  that,
-                                                  data));
-  };
+    var onSuccess = function (data) {
+        that.dispatchEvent(new ga.net.SwissSearch.Event(ga.net.SwissSearch.EventType.DONE,
+                                                       that,
+                                                       data));
+    };
 
-  var onError = function () {
-    that.dispatchEvent(new ga.net.SwissSearch.Event(ga.net.SwissSearch.EventType.DONE,
-                                                  that,
-                                                  null));
-  };
+    var onError = function () {
+        that.dispatchEvent(new ga.net.SwissSearch.Event(ga.net.SwissSearch.EventType.DONE,
+                                                       that,
+                                                       null));
+    };
 
-  //somehow, this cancelling does not work. Callbacks are still fired...
-  //TODO
-  if (this.currentRequest_) {
-    this.jsonp_.cancel(this.currentRequest_);
-  }
+    //somehow, this cancelling does not work. Callbacks are still fired...
+    //TODO
+    if (this.currentRequest_) {
+        this.jsonp_.cancel(this.currentRequest_);
+    }
 
-  this.currentRequest_ = this.jsonp_.send(payload, onSuccess, onError);
+    this.currentRequest_ = this.jsonp_.send(payload, onSuccess, onError);
 };
 
 /**
@@ -84,7 +84,7 @@ ga.net.SwissSearch.prototype.query = function (queryText) {
  * @export
  */
 ga.net.SwissSearch.EventType = {
-  DONE: goog.events.getUniqueId('done')
+    DONE: goog.events.getUniqueId('done')
 };
 
 /**
@@ -93,14 +93,14 @@ ga.net.SwissSearch.EventType = {
  * @export
  */
 ga.net.SwissSearch.Event = function (type, target, data) {
-  'use strict';
-  goog.events.Event.call(this, type, target);
+    'use strict';
+    goog.events.Event.call(this, type, target);
 
-  /**
-   * is null to indicate error
-   * @private
-   */
-  this.data_ = data;
+    /**
+     * is null to indicate error
+     * @private
+     */
+    this.data_ = data;
 };
 
 goog.inherits(ga.net.SwissSearch.Event, goog.events.Event);
@@ -109,8 +109,8 @@ goog.inherits(ga.net.SwissSearch.Event, goog.events.Event);
  * @export
  */
 ga.net.SwissSearch.Event.prototype.data = function () {
-  'use strict';
-  return this.data_;
+    'use strict';
+    return this.data_;
 };
 
 

@@ -1,5 +1,5 @@
 /*global goog:true */
-/*jslint indent: 2, nomen: true, vars: true */
+/*jslint nomen: true, vars: true */
 
 /**
  * This file contains all require statements for geoadmin namespace
@@ -17,7 +17,7 @@ goog.require('ga.net.SwissSearch');
 goog.require('ga.net.SwissSearch.Event');
 goog.require('ga.net.SwissSearch.EventType');
 //./
-goog.require('ga.Defs');
+goog.require('ga.defs');
 goog.require('ga.Map');
 
 
