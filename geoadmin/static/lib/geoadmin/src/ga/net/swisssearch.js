@@ -11,7 +11,7 @@ goog.require('goog.events.Event');
 
 goog.require('goog.net.Jsonp');
 
-goog.require('ga.Defs');
+goog.require('ga.defs');
 
 /**
  * @fileoverview ga.net.SwissSearch contains components to enable to user to use
@@ -31,7 +31,7 @@ ga.net.SwissSearch = function () {
     /**
      * @private
      */
-    this.jsonp_ = new goog.net.Jsonp(ga.Defs.getInstance().webServiceUrl() + '/swisssearch/geocoding', 'cb');
+    this.jsonp_ = new goog.net.Jsonp(ga.defs.webServiceUrl() + '/swisssearch/geocoding', 'cb');
     this.jsonp_.setRequestTimeout(30 * 1000);
 
     /**

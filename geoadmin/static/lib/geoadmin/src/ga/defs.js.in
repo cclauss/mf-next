@@ -2,63 +2,34 @@
 /*jslint nomen: true, vars: true */
 
 /**
- * @fileoverview ga.Defs is a singleton containing basic definitions used throughout the library
+ * @fileoverview ga.defs contains static functions and static variables
  * * @author gilbert.jeiziner@swisstopo.ch
  */
 
 goog.provide('ga.Defs');
+goog.provide('ga.defs');
 
 /**
- * This is a singleton. The single instance of this class can be accessed wiht {ga.Defs.getInstance()}.
- * It will always return the same instance.
- * @constructor
+ * @private
+ */
+ga.defs.protocol_ = null;
+
+/**
  * @export
  */
-ga.Defs = function () {
+ga.defs.protocol = function () {
     'use strict';
-
-    if (ga.Defs.instance_) {
-        return ga.Defs.instance_;
+    if (ga.defs.protocol_ === null) {
+        ga.defs.protocol_ = document.location.protocol;
     }
-
-    /**
-     * @type {string}
-     * @private
-     */
-    this.protocol_ = null;
-
-    ga.Defs.instance_ = this;
+    return ga.defs.protocol_;
 };
 
 /**
  * @export
  */
-ga.Defs.prototype.protocol = function () {
+ga.defs.webServiceUrl = function () {
     'use strict';
-    if (this.protocol_ === null) {
-        this.protocol_ = document.location.protocol;
-    }
-    return this.protocol_;
+    return ga.defs.protocol() + '${ga-webservice-url}';
 };
-
-/**
- * @export
- */
-ga.Defs.prototype.webServiceUrl = function () {
-    'use strict';
-    return this.protocol() + '${ga-webservice-url}';
-};
-
-/**
- * Static function to get instance of singleton
- * @export
- */
-ga.Defs.getInstance = function () {
-    'use strict';
-    if (ga.Defs.instance_) {
-        return ga.Defs.instance_;
-    }
-    return new ga.Defs();
-};
-
 
