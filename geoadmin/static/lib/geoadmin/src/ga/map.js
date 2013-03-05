@@ -50,7 +50,7 @@ ga.Map = function (mapOptions) {
   }
 
   if (!ga.MapGlobals.projectionAdded) {
-    ol.Projection.addProjection(ga.MapDefs.PROJECTION);
+    ol.projection.addProjection(ga.MapDefs.PROJECTION);
     ga.MapGlobals.projectionAdded = true;
   }
 };
