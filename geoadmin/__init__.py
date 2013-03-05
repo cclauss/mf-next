@@ -1,6 +1,9 @@
 from pyramid.config import Configurator
 from pyramid.events import BeforeRender
+
 from geoadmin.views.helloworld import *
+from geoadmin.views.home import *
+
 from geoadmin import helpers
 
 def add_render_globals(event):
