@@ -22,11 +22,6 @@ Bootstrap your build environment:
 
     python bootstrap.py --version 1.5.2 --distribute --download-base http://pypi.camptocamp.net/distribute-0.6.22_fix-issue-227/ --setup-source http://pypi.camptocamp.net/distribute-0.6.22_fix-issue-227/distribute_setup.py
 
-Initialize submodules:
-
-    git submodule init
-    git submodule update
-
 Create a developer specific build configuration:
 
     cp buildout_ltmoc.cfg buildout_xxx.cfg
@@ -107,5 +102,7 @@ Publish
 
 Note: If you want to update individual submodules (to track branches or specific revisions), please refer to the official git documentation.
 
+## How to develop with pyramid
 
+    buildout/bin/pserve development.ini --reload
 
