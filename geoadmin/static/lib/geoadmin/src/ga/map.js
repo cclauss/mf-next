@@ -17,7 +17,8 @@ goog.require('ga.model.layers');
 
 ga.MapDefs = {
     PROJECTION: new ol.Projection('EPSG:21781', ol.ProjectionUnits.METERS,
-                                  new ol.Extent(485869.5728, 76443.1884, 837076.5648, 299941.7864))
+                                  new ol.Extent(485869.5728, 76443.1884, 837076.5648, 299941.7864)),
+    DEFAULT_LAYER_EXTENT: new ol.Extent(420000, 30000, 900000, 350000)
 };
 
 ga.MapGlobals = {
@@ -67,7 +68,7 @@ ga.Map.prototype.addLayerWithDef = function (layerdef) {
         this.logger.info('adding layer to map with addLayerWithDef');
     }
     layerdef.projection = ga.MapDefs.PROJECTION;
-    layerdef.extent = ga.MapDefs.PROJECTION.getExtent();
+    layerdef.extent = ga.MapDefs.DEFAULT_LAYER_EXTENT;
     var olLayer = ga.factory.olLayer(layerdef);
     this.getLayers().push(olLayer);
 };
@@ -99,7 +100,7 @@ ga.Map.createOLMapOptions_ = function (mapOptions) {
         //don't use addLayer...functions here
         var layerdef = ga.model.layers[0];
         layerdef.projection = ga.MapDefs.PROJECTION;
-        layerdef.extent = ga.MapDefs.PROJECTION.getExtent();
+        layerdef.extent = ga.MapDefs.DEFAULT_LAYER_EXTENT;
         var olLayer = ga.factory.olLayer(layerdef);
         olMapOptions.layers = new ol.Collection([olLayer]);
     }

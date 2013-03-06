@@ -44,6 +44,8 @@ window.onload = function() {
 
     ol.projection.addProjection(myProjection);
 
+    var layerExtent = new ol.Extent(420000, 30000, 900000, 350000);
+
     var get1Layer = function () {
         return [new ol.layer.TileLayer({
             source: new ol.source.TiledWMS({
@@ -58,7 +60,7 @@ window.onload = function() {
                     'FORMAT': 'image/jpeg'
                 },
                 projection: myProjection,
-                extent: myProjection.getExtent()
+                extent: layerExtent
             })
         })];
     };
@@ -77,7 +79,7 @@ window.onload = function() {
                     'LAYERS': 'ch.bafu.schutzgebiete-paerke_nationaler_bedeutung'
                 },
                 projection: myProjection,
-                extent: myProjection.getExtent()
+                extent: layerExtent
             })
         })]);
     };
@@ -102,7 +104,7 @@ window.onload = function() {
     layertree.render($local('treeContainer'));
     var layerdef = ga.model.layers[1];
     layerdef.projection = myProjection;
-    layerdef.extent = myProjection.getExtent();
+    layerdef.extent = layerExtent;
     map.getLayers().push(ga.factory.olLayer(layerdef));
     var removedLayer = map.getLayers().removeAt(1);
     map.getLayers().push(removedLayer);
