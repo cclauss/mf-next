@@ -32,8 +32,16 @@ window.onload = function() {
     xhr.onload = function() {
         if (xhr.status === 200) {
             result = parser.read(xhr.responseXML);
-            document.getElementById('log').innerHTML =
-              window.JSON.stringify(result, undefined, 2);
+            var layerList = '';
+            var layerCount = 0; 
+            for (var i = 0, len = result.capability.layers.length; i < len; i++) {
+                if ('name' in result.capability.layers[i]) {
+                    layerCount++;
+                    layerList = layerList + '' + layerCount + ' ' + result.capability.layers[i].name + "<br>";
+                    console.log(result.capability.layers[i]);
+                }
+            }
+            document.getElementById('log').innerHTML = layerList;
         }
     };
     xhr.send();
