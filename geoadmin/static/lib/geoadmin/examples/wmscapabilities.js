@@ -33,11 +33,11 @@ window.onload = function() {
         if (xhr.status === 200) {
             result = parser.read(xhr.responseXML);
             var layerList = '';
-            var layerCount = 0; 
-            for (var i = 0, len = result.capability.layers.length; i < len; i++) {
+            var layerCount = 0;
+            for (var i = 0, len = result.capability.layers.length; i < len; i+=1) {
                 if ('name' in result.capability.layers[i]) {
-                    layerCount++;
-                    layerList = layerList + '' + layerCount + ' ' + result.capability.layers[i].name + "<br>";
+                    layerCount+=1;
+                    layerList = layerList + '' + layerCount + ' ' + result.capability.layers[i].name + '<br>';
                     console.log(result.capability.layers[i]);
                 }
             }
