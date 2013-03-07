@@ -38,7 +38,6 @@ window.onload = function() {
                 if ('name' in result.capability.layers[i]) {
                     layerCount+=1;
                     layerList = layerList + '' + layerCount + ' ' + result.capability.layers[i].name + '<br>';
-                    console.log(result.capability.layers[i]);
                 }
             }
             document.getElementById('log').innerHTML = layerList;

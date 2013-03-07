@@ -12,4 +12,6 @@ geoadmin/static/build/*
 MANIFEST
 geoadmin.egg-info
 geoadmin/static/lib/geoadmin/src/ga/defs.js
-
+prov/
+.idea/
+mf-next.iml
