@@ -1,6 +1,5 @@
 /*global goog:true, ol:true*/
 
-
 goog.require('goog.debug.Console');
 goog.require('goog.debug.Logger');
 goog.require('goog.debug.Logger.Level');
