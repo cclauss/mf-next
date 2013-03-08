@@ -50,8 +50,8 @@ window.onload = function() {
     var layerExtent = new ol.Extent(420000, 30000, 900000, 350000);
 
     var get1Layer = function () {
-        return [new ol.layer.TileLayer({
-            source: new ol.source.TiledWMS({
+        return [new ol.layer.ImageLayer({
+            source: new ol.source.SingleImageWMS({
                 url: 'http://wms.geo.admin.ch/',
                 attributions: [new ol.Attribution(
                     '&copy; ' +
@@ -62,15 +62,16 @@ window.onload = function() {
                     'LAYERS': 'ch.swisstopo.pixelkarte-farbe-pk1000.noscale',
                     'FORMAT': 'image/jpeg'
                 },
-                extent: layerExtent
+                extent: layerExtent,
+                ratio: 1
             })
         })];
     };
 
 
     var get2Layers = function () {
-        return get1Layer().concat([new ol.layer.TileLayer({
-            source: new ol.source.TiledWMS({
+        return get1Layer().concat([new ol.layer.ImageLayer({
+            source: new ol.source.SingleImageWMS({
                 url: 'http://wms.geo.admin.ch/',
                 attributions: [new ol.Attribution(
                     '&copy; ' +
@@ -80,7 +81,8 @@ window.onload = function() {
                 params: {
                     'LAYERS': 'ch.bafu.schutzgebiete-paerke_nationaler_bedeutung'
                 },
-                extent: layerExtent
+                extent: layerExtent,
+                ratio: 1
             })
         })]);
     };
@@ -95,7 +97,7 @@ window.onload = function() {
             zoom: 2
         })
     });
-
+    // Warning: this part produces getMap requests
     var treeConfig = goog.ui.tree.TreeControl.defaultConfig;
     treeConfig.map = map;
     treeConfig.listdefinition = ga.model.layers;

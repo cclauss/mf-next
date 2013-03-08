@@ -2,7 +2,8 @@
 
 goog.provide('ga.factory.olLayer');
 
-goog.require('ol.source.TiledWMS');
+goog.require('ol.source.SingleImageWMS');
+goog.require('ol.layer.ImageLayer');
 
 goog.require('goog.debug.Logger');
 
@@ -12,8 +13,8 @@ ga.factory.olLayer = function (options) {
     if (goog.DEBUG) {
         goog.debug.Logger.getLogger('ga.factory.olLayer').info('Creating one openlayers layer');
     }
-    return new ol.layer.TileLayer({
-        source: new ol.source.TiledWMS({
+    return new ol.layer.ImageLayer({
+        source: new ol.source.SingleImageWMS({
             url: 'http://wms.geo.admin.ch',
             attributions: [new ol.Attribution(
             '&copy; ' +
@@ -24,7 +25,8 @@ ga.factory.olLayer = function (options) {
                 'LAYERS': options.technicalname
             },
             projection: options.projection,
-            extent: options.extent
+            extent: options.extent,
+            ratio: 1
         })
     });
 };
