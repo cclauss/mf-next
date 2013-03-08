@@ -39,10 +39,13 @@ window.onload = function() {
         goog.debug.Logger.getLogger('ol').setLevel(goog.debug.Logger.Level.OFF);
     }
 
-    var myProjection = new ol.Projection('EPSG:21781', ol.ProjectionUnits.METERS,
-      new ol.Extent(485869.5728, 76443.1884, 837076.5648, 299941.7864));
-
-    ol.projection.addProjection(myProjection);
+    var epsg21781 = new ol.Projection({
+        code: 'EPSG:21781',
+        units: ol.ProjectionUnits.METERS,
+        // Validity extent from http://spatialreference.org
+        extent: new ol.Extent(485869.5728, 76443.1884, 837076.5648, 299941.7864)
+    });
+    ol.projection.addProjection(epsg21781);
 
     var layerExtent = new ol.Extent(420000, 30000, 900000, 350000);
 
@@ -51,9 +54,9 @@ window.onload = function() {
             source: new ol.source.TiledWMS({
                 url: 'http://wms.geo.admin.ch/',
                 attributions: [new ol.Attribution(
-                  '&copy; ' +
-                    '<a href="http://www.geo.admin.ch/internet/geoportal/en/home.html">' +
-                    'Pixelmap 1:1000000 / geo.admin.ch</a>'
+                    '&copy; ' +
+                        '<a href="http://www.geo.admin.ch/internet/geoportal/en/home.html">' +
+                        'Pixelmap 1:1000000 / geo.admin.ch</a>'
                 )],
                 params: {
                     'LAYERS': 'ch.swisstopo.pixelkarte-farbe-pk1000.noscale',
@@ -70,9 +73,9 @@ window.onload = function() {
             source: new ol.source.TiledWMS({
                 url: 'http://wms.geo.admin.ch/',
                 attributions: [new ol.Attribution(
-                  '&copy; ' +
-                    '<a href="http://www.geo.admin.ch/internet/geoportal/en/home.html">' +
-                    'Pärke nationaler Bedeutung / geo.admin.ch</a>'
+                    '&copy; ' +
+                        '<a href="http://www.geo.admin.ch/internet/geoportal/en/home.html">' +
+                        'Pärke nationaler Bedeutung / geo.admin.ch</a>'
                 )],
                 params: {
                     'LAYERS': 'ch.bafu.schutzgebiete-paerke_nationaler_bedeutung'
@@ -87,7 +90,7 @@ window.onload = function() {
         renderers: ol.RendererHints.createFromQueryData(),
         target: 'map',
         view: new ol.View2D({
-            projection: myProjection,
+            projection: epsg21781,
             center: new ol.Coordinate(660000, 190000),
             zoom: 2
         })
@@ -101,7 +104,7 @@ window.onload = function() {
     var $local = goog.dom.getElement;
     layertree.render($local('treeContainer'));
     var layerdef = ga.model.layers[1];
-    layerdef.projection = myProjection;
+    layerdef.projection = epsg21781;
     layerdef.extent = layerExtent;
     map.getLayers().push(ga.factory.olLayer(layerdef));
     var removedLayer = map.getLayers().removeAt(1);
