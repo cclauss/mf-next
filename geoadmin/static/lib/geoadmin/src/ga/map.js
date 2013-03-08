@@ -16,8 +16,12 @@ goog.require('ga.factory.olLayer');
 goog.require('ga.model.layers');
 
 ga.MapDefs = {
-    PROJECTION: new ol.Projection('EPSG:21781', ol.ProjectionUnits.METERS,
-                                  new ol.Extent(485869.5728, 76443.1884, 837076.5648, 299941.7864)),
+    PROJECTION: new ol.Projection({
+        code: 'EPSG:21781',
+        units: ol.ProjectionUnits.METERS,
+        // Validity extent from http://spatialreference.org
+        extent: new ol.Extent(485869.5728, 76443.1884, 837076.5648, 299941.7864)
+    }),
     DEFAULT_LAYER_EXTENT: new ol.Extent(420000, 30000, 900000, 350000)
 };
 
