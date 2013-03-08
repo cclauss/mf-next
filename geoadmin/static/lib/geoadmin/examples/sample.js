@@ -59,7 +59,6 @@ window.onload = function() {
                     'LAYERS': 'ch.swisstopo.pixelkarte-farbe-pk1000.noscale',
                     'FORMAT': 'image/jpeg'
                 },
-                projection: myProjection,
                 extent: layerExtent
             })
         })];
@@ -78,7 +77,6 @@ window.onload = function() {
                 params: {
                     'LAYERS': 'ch.bafu.schutzgebiete-paerke_nationaler_bedeutung'
                 },
-                projection: myProjection,
                 extent: layerExtent
             })
         })]);

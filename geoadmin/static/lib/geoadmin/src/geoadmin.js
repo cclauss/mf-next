@@ -6,6 +6,8 @@
  * It should be used to create an api file with closure-compiler
  */
 
+//control
+goog.require('ga.control.WmsBrowser');
 //factory
 goog.require('ga.factory.olLayer');
 //model
