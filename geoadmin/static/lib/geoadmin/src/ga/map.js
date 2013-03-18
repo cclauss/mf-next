@@ -16,17 +16,11 @@ goog.require('ga.factory.olLayer');
 goog.require('ga.model.layers');
 
 ga.MapDefs = {
-    PROJECTION: new ol.Projection({
+    PROJECTION: ol.projection.configureProj4jsProjection({
         code: 'EPSG:21781',
-        units: ol.ProjectionUnits.METERS,
-        // Validity extent from http://spatialreference.org
         extent: new ol.Extent(485869.5728, 76443.1884, 837076.5648, 299941.7864)
     }),
     DEFAULT_LAYER_EXTENT: new ol.Extent(420000, 30000, 900000, 350000)
-};
-
-ga.MapGlobals = {
-    projectionAdded: false
 };
 
 /**
@@ -52,11 +46,6 @@ ga.Map = function (mapOptions) {
     if (goog.DEBUG) {
         this.logger = goog.debug.Logger.getLogger('ga.map.' + goog.getUid(this));
         this.logger.info('creating map with uid ' + goog.getUid(this));
-    }
-
-    if (!ga.MapGlobals.projectionAdded) {
-        ol.projection.addProjection(ga.MapDefs.PROJECTION);
-        ga.MapGlobals.projectionAdded = true;
     }
 };
 
@@ -102,7 +91,7 @@ ga.Map.createOLMapOptions_ = function (mapOptions) {
     if (!olMapOptions.layers &&
         !goog.isDefAndNotNull(olMapOptions.layers)) {
         //don't use addLayer...functions here
-        var layerdef = ga.model.layers[0];
+        var layerdef = ga.model.layers[2];
         layerdef.projection = ga.MapDefs.PROJECTION;
         layerdef.extent = ga.MapDefs.DEFAULT_LAYER_EXTENT;
         var olLayer = ga.factory.olLayer(layerdef);

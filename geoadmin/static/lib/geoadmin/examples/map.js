@@ -1,4 +1,4 @@
-/*global goog:true, ga: true */
+/*global goog:true, ga: true, ol: true */
 
 
 goog.require('goog.debug.Console');
@@ -22,7 +22,8 @@ window.onload = function() {
 
 
     var map = new ga.Map({
-        target: 'map'
+        target: 'map',
+        renderer: ol.RendererHint.CANVAS
     });
 
     map.addLayerWithDef(ga.model.layers[1]);
