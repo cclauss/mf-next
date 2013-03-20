@@ -13,11 +13,11 @@
     <script src="../../../build/geoadmin.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-
+    var map;
     window.onload = function() {
       'use strict';
 
-      var map = new ga.Map({
+      map = new ga.Map({
         target: 'map'
       });
       map.addLayerWithDef(ga.model.layers[1]);
