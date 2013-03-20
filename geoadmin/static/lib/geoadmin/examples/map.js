@@ -1,4 +1,4 @@
-/*global goog:true, ga: true */
+/*global goog:true, ga: true*/
 
 
 goog.require('goog.debug.Console');

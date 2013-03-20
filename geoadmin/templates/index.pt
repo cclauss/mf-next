@@ -18,9 +18,9 @@
   <body>
       <h1 id="title">Examples</h1>
       <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/sample-debug.html'))}">Sample Debug</a>  <br>
-      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/sample-api.html'))}">Sample API</a>  <br>
       <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/sample-app.html'))}">Sample App</a>  <br>
       <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/map.html'))}">Map Ol3</a>  <br>
+      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/api.html'))}">API</a>  <br>
       <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/wmscapabilities.html'))}">WMS Capabilities of wms.geo.admin.ch</a> <br>
       <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/wmtscapabilities.html'))}">WMTS GetCapabilities</a> <br>
       <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/wmsbrowser.html'))}">WMS Browser</a> <br>
