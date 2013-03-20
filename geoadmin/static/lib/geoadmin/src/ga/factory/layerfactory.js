@@ -43,12 +43,12 @@ ga.factory.olLayer = function (options) {
                 format: 'image/' + options.formatExtension,
                 projection: options.projection,
                 dimensions: {
-                    Time: '20130213'
+                    'Time': '20130213'
                 },
                 tileGrid: new ol.tilegrid.WMTS({
                     origin: options.extent.getTopLeft(),
-                    resolutions: [4000, 3750, 3500, 3250, 3000, 2750, 2500, 2250, 2000, 1750, 1500, 1250, 1000, 750, 650.0, 500.0, 250.0, 100.0, 50.0, 20.0, 10.0, 5.0 ,2.5, 2.0, 1.5, 1.0, 0.5, 0.25],
-                    matrixIds: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27]
+                    resolutions: [4000, 3750, 3500, 3250, 3000, 2750, 2500, 2250, 2000, 1750, 1500, 1250, 1000, 750, 650.0, 500.0, 250.0, 100.0, 50.0, 20.0, 10.0, 5.0 ,2.5, 2.0, 1.5, 1.0, 0.5],
+                    matrixIds: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]
                 }),
                 style: 'default',
                 extent: options.extent
