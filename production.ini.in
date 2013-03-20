@@ -13,6 +13,9 @@ pyramid.debug_notfound = false
 pyramid.debug_routematch = false
 pyramid.default_locale_name = en
 
+# SQLAlchemy database URL
+sqlalchemy.bod.url = postgresql://${vars:dbuser}:${vars:dbpassword}@${vars:dbhost}:${vars:dbport}/bod
+
 ###
 # wsgi server configuration
 ###
