@@ -11,6 +11,8 @@ goog.provide('ga.Map');
 goog.require('goog.debug.Logger');
 
 goog.require('ol.Map');
+goog.require('ol.control.Control');
+goog.require('ol.control.ZoomSlider');
 
 goog.require('ga.factory.olLayer');
 goog.require('ga.model.layers');
@@ -97,6 +99,13 @@ ga.Map.createOLMapOptions_ = function (mapOptions) {
         var olLayer = ga.factory.olLayer(layerdef);
         olMapOptions.layers = new ol.Collection([olLayer]);
     }
+
+    olMapOptions.controls = ol.control.defaults({}, [
+        new ol.control.ZoomSlider({
+            minResolution: 0.04186713600158692,
+            maxResolution: 1371.9023125
+        })
+    ]);
 
     return olMapOptions;
 };

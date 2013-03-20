@@ -66,3 +66,22 @@ h6 {
 .goog-tree-icon {
   background-image: url(http://ssl.gstatic.com/closure/tree/tree.png);
 }
+.ol-zoom a.ol-zoom-out {
+  margin-top: 202px;
+}
+.ol-zoomslider {
+  background-color: transparent;
+  top: 34px;
+  left: 9px;
+  width: 24px;
+}
+.ol-zoomslider-thumb {
+  border-radius: 2px;
+  width: 24px;
+  height: 12px;
+}
+ol-zoomslider-thumb {
+  border-radius: 2px;
+  width: 24px;
+  height: 12px;
+}
