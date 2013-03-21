@@ -20,8 +20,8 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.add_renderer('json', JSON(indent=4))
     config.scan('geoadmin.models')
-    engine = engine_from_config(settings, 'sqlalchemy.bod.')
-    initialize_sql(engine)
+    #engine = engine_from_config(settings, 'sqlalchemy.bod.')
+    #initialize_sql(engine)
 
     # Static config
     config.add_static_view('static', 'static', cache_max_age=3600)
