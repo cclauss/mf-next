@@ -13,6 +13,7 @@ goog.require('goog.debug.Logger');
 goog.require('ol.Map');
 goog.require('ol.control.Control');
 goog.require('ol.control.MousePosition');
+goog.require('ol.control.ScaleLine');
 goog.require('ol.control.ZoomSlider');
 
 goog.require('ga.factory.olLayer');
@@ -110,6 +111,9 @@ ga.Map.createOLMapOptions_ = function (mapOptions) {
             coordinateFormat: ol.Coordinate.toStringXY,
             projection: 'EPSG:21781',
             undefinedHTML: '&nbsp;'
+        }),
+        new ol.control.ScaleLine({
+            units: ol.control.ScaleLineUnits.METRIC
         })
     ]);
 
