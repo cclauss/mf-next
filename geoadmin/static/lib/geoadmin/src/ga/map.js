@@ -12,6 +12,7 @@ goog.require('goog.debug.Logger');
 
 goog.require('ol.Map');
 goog.require('ol.control.Control');
+goog.require('ol.control.MousePosition');
 goog.require('ol.control.ZoomSlider');
 
 goog.require('ga.factory.olLayer');
@@ -104,6 +105,11 @@ ga.Map.createOLMapOptions_ = function (mapOptions) {
         new ol.control.ZoomSlider({
             minResolution: 0.04186713600158692,
             maxResolution: 1371.9023125
+        }),
+        new ol.control.MousePosition({
+            coordinateFormat: ol.Coordinate.toStringXY,
+            projection: 'EPSG:21781',
+            undefinedHTML: '&nbsp;'
         })
     ]);
 
