@@ -1,4 +1,4 @@
-/*global ga: true, describe: true, it: true, expect: true, beforeEach: true */
+/*global ga: true, describe: true, it: true, expect: true, beforeEach: true, sinon:true */
 
 
 describe('ga.net.SwissSearch', function () {
@@ -12,51 +12,39 @@ describe('ga.net.SwissSearch', function () {
         });
 
         it('can be created', function () {
-            expect(mySS).toBeDefined();
-            expect(mySS instanceof ga.net.SwissSearch).toEqual(true);
+            expect(mySS).not.to.be(undefined);
+            expect(mySS).to.be.a(ga.net.SwissSearch);
         });
 
-/*
-        it('returns correct event', function () {
-            var ev = null;
-            var foo = {
-                callback: function (e) {
-                    ev = e;
-                }
+        /*
+         * The test below tabs our service directly and thus needs internet connection.
+         * Therefore, it shouldn't be a unit test!
+         * Added temporarely to demonstrating handling of spies and 
+         * async code in mocha framework.
+         * Note: sinon would also provied mocks/stubs to test without
+         * internet connection, which is probably the right thing to do
+         */
+
+        it('returns correct event', function (done) {
+            //tabs our service directly...should probably not be
+            //a unit test. But added to illustrate callback handling in mocha
+            //the magic is the done function (default timeout of 2000ms)
+            var callback = function (e) {
+                expect(e).to.be.a(ga.net.SwissSearch.Event);
+                expect(e.type).to.be(ga.net.SwissSearch.EventType.DONE);
+                expect(e.data()).not.to.be(null);
+                expect(e.data()).to.have.property('results');
+                expect(e.data().results).to.be.an('array');
+
+                done();
             };
 
-            spyOn(foo, 'callback').andCallThrough();
+            var spy = sinon.spy(callback);
+            mySS.addEventListener(ga.net.SwissSearch.EventType.DONE, callback);
+            mySS.query('maisonnex');
 
-
-            expect(foo.callback).not.toHaveBeenCalled();
-
-            mySS.addEventListener(ga.net.SwissSearch.EventType.DONE, foo.callback);
-
-            expect(foo.callback).not.toHaveBeenCalled();
-
-            runs(function () {
-                mySS.query('maisonnex');
-            });
-
-            expect(foo.callback).not.toHaveBeenCalled();
-
-            waitsFor(function () {
-                    return (ev !== null);
-                }, 'callback to be called', 5000);
-
-            expect(foo.callback).not.toHaveBeenCalled();
-
-            runs(function () {
-                expect(foo.callback).toHaveBeenCalled();
-                expect(ev instanceof ga.net.SwissSearch.Event).toEqual(true);
-                expect(ev.type).toEqual(ga.net.SwissSearch.EventType.DONE);
-                expect(ev.data()).not.toEqual(null);
-            });
-
-            expect(foo.callback).not.toHaveBeenCalled();
-
+            expect(spy.called).to.be(false);
         });
-*/
     });
 });
 

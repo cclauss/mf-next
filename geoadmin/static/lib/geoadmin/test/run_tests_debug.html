@@ -1,54 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GeoAdmin Spec Runner</title>
-
-  <link rel="shortcut icon" type="image/png" href="../../ol3/test/jasmine-1.2.0/jasmine_favicon.png">
-  <link rel="stylesheet" type="text/css" href="../../ol3/test/jasmine-1.2.0/jasmine.css">
-  <script type="text/javascript" src="../../ol3/test/jasmine-1.2.0/jasmine.js"></script>
-  <script type="text/javascript" src="../../ol3/test/jasmine-1.2.0/jasmine-html.js"></script>
-
-  <script src="../../closure/closure/goog/base.js" type="text/javascript"></script>
-  <!-- For the magic above to work, we need to have dependencies defined for non closure libraries.
-       Right now, we have ol3 and geoadmin dependencies defined. -->
-  <script src="../../../build/ol3_deps.js" type="text/javascript"></script>
-  <script src="../../../build/ga_deps.js" type="text/javascript"></script>
-
-  <script src="../src/geoadmin.js" type="text/javascript"></script>
-
-  <script type="text/javascript" src="spec/ga/defs.spec.js"></script>
-  <script type="text/javascript" src="spec/ga/model/layers.js"></script>
-  <script type="text/javascript" src="spec/ga/net/swisssearch.spec.js"></script>
-  <script type="text/javascript">
-
-  (function() {
-    var jasmineEnv = jasmine.getEnv();
-    jasmineEnv.updateInterval = 1000;
-
-    var htmlReporter = new jasmine.HtmlReporter();
-
-    jasmineEnv.addReporter(htmlReporter);
-
-    jasmineEnv.specFilter = function(spec) {
-      return htmlReporter.specFilter(spec);
-    }
-
-    function execJasmine() {
-      jasmineEnv.execute();
-    }
-
-    //delayed execution because of problems with onload in webkit browsers...
-    setTimeout(execJasmine, 100);
-  })();
-
-
-  </script>
-
-
+    <title>GeoAdmin Spec Runner</title>
+    <link rel="stylesheet" type="text/css" href="../../ol3/test/mocha-1.8.1/mocha.css">
 </head>
 
 <body>
-  <a href="run_tests.html">Run Tests in Release Mode</a>
-  <div id="container" style="display: none;"></div>
+    <a href="run_tests.html">Run Tests in Release Mode</a>
+    <div id="mocha"</div>
+    <!-- loading needed libraries -->
+    <!-- do we need jquery? -->
+    <script type="text/javascript" src="../../ol3/test/expect-0.2.0-ol3/expect.js"></script>
+    <script type="text/javascript" src="../../ol3/test/sinon-1.6.0/sinon.js"></script>
+    <script type="text/javascript" src="../../ol3/test/mocha-1.8.1/mocha.js"></script>
+    <script>
+      mocha.setup({
+        ui: 'bdd',
+        bail: false,
+        ignoreLeaks: true
+      });
+    </script>
+    <script src="../../proj4js/proj4js-compressed.js" type="text/javascript"></script>
+    <script src="../../proj4js/EPSG21781.js" type="text/javascript"></script>
+ 
+    <script src="../../closure/closure/goog/base.js" type="text/javascript"></script>
+    <!-- add dependencies for base loading magic to work -->
+    <script src="../../../build/ol3_deps.js" type="text/javascript"></script>
+    <script src="../../../build/ga_deps.js" type="text/javascript"></script>
+    <!-- make sure we have access to all our api elements -->
+    <script src="../src/geoadmin.js" type="text/javascript"></script>
+    <!-- our test specifications -->
+    <script type="text/javascript" src="spec/ga/defs.spec.js"></script>
+    <script type="text/javascript" src="spec/ga/model/layers.spec.js"></script>
+    <script type="text/javascript" src="spec/ga/net/swisssearch.spec.js"></script>
+
+    <!-- run tests -->
+     <script type="text/javascript">
+      if (window.mochaPhantomJS) {
+        mochaPhantomJS.run();
+      } else {
+        mocha.run();
+      }
+    </script>
+
 </body>
 </html>

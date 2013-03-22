@@ -54,8 +54,8 @@ ga.net.SwissSearch.prototype.query = function (queryText) {
     'use strict';
     var that = this;
     var payload = {
-        lang: 'fr',
-        query: queryText
+        'lang': 'fr',
+        'query': queryText
     };
 
     var onSuccess = function (data) {
