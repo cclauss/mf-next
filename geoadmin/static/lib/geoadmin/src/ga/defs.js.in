@@ -6,7 +6,6 @@
  * * @author gilbert.jeiziner@swisstopo.ch
  */
 
-goog.provide('ga.Defs');
 goog.provide('ga.defs');
 
 /**

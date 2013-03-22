@@ -67,14 +67,13 @@ ga.net.SwissSearch.prototype.query = function (queryText) {
 
     var onError = function () {
         //when cancelled, then onError is called. Handle it here:
-        if (!self.currentRequest_.deferred_.result_ instanceof goog.async.Deferred.CancelledError) {
+        if (self.currentRequest_.deferred_.result_.name !== 'CancelledError') {
             self.currentRequest_ = null;
             self.dispatchEvent(new ga.net.SwissSearch.Event(ga.net.SwissSearch.EventType.DONE,
                                                        self,
                                                        null));
         }
     };
-
     if (this.currentRequest_) {
         this.jsonp_.cancel(this.currentRequest_);
     }
@@ -116,4 +115,6 @@ ga.net.SwissSearch.Event.prototype.data = function () {
     return this.data_;
 };
 
-
+//needed for unit test stubs
+goog.exportSymbol('goog.net.Jsonp.prototype.send',goog.net.Jsonp.prototype.send);
+goog.exportSymbol('goog.net.Jsonp.prototype.cancel', goog.net.Jsonp.prototype.cancel);

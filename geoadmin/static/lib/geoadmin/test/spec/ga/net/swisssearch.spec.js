@@ -1,5 +1,4 @@
-/*global ga: true, describe: true, it: true, expect: true, beforeEach: true, afterEach: true, sinon:true */
-
+/*global ga: true, describe: true, it: true, expect: true, beforeEach: true, afterEach: true, sinon:true, after:true, goog: true */
 
 describe('ga.net.SwissSearch', function () {
     'use strict';
@@ -20,56 +19,62 @@ describe('ga.net.SwissSearch', function () {
             expect(mySS).to.be.a(ga.net.SwissSearch);
         });
 
-        /* //TODO
-         * The test below tabs our service directly and thus needs internet connection.
-         * Therefore, it shouldn't be a unit test!
-         * Added temporarely to demonstrating handling of spies and 
-         * async code in mocha framework.
-         * Note: sinon would also provied mocks/stubs to test without
-         * internet connection, which is probably the right thing to do
-         */
-
-        it('returns correct event', function (done) {
-            //tabs our service directly...should probably not be
-            //a unit test. But added to illustrate callback handling in mocha
-            //the magic is the done function (default timeout of 2000ms)
-            var callback = function (e) {
-                expect(e).to.be.a(ga.net.SwissSearch.Event);
-                expect(e.type).to.be(ga.net.SwissSearch.EventType.DONE);
-                expect(e.data()).not.to.be(null);
-                expect(e.data()).to.have.property('results');
-                expect(e.data().results).to.be.an('array');
-
-                done();
-            };
-
-            var spy = sinon.spy(callback);
-            mySS.addEventListener(ga.net.SwissSearch.EventType.DONE, spy);
-            mySS.query('maisonnex');
-
-            expect(spy.called).to.be(false);
+        after(function () {
+            goog.net.Jsonp.prototype.send.restore();
+            goog.net.Jsonp.prototype.cancel.restore();
         });
 
-        //TODO stubs to not tap the internet...then reduce timeout.
-        it('aborts a request if a second is directly followed', function (done) {
-            var spy = null, ev = null;
-            var callback = function (e) {
-                ev = e;
+        it('returns correct events', function () {
+            var stub = sinon.stub(goog.net.Jsonp.prototype, 'send');
+            var stubcancel = sinon.stub(goog.net.Jsonp.prototype, 'cancel');
+            var fakeData = {
+                myrequest: 'something',
+                myarray: [1, 2, 3]
+            };
+            var retVal = {
+                deferred_: { result_: {name: 'blub'},
+                             cancel:  function () {}
+                        }
+            };
+            var getCallback = function (result) {
+                if (result === 'notcalled') {
+                    return function () {
+                        //should never come here
+                        expect(true).to.be(false);
+                    };
+                } else {
+                    return function (e) {
+                        expect(e).to.be.a(ga.net.SwissSearch.Event);
+                        expect(e.type).to.be(ga.net.SwissSearch.EventType.DONE);
+                        expect(e.data()).to.be(result);
+                    };
+                }
             };
 
-            setTimeout( function () {
-                expect(ev).not.to.be(null);
-                expect(spy).not.to.be(null);
-                expect(spy.callCount).to.be(1);
-                done();
-            }, 1000);
+            stubcancel.returns('haha');
+            stub.returns(retVal);
 
-            spy = sinon.spy(callback);
-            mySS.addEventListener(ga.net.SwissSearch.EventType.DONE, spy);
-            //even though we don't get a callback, the query is send out, which shouldn't happen...
+            //fake success
+            stub.callsArgWith(1, fakeData);
+            var cb = getCallback(fakeData);
+            mySS.addEventListener(ga.net.SwissSearch.EventType.DONE, cb);
             mySS.query('maisonnex');
-            mySS.query('raron');
+            mySS.removeEventListener(ga.net.SwissSearch.EventType.DONE, cb);
 
+            //fake error
+            cb = getCallback(null);
+            stub.callsArgWith(2, fakeData);
+            mySS.addEventListener(ga.net.SwissSearch.EventType.DONE, cb);
+            mySS.query('maisonnex');
+            mySS.removeEventListener(ga.net.SwissSearch.EventType.DONE, cb);
+
+            //fake cancelling
+            retVal.deferred_.result_.name = 'CancelledError';
+            stub.callsArgWith(2, fakeData);
+            cb = getCallback('notcalled');
+            mySS.addEventListener(ga.net.SwissSearch.EventType.DONE, cb);
+            mySS.query('maisonnex');
+            mySS.removeEventListener(ga.net.SwissSearch.EventType.DONE, cb);
         });
     });
 });
