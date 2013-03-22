@@ -1,4 +1,4 @@
-/*global ga: true, describe: true, it: true, expect: true, beforeEach: true, sinon:true */
+/*global ga: true, describe: true, it: true, expect: true, beforeEach: true, afterEach: true, sinon:true */
 
 
 describe('ga.net.SwissSearch', function () {
@@ -11,12 +11,16 @@ describe('ga.net.SwissSearch', function () {
             mySS = new ga.net.SwissSearch();
         });
 
+        afterEach(function () {
+            mySS = null;
+        });
+
         it('can be created', function () {
             expect(mySS).not.to.be(undefined);
             expect(mySS).to.be.a(ga.net.SwissSearch);
         });
 
-        /*
+        /* //TODO
          * The test below tabs our service directly and thus needs internet connection.
          * Therefore, it shouldn't be a unit test!
          * Added temporarely to demonstrating handling of spies and 
@@ -40,10 +44,32 @@ describe('ga.net.SwissSearch', function () {
             };
 
             var spy = sinon.spy(callback);
-            mySS.addEventListener(ga.net.SwissSearch.EventType.DONE, callback);
+            mySS.addEventListener(ga.net.SwissSearch.EventType.DONE, spy);
             mySS.query('maisonnex');
 
             expect(spy.called).to.be(false);
+        });
+
+        //TODO stubs to not tap the internet...then reduce timeout.
+        it('aborts a request if a second is directly followed', function (done) {
+            var spy = null, ev = null;
+            var callback = function (e) {
+                ev = e;
+            };
+
+            setTimeout( function () {
+                expect(ev).not.to.be(null);
+                expect(spy).not.to.be(null);
+                expect(spy.callCount).to.be(1);
+                done();
+            }, 1000);
+
+            spy = sinon.spy(callback);
+            mySS.addEventListener(ga.net.SwissSearch.EventType.DONE, spy);
+            //even though we don't get a callback, the query is send out, which shouldn't happen...
+            mySS.query('maisonnex');
+            mySS.query('raron');
+
         });
     });
 });

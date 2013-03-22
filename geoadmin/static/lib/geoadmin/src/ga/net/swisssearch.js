@@ -52,26 +52,29 @@ goog.inherits(ga.net.SwissSearch, goog.events.EventTarget);
  */
 ga.net.SwissSearch.prototype.query = function (queryText) {
     'use strict';
-    var that = this;
+    var self = this;
     var payload = {
         'lang': 'fr',
         'query': queryText
     };
 
     var onSuccess = function (data) {
-        that.dispatchEvent(new ga.net.SwissSearch.Event(ga.net.SwissSearch.EventType.DONE,
-                                                       that,
+        self.currentRequest_ = null;
+        self.dispatchEvent(new ga.net.SwissSearch.Event(ga.net.SwissSearch.EventType.DONE,
+                                                       self,
                                                        data));
     };
 
     var onError = function () {
-        that.dispatchEvent(new ga.net.SwissSearch.Event(ga.net.SwissSearch.EventType.DONE,
-                                                       that,
+        //when cancelled, then onError is called. Handle it here:
+        if (!self.currentRequest_.deferred_.result_ instanceof goog.async.Deferred.CancelledError) {
+            self.currentRequest_ = null;
+            self.dispatchEvent(new ga.net.SwissSearch.Event(ga.net.SwissSearch.EventType.DONE,
+                                                       self,
                                                        null));
+        }
     };
 
-    //somehow, this cancelling does not work. Callbacks are still fired...
-    //TODO
     if (this.currentRequest_) {
         this.jsonp_.cancel(this.currentRequest_);
     }
