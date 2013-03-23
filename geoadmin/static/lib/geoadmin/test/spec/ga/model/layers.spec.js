@@ -6,7 +6,7 @@ describe('ga.model.layers', function () {
 
     describe('create layers definitions', function () {
         it('should have 2 definitions', function () {
-            expect(ga.model.layers.length).toEqual(2);
+            expect(ga.model.layers.length).to.be(3);
         });
     });
 });

@@ -1,8 +1,10 @@
-/*global goog:true, ga:true*/
+/*global goog:true, ga:true, ol:true*/
 
 goog.provide('ga.control.WmsBrowser');
 
 goog.require('goog.dom');
+
+goog.require('ol.control.Control');
 
 /**
  * @constructor
@@ -23,5 +25,6 @@ ga.control.WmsBrowser = function(wmsBrowserOptions) {
     });
 
 };
-goog.inherits(ga.control.WmsBrowser, ga.control.Control);
+
+goog.inherits(ga.control.WmsBrowser, ol.control.Control);
 

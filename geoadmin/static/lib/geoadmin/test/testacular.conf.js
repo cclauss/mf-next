@@ -1,4 +1,4 @@
-/*global basePath:true, singleRun:true, captureTimeout:true, browsers:true, autoWatch:true, LOG_DEBUG:true, logLevel:true, colors:true, runnerPort:true, port:true, reporters:true, exclude:true, JASMINE_ADAPTER:true, JASMINE:true basePath:true, files:true*/
+/*global basePath:true, singleRun:true, captureTimeout:true, browsers:true, autoWatch:true, LOG_INFO:true, logLevel:true, colors:true, runnerPort:true, port:true, reporters:true, exclude:true, MOCHA_ADAPTER:true, MOCHA:true basePath:true, files:true*/
 
 // Testacular configuration
 // Generated on Tue Feb 12 2013 15:53:57 GMT+0100 (CET)
@@ -10,8 +10,12 @@ basePath = '/home/ltjeg/mf-next/geoadmin/static/';
 
 // list of files / patterns to load in the browser
 files = [
-    JASMINE,
-    JASMINE_ADAPTER,
+    MOCHA,
+    MOCHA_ADAPTER,
+    {pattern: 'lib/ol3/test/expect-0.2.0-ol3/expect.js'},
+    {pattern: 'lib/ol3/test/sinon-1.6.0/sinon.js'},
+    {pattern: 'lib/proj4js/proj4js-compressed.js'},
+    {pattern: 'lib/proj4js/EPSG21781.js'},
     {pattern: 'lib/closure/closure/goog/base.js'},
     {pattern: 'build/ol3_deps.js'},
     {pattern: 'build/ga_deps.js'},
@@ -47,7 +51,7 @@ colors = true;
 
 // level of logging
 // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
-logLevel = LOG_DEBUG;
+logLevel = LOG_INFO;
 
 
 // enable / disable watching file and executing tests whenever any file changes

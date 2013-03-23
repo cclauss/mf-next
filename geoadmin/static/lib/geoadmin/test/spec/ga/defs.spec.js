@@ -5,7 +5,7 @@ describe('ga.defs', function () {
 
     describe('the ga.defs object', function () {
         it('should point to the correct web protocol', function () {
-            expect(ga.defs.protocol()).toEqual(document.location.protocol);
+            expect(ga.defs.protocol()).to.be(document.location.protocol);
         });
     });
 });
