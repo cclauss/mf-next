@@ -6,6 +6,7 @@ from sqlalchemy import engine_from_config
 from geoadmin.models import initialize_sql 
 from geoadmin.views.helloworld import *
 from geoadmin.views.home import *
+from geoadmin.views.layers import *
 
 from geoadmin.lib import helpers
 
@@ -20,8 +21,8 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.add_renderer('json', JSON(indent=4))
     config.scan('geoadmin.models')
-    #engine = engine_from_config(settings, 'sqlalchemy.bod.')
-    #initialize_sql(engine)
+    engine = engine_from_config(settings, 'sqlalchemy.bod.')
+    initialize_sql(engine)
 
     # Static config
     config.add_static_view('static', 'static', cache_max_age=3600)
@@ -31,8 +32,8 @@ def main(global_config, **settings):
     config.add_route('hello', '/hello/{name}')
     config.add_view(hello_world, route_name='hello')
 
-    config.add_route('layer', '/layer/{id}')
-    config.add_view(layer, route_name='layer', renderer='json')
+    config.add_route('layers', '/layers/{id}')
+    config.add_view(layers, route_name='layers', renderer='json')
 
     config.add_subscriber(add_render_globals,BeforeRender)
     config.scan()

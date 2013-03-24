@@ -9,3 +9,4 @@ class BodLayerFr(Base):
     #__table_args__ = ({'autoload': True})
     id = Column('bod_layer_id', Text, primary_key=True)
     bezeichnung = Column('bezeichnung', Text)
+    abstract = Column('abstract', Text)
