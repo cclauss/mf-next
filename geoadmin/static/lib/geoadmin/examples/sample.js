@@ -60,7 +60,8 @@ window.onload = function() {
                     'FORMAT': 'image/jpeg'
                 },
                 extent: layerExtent,
-                ratio: 1
+                ratio: 1,
+                crossOrigin: 'anonymous'
             })
         })];
     };
@@ -79,7 +80,8 @@ window.onload = function() {
                     'LAYERS': 'ch.bafu.schutzgebiete-paerke_nationaler_bedeutung'
                 },
                 extent: layerExtent,
-                ratio: 1
+                ratio: 1,
+                crossOrigin: 'anonymous'
             })
         })]);
     };
