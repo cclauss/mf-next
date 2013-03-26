@@ -1,8 +1,13 @@
-from geoadmin.models import Base
 from sqlalchemy import Column
 from sqlalchemy import Unicode
 from sqlalchemy import Integer
 from sqlalchemy import Text 
+
+from geoadmin.models import  bases
+
+Base = bases['bod']
+
+
 
 class BodLayerFr(Base):
     __tablename__ = 'view_bod_layer_info_fr'

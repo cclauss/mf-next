@@ -3,12 +3,14 @@ from pyramid.events import BeforeRender
 from pyramid.renderers import JSON
 from sqlalchemy import engine_from_config
 
-from geoadmin.models import initialize_sql 
+from geoadmin.models import initialize_sql
 from geoadmin.views.helloworld import *
-from geoadmin.views.home import *
 from geoadmin.views.layers import *
+from geoadmin.views.home import *
 
 from geoadmin.lib import helpers
+
+engines = {}
 
 def add_render_globals(event):
     event['h'] = helpers
@@ -20,10 +22,9 @@ def main(global_config, **settings):
     settings['app_version'] = app_version
     config = Configurator(settings=settings)
     config.add_renderer('json', JSON(indent=4))
-    config.scan('geoadmin.models')
-    engine = engine_from_config(settings, 'sqlalchemy.bod.')
-    initialize_sql(engine)
+    initialize_sql(settings)
 
+    config.scan('geoadmin.models')
     # Static config
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('home', '/')
