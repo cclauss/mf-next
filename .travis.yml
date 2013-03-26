@@ -1,15 +1,17 @@
+language: node_js
+node_js:
+    - "0.8"
+
 before_install:
-    # make sure karma testrunner is installed
-    - "sudo npm install -g karma"
+    - npm -g install jshint
+    - npm -g install karma
 
 before_script:
-    # build it. note: if any of these fails, build fails too.
-    - "git submodule update --init"
-    - "python bootstrap.py --version 1.5.2 --distribute --download-base http://pypi.camptocamp.net/distribute-0.6.22_fix-issue-227/ --setup-source http://pypi.camptocamp.net/distribute-0.6.22_fix-issue-227/distribute_setup.py"
-    - "buildout/bin/buildout"
+    - python bootstrap.py --version 1.5.2 --distribute --download-base http://pypi.camptocamp.net/distribute-0.6.22_fix-issue-227/ --setup-source http://pypi.camptocamp.net/distribute-0.6.22_fix-issue-227/distribute_setup.py
+    - buildout/bin/buildout
 
 script:
-    # running unit tests using karam and phantomjs
-    - "karma start geoadmin/static/lib/geoadmin/test/karma.conf.js --single-run"
+    - karma start geoadmin/static/lib/geoadmin/test/karma.conf.js --single-run
+    - buildout/bin/nosetests geoadmin/tests
 
 
