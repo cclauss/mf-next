@@ -1,13 +1,12 @@
 *.pyc
 *.swp
 .installed.cfg
+*.ini
 apache/wsgi.conf
 buildout/bin/
 buildout/develop-eggs/
 buildout/eggs/
 buildout/parts/
-development.ini
-production.ini
 geoadmin/static/build/*
 MANIFEST
 geoadmin.egg-info
