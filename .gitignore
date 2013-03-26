@@ -9,6 +9,7 @@ buildout/eggs/
 buildout/parts/
 geoadmin/static/build/*
 MANIFEST
+.coverage
 geoadmin.egg-info
 geoadmin/static/lib/geoadmin/src/ga/defs.js
 prov/
