@@ -18,6 +18,8 @@ requires = [
     'geojson',
     'shapely',
     'httplib2',
+    'nose',
+    'coverage',
     ]
 
 setup(name='geoadmin',
