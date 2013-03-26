@@ -19,7 +19,7 @@ requires = [
     'shapely',
     'httplib2',
     'nose',
-    'coverage',
+    'coverage'
     ]
 
 setup(name='geoadmin',
