@@ -1,10 +1,12 @@
+import simplejson
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound, \
             HTTPBadRequest, HTTPUnauthorized, HTTPForbidden
 from pyramid.response import Response
-from geoadmin.models import DBSession
 from geoadmin.models.bod import BodLayerFr
 
-import simplejson
+from geoadmin.models import   sessions
+
+DBSession = sessions['bod']
 
 
 def layers(request):

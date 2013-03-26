@@ -1,10 +1,23 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy import engine_from_config
 
-DBSession = scoped_session(sessionmaker())
-Base = declarative_base()
+__all__ = ['engines', 'sessions', 'bases']
 
-def initialize_sql(engine):
-    DBSession.configure(bind=engine)
-    Base.metadata.bind = engine
-    Base.metadata.create_all(engine)
+dbs = ('bod','bafu','search','stopo',)
+
+engines = {}
+sessions = {}
+bases = {}
+
+for db in dbs:
+    sessions[db] = scoped_session(sessionmaker())
+    bases[db] = declarative_base()
+
+def initialize_sql(settings):
+    for db in dbs:
+        engine = engine_from_config(settings, 'sqlalchemy.%s.' % db)
+        engines[db] = engine
+        sessions[db] = sessions[db].configure(bind=engine)
+        bases[db].metadata.bind = engine
+
