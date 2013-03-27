@@ -1,0 +1,9 @@
+@exportProperty ga.net
+
+@exportProperty ga.net.SwissSearch
+@exportProperty ga.net.SwissSearch.prototype.query
+
+@exportProperty ga.net.SwissSearch.EventType
+@exportProperty ga.net.SwissSearch.Event
+@exportProperty ga.net.SwissSearch.Event.prototype.data
+

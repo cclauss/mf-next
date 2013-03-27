@@ -31,7 +31,7 @@ ga.MapDefs = {
  * Create a new map
  * @constructor
  * @extends {ol.Map}
- * @export
+ * @params {ol.MapOptions}
  */
 ga.Map = function (mapOptions) {
     'use strict';
@@ -57,7 +57,6 @@ goog.inherits(ga.Map, ol.Map);
 
 /**
  * Adding a layer to the map based on a layer definition found in ga.model.layers
- * @export
  */
 ga.Map.prototype.addLayerWithDef = function (layerdef) {
     'use strict';
