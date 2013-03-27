@@ -5,7 +5,7 @@
 
 
 // base path, that will be used to resolve files and exclude
-basePath = '/home/ltjeg/mf-next/geoadmin/static/';
+basePath = '../../../';
 
 
 // list of files / patterns to load in the browser
