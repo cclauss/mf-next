@@ -5,8 +5,6 @@ from sqlalchemy import Column, Text, Integer, Unicode
 
 from geoalchemy import Geometry
 
-__all__ = ['engines', 'sessions', 'bases', 'bodmap']
-
 dbs = ('bod','bafu','search','stopo',)
 
 engines = {}

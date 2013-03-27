@@ -1,10 +1,6 @@
 from geoadmin.models import  *
-from sqlalchemy import Column, Integer, Text, Unicode
-from geoalchemy import Geometry
-
 
 Base = bases['bafu']
-
 
 
 class BLN(Base):
