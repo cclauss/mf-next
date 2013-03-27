@@ -2,13 +2,14 @@ import simplejson
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound, \
             HTTPBadRequest, HTTPUnauthorized, HTTPForbidden
 from pyramid.response import Response
-from geoadmin.models.bod import BodLayerFr
+from pyramid.view import view_config
 
+from geoadmin.models.bod import BodLayerFr
 from geoadmin.models import   sessions
 
 DBSession = sessions['bod']
 
-
+@view_config(route_name='layers', renderer='json')
 def layers(request):
     id = feature_id = request.matchdict.get('id', None)
     if not id:
