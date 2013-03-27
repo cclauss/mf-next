@@ -7,6 +7,7 @@ from geoadmin.models import initialize_sql
 from geoadmin.views.helloworld import *
 from geoadmin.views.layers import *
 from geoadmin.views.home import *
+from geoadmin.views.identify import *
 
 from geoadmin.lib import helpers
 
@@ -31,10 +32,11 @@ def main(global_config, **settings):
 
     # Application specific
     config.add_route('hello', '/hello/{name}')
-    config.add_view(hello_world, route_name='hello')
 
     config.add_route('layers', '/layers/{id}')
     config.add_view(layers, route_name='layers', renderer='json')
+    
+    config.add_route('identify','MapServer/identify')
 
     config.add_subscriber(add_render_globals,BeforeRender)
     config.scan()
