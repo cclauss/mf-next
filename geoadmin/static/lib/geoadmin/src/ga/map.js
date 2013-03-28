@@ -87,8 +87,8 @@ ga.Map.createOLMapOptions_ = function (mapOptions) {
         olMapOptions.view = new ol.View2D({
             projection: ga.MapDefs.PROJECTION,
             center: new ol.Coordinate(660000, 190000),
-            resolution: 500.0,
-            resolutions: [750, 650.0, 500.0, 250.0, 100.0, 50.0, 20.0, 10.0, 5.0 ,2.5, 2.0, 1.5, 1.0, 0.5]
+            resolution: 250.0,
+            resolutions: [650.0, 500.0, 250.0, 100.0, 50.0, 20.0, 10.0, 5.0 ,2.5, 2.0, 1.5, 1.0, 0.5, 0.25, 0.1]
         });
     }
 
