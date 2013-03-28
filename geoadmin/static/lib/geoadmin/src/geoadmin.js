@@ -22,9 +22,5 @@ goog.require('ga.net.SwissSearch.EventType');
 goog.require('ga.defs');
 goog.require('ga.Map');
 
-
-//root namespace
 goog.provide('ga');
-
-
 

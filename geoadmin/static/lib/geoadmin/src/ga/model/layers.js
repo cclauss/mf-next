@@ -1,8 +1,8 @@
 /*global goog: true, ga: true */
 
+goog.provide('ga.model');
 goog.provide('ga.model.layers');
 
-/** @export */
 ga.model.layers = [{
     name: 'National map 1000',
     technicalname: 'ch.swisstopo.pixelkarte-farbe-pk1000.noscale',

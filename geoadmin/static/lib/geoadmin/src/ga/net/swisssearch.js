@@ -1,6 +1,7 @@
 /*global goog:true, ga:true */
 /*jslint nomen: true, vars: true */
 
+goog.provide('ga.net');
 goog.provide('ga.net.SwissSearch');
 goog.provide('ga.net.SwissSearch.EventType');
 goog.provide('ga.net.SwissSearch.Event');
@@ -22,7 +23,6 @@ goog.require('ga.defs');
 /**
  * @constructor
  * @extend {goog.events.EventTarget}
- * @export
  */
 ga.net.SwissSearch = function () {
     'use strict';
@@ -48,7 +48,6 @@ goog.inherits(ga.net.SwissSearch, goog.events.EventTarget);
  * reponses with the latest query.
  * Fires {ga.net.SwissSearch.Event} on completion
  * @param {string} the query to launch
- * @export
  */
 ga.net.SwissSearch.prototype.query = function (queryText) {
     'use strict';
@@ -83,7 +82,6 @@ ga.net.SwissSearch.prototype.query = function (queryText) {
 
 /**
  * @enum {string}
- * @export
  */
 ga.net.SwissSearch.EventType = {
     DONE: goog.events.getUniqueId('done')
@@ -92,7 +90,6 @@ ga.net.SwissSearch.EventType = {
 /**
  * @constructor
  * @extend {goog.events.Event)
- * @export
  */
 ga.net.SwissSearch.Event = function (type, target, data) {
     'use strict';
@@ -108,7 +105,6 @@ ga.net.SwissSearch.Event = function (type, target, data) {
 goog.inherits(ga.net.SwissSearch.Event, goog.events.Event);
 
 /**
- * @export
  */
 ga.net.SwissSearch.Event.prototype.data = function () {
     'use strict';
@@ -116,5 +112,5 @@ ga.net.SwissSearch.Event.prototype.data = function () {
 };
 
 //needed for unit test stubs
-goog.exportSymbol('goog.net.Jsonp.prototype.send',goog.net.Jsonp.prototype.send);
+goog.exportSymbol('goog.net.Jsonp.prototype.send', goog.net.Jsonp.prototype.send);
 goog.exportSymbol('goog.net.Jsonp.prototype.cancel', goog.net.Jsonp.prototype.cancel);
