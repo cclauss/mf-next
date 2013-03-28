@@ -105,8 +105,8 @@ ga.Map.createOLMapOptions_ = function (mapOptions) {
 
     olMapOptions.controls = ol.control.defaults({}, [
         new ol.control.ZoomSlider({
-            minResolution: 0.5,
-            maxResolution: 750
+            minResolution: 0.1,
+            maxResolution: 650.0
         }),
         new ol.control.MousePosition({
             coordinateFormat: ol.Coordinate.toStringXY,
