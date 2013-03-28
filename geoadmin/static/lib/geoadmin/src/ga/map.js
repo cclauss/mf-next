@@ -87,7 +87,8 @@ ga.Map.createOLMapOptions_ = function (mapOptions) {
         olMapOptions.view = new ol.View2D({
             projection: ga.MapDefs.PROJECTION,
             center: new ol.Coordinate(660000, 190000),
-            zoom: 2
+            resolution: 500.0,
+            resolutions: [750, 650.0, 500.0, 250.0, 100.0, 50.0, 20.0, 10.0, 5.0 ,2.5, 2.0, 1.5, 1.0, 0.5]
         });
     }
 
@@ -104,8 +105,8 @@ ga.Map.createOLMapOptions_ = function (mapOptions) {
 
     olMapOptions.controls = ol.control.defaults({}, [
         new ol.control.ZoomSlider({
-            minResolution: 0.04186713600158692,
-            maxResolution: 1371.9023125
+            minResolution: 0.5,
+            maxResolution: 750
         }),
         new ol.control.MousePosition({
             coordinateFormat: ol.Coordinate.toStringXY,
