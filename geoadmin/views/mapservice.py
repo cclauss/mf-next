@@ -23,9 +23,9 @@ class MapService(object):
     def index(self):
         model = self.getBodModel()
         results = computeHeader(self.mapName)
-        session = BodSession.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
-        session = session.filter(model.fullTextSearch.ilike('%%%s%%' % self.searchText)) if self.searchText is not None else session
-        layers = [layer.layerMetadata() for layer in session]
+        query = BodSession.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
+        query = query.filter(model.fullTextSearch.ilike('%%%s%%' % self.searchText)) if self.searchText is not None else query
+        layers = [layer.layerMetadata() for layer in query]
         results['layers'].append(layers)
         return results
 
@@ -50,8 +50,8 @@ class MapService(object):
 
     def getLayerListFromMap(self):
         model = self.getBodModel()
-        session = BodSession.query(model.idBod).filter(model.maps.ilike('%%%s%%' % self.mapName))
-        return [idBod for idBod in session]
+        query = BodSession.query(model.idBod).filter(model.maps.ilike('%%%s%%' % self.mapName))
+        return [idBod for idBod in query]
 
     def getAttributes(self, model):
         attributes = dict()
