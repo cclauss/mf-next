@@ -3,7 +3,7 @@ from sqlalchemy import Unicode
 from sqlalchemy import Integer
 from sqlalchemy import Text 
 
-from geoadmin.models import  bases
+from geoadmin.models import bases
 
 Base = bases['bod']
 
@@ -117,4 +117,14 @@ def computeHeader(mapName):
         'units': 'esriMeters',
         'capabilities': 'identify,find'
     }
+
+def get_bod_model(lang):
+    if lang == 'fr':
+        return BodLayerFr
+    elif lang == 'it':
+        return BodLayerIt
+    elif lang == 'en':
+        return BodLayerEn
+    else:
+        return BodLayerDe
 

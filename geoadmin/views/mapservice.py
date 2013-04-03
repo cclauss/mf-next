@@ -2,9 +2,8 @@ from pyramid.response import Response
 import pyramid.httpexceptions as exc
 from pyramid.view import view_config
 
-from geoadmin.models.bod import *
-from geoadmin.models.vector import *
 from geoadmin.models import Session, models_from_name
+from geoadmin.models.bod import get_bod_model, computeHeader
 
 import logging
 
@@ -19,7 +18,7 @@ class MapService(object):
 
     @view_config(route_name='mapservice', renderer='jsonp')    
     def index(self):
-        model = self.getBodModel()
+        model = get_bod_model(self.lang)
         results = computeHeader(self.mapName)
         query = Session.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
         query = query.filter(model.fullTextSearch.ilike('%%%s%%' % self.searchText)) if self.searchText is not None else query
@@ -29,11 +28,22 @@ class MapService(object):
 
     @view_config(route_name='identify', renderer='jsonp')
     def identify(self):
+        features = list()
         self.validateIdentifyParameters()
         layers = self.request.params.get('layers','all')
         models = self.getModelsFromLayerName(layers)
+        queries = list(self.buildQueries(models))
+        for query in queries:
+            for feature in query:
+                features.append(feature.id)
         #attributes = self.getAttributes()
-        return self.layers
+        return features
+
+    def buildQueries(self, models):
+        for model in models:
+            geom_filter = model[0].geom_filter(None, self.geometry, self.geometryType)
+            query = Session.query(model[0]).filter(geom_filter)
+            yield query
 
     def getModelsFromLayerName(self, layers):
         if layers == 'all':
@@ -44,9 +54,9 @@ class MapService(object):
         return models
 
     def validateIdentifyParameters(self):
-        self.geometry = self.request.params.get('geometry')
+        self.geometry = [float(coord) for coord in self.request.params.get('geometry').split(',')]
         self.geometryType = self.request.params.get('geometryType')
-        self.imageDisplay = self.request.params.get('imageDisplay')
+        self.imageDisplay = self.request.params.get('imageDisplay').split(',')
         if (self.geometry or self.geometryType or self.imageDisplay) is None:
             raise exc.HTTPBadRequest('Parameters misconfiguration')
 
@@ -60,13 +70,3 @@ class MapService(object):
         for col in self.model.__table__.columns:
             attributes[col.key] = col
         return attributes
-
-    def getBodModel(self):
-        if self.lang == 'fr':
-            return BodLayerFr
-        elif self.lang == 'it':
-            return BodLayerIt
-        elif self.lang == 'en':
-            return BodLayerEn
-        else:
-            return BodLayerDe
