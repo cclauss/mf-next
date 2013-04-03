@@ -29,7 +29,7 @@ def esriRest2Shapely(geometry, geometryType):
             coordinates.append((geometry[i], geometry[i+1]))
         if  geometryType == 'esriGeometryPolyline':
             geom = LineString(coordinates)
-        elif geometryType == 'esriGeometryPolygon' or 'esriGeometryEnvelop':
+        elif geometryType == 'esriGeometryPolygon' or 'esriGeometryEnvelope':
             geom = Polygon(coordinates)
         else:
             geom = None

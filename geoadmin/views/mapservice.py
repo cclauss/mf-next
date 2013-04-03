@@ -1,9 +1,10 @@
 from pyramid.response import Response
-import pyramid.httpexceptions as exc
 from pyramid.view import view_config
+import pyramid.httpexceptions as exc
 
 from geoadmin.models import Session, models_from_name
 from geoadmin.models.bod import get_bod_model, computeHeader
+from geoadmin.lib.helpers import check_even
 
 import logging
 
@@ -28,15 +29,16 @@ class MapService(object):
 
     @view_config(route_name='identify', renderer='jsonp')
     def identify(self):
+        self.validateGeometry()
+        self.validateGeometryType()
+        self.validateImageDisplay()
         features = list()
-        self.validateIdentifyParameters()
         layers = self.request.params.get('layers','all')
         models = self.getModelsFromLayerName(layers)
         queries = list(self.buildQueries(models))
         for query in queries:
             for feature in query:
                 features.append(feature.id)
-        #attributes = self.getAttributes()
         return features
 
     def buildQueries(self, models):
@@ -53,13 +55,6 @@ class MapService(object):
         models = [models_from_name(layer) for layer in self.layers]
         return models
 
-    def validateIdentifyParameters(self):
-        self.geometry = [float(coord) for coord in self.request.params.get('geometry').split(',')]
-        self.geometryType = self.request.params.get('geometryType')
-        self.imageDisplay = self.request.params.get('imageDisplay').split(',')
-        if (self.geometry or self.geometryType or self.imageDisplay) is None:
-            raise exc.HTTPBadRequest('Parameters misconfiguration')
-
     def getLayerListFromMap(self):
         model = self.getBodModel()
         query = Session.query(model.idBod).filter(model.maps.ilike('%%%s%%' % self.mapName))
@@ -70,3 +65,36 @@ class MapService(object):
         for col in self.model.__table__.columns:
             attributes[col.key] = col
         return attributes
+
+    # Validation methods section
+    def validateGeometry(self):
+        geom = self.request.params.get('geometry')
+        if geom is None:
+            raise exc.HTTPBadRequest('Please provide the parameter geometry')
+        geom = geom.split(',')
+        if check_even(len(geom)) is False:
+            raise exc.HTTPBadRequest('Please provide an even number of float numbers for the parameter geometry')
+        try:
+            self.geometry = map(float, geom)
+        except ValueError:
+            raise exc.HTTPBadRequest('Please provide numerical values in a comma separated list for the parameter geometry')
+
+    def validateGeometryType(self):
+        esriTypes = ['esriGeometryPoint', 'esriGeometryPolyline', 'esriGeometryPolygon', 'esriGeometryEnvelope']
+        self.geometryType = self.request.params.get('geometryType')
+        if self.geometryType is None:
+            raise exc.HTTPBadRequest('Please provide the parameter geometryType')
+        if self.geometryType not in esriTypes:
+            raise exc.HTTPBadRequest('Please provide a valid geometry type')
+
+    def validateImageDisplay(self):
+        imgDisplay = self.request.params.get('imageDisplay')
+        if imgDisplay is None:
+            raise exc.HTTPBadRequest('Please provide the parameter imageDisplay')
+        imgDisplay = imgDisplay.split(',')
+        if len(imgDisplay) != 3:
+            raise exc.HTTPBadRequest('Please provide the parameter imageDisplay in a comma separated list of 3 arguments')
+        try:
+            self.imageDisplay = map(float, imgDisplay)
+        except ValueError:
+            raise exc.HTTPBadRequest('Please provide numerical values for the parameter imageDisplay')
