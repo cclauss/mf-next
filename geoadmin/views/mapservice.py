@@ -3,12 +3,10 @@ import pyramid.httpexceptions as exc
 from pyramid.view import view_config
 
 from geoadmin.models.bod import *
-from geoadmin.models import sessions, models_from_name
+from geoadmin.models.vector import *
+from geoadmin.models import Session, models_from_name
 
 import logging
-
-
-BodSession = sessions['bod']
 
 class MapService(object):
 
@@ -23,7 +21,7 @@ class MapService(object):
     def index(self):
         model = self.getBodModel()
         results = computeHeader(self.mapName)
-        query = BodSession.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
+        query = Session.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
         query = query.filter(model.fullTextSearch.ilike('%%%s%%' % self.searchText)) if self.searchText is not None else query
         layers = [layer.layerMetadata() for layer in query]
         results['layers'].append(layers)
@@ -33,13 +31,17 @@ class MapService(object):
     def identify(self):
         self.validateIdentifyParameters()
         layers = self.request.params.get('layers','all')
-        self.validateVectorResources(layers)
+        models = self.getModelsFromLayerName(layers)
         #attributes = self.getAttributes()
         return self.layers
 
-    def validateVectorResources(self, layers):
+    def getModelsFromLayerName(self, layers):
         if layers == 'all':
             self.layers = self.getLayerListFromMap()
+        else:
+            self.layers = layers.split(':')[1].split(',')
+        models = [models_from_name(layer) for layer in self.layers]
+        return models
 
     def validateIdentifyParameters(self):
         self.geometry = self.request.params.get('geometry')
@@ -50,7 +52,7 @@ class MapService(object):
 
     def getLayerListFromMap(self):
         model = self.getBodModel()
-        query = BodSession.query(model.idBod).filter(model.maps.ilike('%%%s%%' % self.mapName))
+        query = Session.query(model.idBod).filter(model.maps.ilike('%%%s%%' % self.mapName))
         return [idBod for idBod in query]
 
     def getAttributes(self, model):

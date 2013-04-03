@@ -4,8 +4,6 @@ from pyramid.renderers import JSON, JSONP
 from sqlalchemy import engine_from_config
 
 from geoadmin.models import initialize_sql
-from geoadmin.views.helloworld import *
-from geoadmin.views.layers import *
 from geoadmin.views.mapservice import *
 from geoadmin.lib import helpers
 
