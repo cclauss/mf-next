@@ -1,0 +1,8 @@
+@exportProperty ga.model.Profile
+@exportProperty ga.model.Profile.prototype.inPoints
+@exportProperty ga.model.Profile.prototype.outPoints
+@exportProperty ga.model.Profile.prototype.boundingRect
+@exportProperty ga.model.Profile.prototype.updateOutPoints
+
+@exportProperty ga.model.ProfilePoint
+
