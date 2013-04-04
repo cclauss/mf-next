@@ -47,6 +47,7 @@ ga.Map = function (mapOptions) {
     if (goog.DEBUG) {
         this.logger = goog.debug.Logger.getLogger('ga.map.' + goog.getUid(this));
         this.logger.info('creating map with uid ' + goog.getUid(this));
+        this.logger.setLevel(goog.debug.Logger.Level.WARNING);
     }
 };
 
