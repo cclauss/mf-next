@@ -1,5 +1,3 @@
-/*global goog:true, ga:true */
-/*jslint nomen: true, vars: true */
 
 goog.provide('ga.net');
 goog.provide('ga.net.SwissSearch');

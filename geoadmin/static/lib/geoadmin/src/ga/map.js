@@ -1,6 +1,3 @@
-/*global goog:true, ga:true, ol:true */
-/*jslint nomen: true, vars: true */
-
 /**
  * @fileoverview ga.Map contains the geoadmin Map class and additional definitions concerning this map
  * @author gilbert.jeiziner@swisstopo.ch

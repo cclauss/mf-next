@@ -1,6 +1,3 @@
-/*global goog:true, ga:true*/
-/*jslint nomen: true, vars: true */
-
 /**
  * @fileoverview ga.defs contains static functions and static variables
  * * @author gilbert.jeiziner@swisstopo.ch

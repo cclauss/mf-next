@@ -1,4 +1,3 @@
-/*global ga: true, describe: true, it: true, expect: true, beforeEach: true, afterEach: true, sinon:true, after:true, goog: true */
 
 describe('ga.net.SwissSearch', function () {
     'use strict';
