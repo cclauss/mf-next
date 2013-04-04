@@ -1,4 +1,3 @@
-/*global goog: true, ga: true */
 
 goog.provide('ga.model');
 goog.provide('ga.model.layers');

@@ -1,5 +1,3 @@
-/*global goog:true, ga:true */
-/*jslint nomen: true, vars: true */
 
 goog.provide('ga.ui');
 goog.provide('ga.ui.LayerTree');

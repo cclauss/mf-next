@@ -1,4 +1,3 @@
-/*global goog:true, ga:true, ol:true*/
 
 goog.provide('ga.control');
 goog.provide('ga.control.WmsBrowser');
