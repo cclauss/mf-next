@@ -24,11 +24,9 @@ def main(global_config, **settings):
     config.scan('geoadmin.models')
     # Static config
     config.add_static_view('static', 'static', cache_max_age=3600)
-
     config.add_route('home', '/')
+
     # Application specific
-    config.add_route('hello', '/hello/{name}')
-    config.add_route('layers', '/layers/{id}')
     config.add_route('mapservice', '/rest/services/{map}/MapServer')
     config.add_route('identify', '/rest/services/{map}/MapServer/identify')
 

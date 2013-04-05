@@ -1,4 +1,3 @@
-from pyramid.response import Response
 from pyramid.view import view_config
 import pyramid.httpexceptions as exc
 
