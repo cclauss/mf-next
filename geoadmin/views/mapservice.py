@@ -32,19 +32,22 @@ class MapService(object):
         self.validateGeometryType()
         self.validateImageDisplay()
         features = list()
+        returnGeometry = self.request.params.get('returnGeometry')
         layers = self.request.params.get('layers','all')
         models = self.getModelsFromLayerName(layers)
         queries = list(self.buildQueries(models))
         for query in queries:
             for feature in query:
-                features.append(feature.id)
-        return features
+                feature = feature.featureMetadata(returnGeometry)
+                features.append(feature)
+        return {'results': features}
 
     def buildQueries(self, models):
-        for model in models:
-            geom_filter = model[0].geom_filter(None, self.geometry, self.geometryType)
-            query = Session.query(model[0]).filter(geom_filter)
-            yield query
+        for layer in models:
+            for model in layer:
+                geom_filter = model.geom_filter(None, self.geometry, self.geometryType)
+                query = Session.query(model).filter(geom_filter)
+                yield query
 
     def getModelsFromLayerName(self, layers):
         if layers == 'all':
@@ -58,12 +61,6 @@ class MapService(object):
         model = self.getBodModel()
         query = Session.query(model.idBod).filter(model.maps.ilike('%%%s%%' % self.mapName))
         return [idBod for idBod in query]
-
-    def getAttributes(self, model):
-        attributes = dict()
-        for col in self.model.__table__.columns:
-            attributes[col.key] = col
-        return attributes
 
     # Validation methods section
     def validateGeometry(self):
