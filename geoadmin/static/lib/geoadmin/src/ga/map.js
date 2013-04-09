@@ -82,7 +82,7 @@ ga.Map.createOLMapOptions_ = function (mapOptions) {
         !goog.isDef(olMapOptions.view)) {
         olMapOptions.view = new ol.View2D({
             projection: ga.MapDefs.PROJECTION,
-            center: new ol.Coordinate(660000, 190000),
+            center: [660000, 190000],
             resolution: 250.0,
             resolutions: [650.0, 500.0, 250.0, 100.0, 50.0, 20.0, 10.0, 5.0 ,2.5, 2.0, 1.5, 1.0, 0.5, 0.25, 0.1]
         });
@@ -105,7 +105,7 @@ ga.Map.createOLMapOptions_ = function (mapOptions) {
             maxResolution: 650.0
         }),
         new ol.control.MousePosition({
-            coordinateFormat: ol.Coordinate.toStringXY,
+            coordinateFormat: ol.coordinate.toStringXY,
             projection: 'EPSG:21781',
             undefinedHTML: '&nbsp;'
         }),
@@ -116,3 +116,5 @@ ga.Map.createOLMapOptions_ = function (mapOptions) {
 
     return olMapOptions;
 };
+
+
