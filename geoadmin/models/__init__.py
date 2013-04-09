@@ -5,23 +5,21 @@ from sqlalchemy import Column, Text, Integer, Unicode
 
 from geoalchemy import Geometry
 
-dbs = ('bod','bafu','search','stopo',)
+dbs = ['bod','bafu','search','stopo']
 
 engines = {}
-sessions = {}
 bases = {}
-
 bodmap = {}
 
+Session = scoped_session(sessionmaker())
+
 for db in dbs:
-    sessions[db] = scoped_session(sessionmaker())
     bases[db] = declarative_base()
 
 def initialize_sql(settings):
     for db in dbs:
         engine = engine_from_config(settings, 'sqlalchemy.%s.' % db)
         engines[db] = engine
-        sessions[db] = sessions[db].configure(bind=engine)
         bases[db].metadata.bind = engine
 
 def register(name, klass):
@@ -31,7 +29,7 @@ def register(name, klass):
         bodmap[name].append(klass)
 
 def models_from_name(name):
-    if name in meta.bodmap:
-        return meta.bodmap[name]
+    if name in bodmap:
+        return bodmap[name]
     else:
-        return []
+        return None
