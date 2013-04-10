@@ -15,23 +15,23 @@ goog.require('goog.array');
  * @extends {goog.ui.Dialog}
  * @param opt_domHelper 
  */
-ga.ui.Profile.Dialog = function (opt_domHelper) {
+ga.ui.Profile.Dialog = function (opt_domHelper, model) {
     'use strict';
     goog.ui.Dialog.call(this, 'profile-dialog', undefined, opt_domHelper);
 
     this.setTitle('This is your profile!');
     this.setModal(false);
 
-    this.setModel(new ga.model.Profile());
+    this.setModel(model);
     this.graphics_ = new ga.ui.Profile.Graphics(this.getModel());
     this.addChild(this.graphics_.getComponent(), true);
 };
 
 goog.inherits(ga.ui.Profile.Dialog, goog.ui.Dialog);
 
-ga.ui.Profile.Dialog.prototype.update = function () {
+ga.ui.Profile.Dialog.prototype.update = function (model) {
     'use strict';
-    this.graphics_.draw();
+    this.graphics_.draw(model);
 };
 
 
@@ -44,12 +44,11 @@ ga.ui.Profile.Dialog.prototype.update = function () {
  * @param {goog.dom.DomHelper} domHelper The DOM helper object for the
  *      document we want to render in.
  */
-ga.ui.Profile.Graphics = function (model) {
+ga.ui.Profile.Graphics = function () {
     'use strict';
     this.width_ = 400;
     this.height_ = 200;
     this.canvas_ = goog.graphics.createGraphics(this.width_, this.height_, this.width_, this.height_);
-    this.canvas_.setModel(model);
 };
 
 ga.ui.Profile.Graphics.prototype.getComponent = function () {
@@ -57,9 +56,9 @@ ga.ui.Profile.Graphics.prototype.getComponent = function () {
     return this.canvas_;
 };
 
-ga.ui.Profile.Graphics.prototype.draw = function () {
+ga.ui.Profile.Graphics.prototype.draw = function (model) {
     'use strict';
-    var mod = this.canvas_.getModel(),
+    var mod = model,
         canv = this.canvas_;
 
     //delete everything

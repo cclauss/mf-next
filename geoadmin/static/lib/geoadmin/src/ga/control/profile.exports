@@ -1,0 +1,7 @@
+@exportProperty ga.control.Profile
+
+@exportProperty ga.control.Profile.prototype.getModel
+@exportProperty ga.control.Profile.prototype.update
+@exportProperty ga.control.Profile.prototype.show
+
+

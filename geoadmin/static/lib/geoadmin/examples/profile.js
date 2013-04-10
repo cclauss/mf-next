@@ -1,29 +1,27 @@
-/*globals profile_testData: true */
 
 goog.require('goog.debug.Logger');
 goog.require('goog.debug.Console');
 goog.require('goog.dom');
 
 goog.require('ga.Map');
-goog.require('goog.ui.Dialog');
-goog.require('ga.ui.Profile.Dialog');
+goog.require('ga.control.Profile');
 
-var testdata = profile_testData;
 var map = null;
 var buttonEl = null;
 var prof = null;
+var visible = false;
 
 var profileHandler = function () {
     'use strict';
     if (!prof) {
-        prof = new ga.ui.Profile.Dialog();
-        prof.getModel().updateOutPoints(testdata);
-        prof.update();
+        prof = new ga.control.Profile({'mymap': map});
     }
-    if (prof.isVisible()) {
-        prof.setVisible(false);
+    if (visible) {
+        prof.show(false);
+        visible = false;
     } else {
-        prof.setVisible(true);
+        prof.show(true);
+        visible = true;
     }
 };
 
@@ -39,8 +37,8 @@ window.onload = function() {
         target: 'map',
         view: new ol.View2D({
             projection: ga.MapDefs.PROJECTION,
-            center: new ol.Coordinate(660000, 190000),
-            zoom: 1
+            center: [660000, 190000],
+            zoom: 2
         })
     });
 

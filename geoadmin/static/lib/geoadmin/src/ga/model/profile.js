@@ -54,8 +54,8 @@ ga.model.Profile = function () {
      * @private
      */
     if (goog.DEBUG) {
-        this.logger_ = goog.debug.Logger.getLogger('ga.model.Profile.' + this.uid_);
-        this.logger_.info('creating Profile with uid ' + this.uid_);
+        this.logger = goog.debug.Logger.getLogger('ga.model.Profile.' + this.uid_);
+        this.logger.info('creating Profile with uid ' + this.uid_);
     }
 
     /*
@@ -122,30 +122,38 @@ ga.model.Profile.prototype.updateOutPoints = function (json) {
 
     if (!goog.isDefAndNotNull(json) ||
         !goog.isArray(json['profile'])) {
+        if (goog.DEBUG) {
+            this.logger.warning('Json does not contain "profile" property');
+        }
         return false;
     }
 
     goog.array.map(json['profile'], function (element) {
         var point;
-        if (!goog.isNumber(element['dist']) ||
-            !goog.isNumber(element['easting']) ||
-            !goog.isNumber(element['northing']) ||
-            !goog.isDefAndNotNull(element['alts']) ||
-            !goog.isDefAndNotNull(element['alts']['COMB'])) {
-            error = error || true;
-        } else if (!error) {
-            //note: we record altitudes with negative values
-            point = new ga.model.ProfilePoint(
-                            new goog.math.Coordinate(element['easting'], element['northing']),
-                            new goog.math.Coordinate(element['dist'], -element['alts']['COMB']));
-            tempArray.push(point);
-
-            rect.left = point.dh_.x;
-            rect.top = point.dh_.y;
-            if (!tempBoundingRect) {
-                tempBoundingRect = new goog.math.Rect(point.dh_.x, point.dh_.y, 0.0, 0.0);
+        if (!error) {
+            if (!goog.isNumber(element['dist']) ||
+                !goog.isNumber(element['easting']) ||
+                !goog.isNumber(element['northing']) ||
+                !goog.isDefAndNotNull(element['alts']) ||
+                !goog.isNumber(element['alts']['COMB'])) {
+                if (goog.DEBUG) {
+                    this.logger.warning('Invalid element' + element);
+                }
+                error = true;
             } else {
-                tempBoundingRect.boundingRect(rect);
+                //note: we record altitudes with negative values
+                point = new ga.model.ProfilePoint(
+                                new goog.math.Coordinate(element['easting'], element['northing']),
+                                new goog.math.Coordinate(element['dist'], -element['alts']['COMB']));
+                tempArray.push(point);
+
+                rect.left = point.dh_.x;
+                rect.top = point.dh_.y;
+                if (!tempBoundingRect) {
+                    tempBoundingRect = new goog.math.Rect(point.dh_.x, point.dh_.y, 0.0, 0.0);
+                } else {
+                    tempBoundingRect.boundingRect(rect);
+                }
             }
         }
     });

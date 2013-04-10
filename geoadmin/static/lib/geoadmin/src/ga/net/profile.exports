@@ -1,0 +1,8 @@
+
+@exportProperty ga.net.Profile
+@exportProperty ga.net.Profile.prototype.query
+
+@exportProperty ga.net.Profile.EventType
+@exportProperty ga.net.Profile.Event
+@exportProperty ga.net.Profile.Event.prototype.data
+
