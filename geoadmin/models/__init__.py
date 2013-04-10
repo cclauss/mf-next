@@ -18,7 +18,7 @@ for db in dbs:
 
 def initialize_sql(settings):
     for db in dbs:
-        engine = engine_from_config(settings, 'sqlalchemy.%s.' % db)
+        engine = engine_from_config(settings, 'sqlalchemy.%s.' % db, pool_recycle = 55)
         engines[db] = engine
         bases[db].metadata.bind = engine
 
