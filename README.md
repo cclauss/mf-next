@@ -3,7 +3,7 @@ mf-next
 
 The next generation geo.admin.ch API
 
-[![Build Status](https://travis-ci.org/geoadmin/mf-next.png)](https://travis-ci.org/geoadmin/mf-next)
+[![Build Status](https://travis-ci.org/geoadmin/mf-next.png?branch=master)](https://travis-ci.org/geoadmin/mf-next)
 
 # Getting started
 
