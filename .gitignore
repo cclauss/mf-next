@@ -2,6 +2,7 @@
 *.swp
 .installed.cfg
 *.ini
+*.mo
 apache/wsgi.conf
 buildout/bin/
 buildout/develop-eggs/
