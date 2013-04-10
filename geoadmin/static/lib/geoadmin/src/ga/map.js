@@ -74,7 +74,9 @@ ga.Map.createOLMapOptions_ = function (mapOptions) {
 
     var olMapOptions = mapOptions || {};
 
-    if (!olMapOptions.renderers &&
+    if (goog.isDef(olMapOptions.renderer)) {
+        olMapOptions.renderers = [olMapOptions.renderer];
+    } else if (!olMapOptions.renderers &&
         !goog.isDefAndNotNull(olMapOptions.renderers)) {
         olMapOptions.renderers = ol.RendererHints.createFromQueryData();
     }

@@ -34,6 +34,8 @@ window.onload = function() {
         goog.debug.Logger.getLogger('ol').setLevel(goog.debug.Logger.Level.OFF);
     }
     map = new ga.Map({
+        //TODO: as vector layer is only supported in CANVAS right now (webgl renderer not done yet)
+        renderer: ol.RendererHint.CANVAS,
         target: 'map',
         view: new ol.View2D({
             projection: ga.MapDefs.PROJECTION,
