@@ -3,15 +3,8 @@
 <head>
     <meta charset="UTF-8">
 </head>
-<% 
-    _ = TranslationStringFactory('geoadmin')
-    ts = _('ch.bafu.bundesinventare-jagdbanngebiete')
-    from pyramid.i18n import get_localizer
-    localizer = get_localizer(request)
-    translated = localizer.translate(ts)
-%>
 <body>
-    <p>lool</p>
-    <p>${translated}</p>
+    <p>${_('ch.bafu.bundesinventare-bln')}</p>
+    <p>${_('ch.bafu.bundesinventare-jagdbanngebiete')}</p>
 </body>
 </html>

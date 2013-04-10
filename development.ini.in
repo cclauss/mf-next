@@ -15,7 +15,6 @@ pyramid.includes =
     pyramid_debugtoolbar
 mako.imports =
     import logging
-    from pyramid.i18n import TranslationStringFactory
 
 # By default, the toolbar only appears for clients from IP addresses
 # '127.0.0.1' and '::1'.

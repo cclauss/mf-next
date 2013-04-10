@@ -1,8 +1,7 @@
 from pyramid.mako_templating import renderer_factory as mako_renderer_factory
-from pyramid.i18n import TranslationString as _
 from pyramid.config import Configurator
 from pyramid.events import BeforeRender, NewRequest
-from geoadmin.subscribers import add_renderer_globals, add_localizer
+from geoadmin.subscribers import *
 from pyramid.renderers import JSON, JSONP
 from sqlalchemy import engine_from_config
 
@@ -23,9 +22,8 @@ def main(global_config, **settings):
 
     # configure 'locale' dir as the translation dir for geoadmin app
     config.add_translation_dirs('geoadmin:locale/')
-    # avoid putting the request object each time one wants to translate something
-    #config.add_subscriber('geoadmin.subscribers.add_renderer_globals', 'pyramid.events.BeforeRender')
-    #config.add_subscriber('geoadmin.subscribers.add_localizer', 'pyramid.events.NewRequest')
+    config.add_subscriber(add_localizer, NewRequest)
+    config.add_subscriber(add_renderer_globals, BeforeRender)
 
     config.add_renderer('.html', mako_renderer_factory)
     config.add_renderer('.js', mako_renderer_factory)
@@ -44,8 +42,6 @@ def main(global_config, **settings):
     # Application specific
     config.add_route('mapservice', '/rest/services/{map}/MapServer')
     config.add_route('identify', '/rest/services/{map}/MapServer/identify')
-    #config.add_subscriber(add_renderer_globals, BeforeRender)
-    config.add_subscriber(add_localizer, NewRequest)
-    config.add_subscriber(add_render_globals, BeforeRender)
+
     config.scan(ignore='geoadmin.tests') # required to find code decorated by view_config
     return config.make_wsgi_app()
