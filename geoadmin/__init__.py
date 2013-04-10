@@ -1,5 +1,8 @@
+from pyramid.mako_templating import renderer_factory as mako_renderer_factory
+from pyramid.i18n import TranslationString as _
 from pyramid.config import Configurator
-from pyramid.events import BeforeRender
+from pyramid.events import BeforeRender, NewRequest
+from geoadmin.subscribers import add_renderer_globals, add_localizer
 from pyramid.renderers import JSON, JSONP
 from sqlalchemy import engine_from_config
 
@@ -17,19 +20,32 @@ def main(global_config, **settings):
     app_version = settings.get('app_version')
     settings['app_version'] = app_version
     config = Configurator(settings=settings)
+
+    # configure 'locale' dir as the translation dir for geoadmin app
+    config.add_translation_dirs('geoadmin:locale/')
+    # avoid putting the request object each time one wants to translate something
+    #config.add_subscriber('geoadmin.subscribers.add_renderer_globals', 'pyramid.events.BeforeRender')
+    #config.add_subscriber('geoadmin.subscribers.add_localizer', 'pyramid.events.NewRequest')
+
+    config.add_renderer('.html', mako_renderer_factory)
+    config.add_renderer('.js', mako_renderer_factory)
     config.add_renderer('json', JSON(indent=4))
     config.add_renderer('jsonp', JSONP(param_name='cb', indent=4))
     initialize_sql(settings)
 
     config.scan('geoadmin.models')
     # Static config
-    config.add_static_view('static', 'static', cache_max_age=3600)
+    config.add_static_view('static', 'geoadmin:static', cache_max_age=3600)
     config.add_route('home', '/')
+    config.add_route('testi18n', '/testi18n/')
+    config.add_view(route_name='home', renderer='templates/index.pt', http_cache=0)
+    config.add_view(route_name='testi18n', renderer='geoadmin:templates/testi18n.mako', http_cache=0)  
 
     # Application specific
     config.add_route('mapservice', '/rest/services/{map}/MapServer')
     config.add_route('identify', '/rest/services/{map}/MapServer/identify')
-
-    config.add_subscriber(add_render_globals,BeforeRender)
-    config.scan() # required to find code decorated by view_config
+    #config.add_subscriber(add_renderer_globals, BeforeRender)
+    config.add_subscriber(add_localizer, NewRequest)
+    config.add_subscriber(add_render_globals, BeforeRender)
+    config.scan(ignore='geoadmin.tests') # required to find code decorated by view_config
     return config.make_wsgi_app()

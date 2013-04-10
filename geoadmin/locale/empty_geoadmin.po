@@ -1,0 +1,7 @@
+
+
+msgid "ch.bafu.bundesinventare-bln"
+msgstr ""
+
+msgid "ch.bafu.bundesinventare-jagdbanngebiete"
+msgstr ""

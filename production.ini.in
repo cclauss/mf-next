@@ -11,7 +11,7 @@ pyramid.reload_templates = false
 pyramid.debug_authorization = false
 pyramid.debug_notfound = false
 pyramid.debug_routematch = false
-pyramid.default_locale_name = en
+pyramid.default_locale_name = de
 
 # SQLAlchemy database URL
 sqlalchemy.bod.url = postgresql://${vars:dbhost}:${vars:dbport}/bod
@@ -29,6 +29,8 @@ sqlalchemy.bak.url = postgresql://${vars:dbhost}:${vars:dbport}/bak
 sqlalchemy.zeitreihen.url = postgresql://${vars:dbhost}:${vars:dbport}/zeitreihen
 sqlalchemy.evd.url = postgresql://${vars:dbhost}:${vars:dbport}/evd
 
+# Mako specific
+mako.directories = geoadmin:templates
 
 ###
 # wsgi server configuration

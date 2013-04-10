@@ -11,9 +11,11 @@ pyramid.reload_templates = true
 pyramid.debug_authorization = true
 pyramid.debug_notfound = true
 pyramid.debug_routematch = true
-pyramid.default_locale_name = en
 pyramid.includes = 
     pyramid_debugtoolbar
+mako.imports =
+    import logging
+    from pyramid.i18n import TranslationStringFactory
 
 # By default, the toolbar only appears for clients from IP addresses
 # '127.0.0.1' and '::1'.
@@ -22,7 +24,6 @@ debugtoolbar.hosts = 0.0.0.0/0
 ###
 # wsgi server configuration
 ###
-
 [server:main]
 use = egg:waitress#main
 host = 0.0.0.0

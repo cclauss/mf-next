@@ -18,9 +18,11 @@ requires = [
     'pyramid_tm',
     'geojson',
     'shapely',
+    'Babel',
     'httplib2',
     'nose',
-    'coverage'
+    'coverage',
+    'PyYAML',
     ]
 
 setup(name='geoadmin',
@@ -38,6 +40,12 @@ setup(name='geoadmin',
       url='',
       keywords='web pyramid pylons',
       packages=find_packages(),
+      package_data = {'geoadmin': ['locale/*/LC_MESSAGES/*.mo']},
+      message_extractors = {'geoadmin': [
+            ('**.py', 'python', None),
+            ('templates/**.html', 'mako', None),
+            ('templates/**.mako', 'mako', None),
+            ('static/**', 'ignore', None)]},
       include_package_data=True,
       zip_safe=False,
       install_requires=requires,
