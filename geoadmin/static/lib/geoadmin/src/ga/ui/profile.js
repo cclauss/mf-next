@@ -15,15 +15,14 @@ goog.require('goog.array');
  * @extends {goog.ui.Dialog}
  * @param opt_domHelper 
  */
-ga.ui.Profile.Dialog = function (opt_domHelper, model) {
+ga.ui.Profile.Dialog = function (opt_domHelper) {
     'use strict';
     goog.ui.Dialog.call(this, 'profile-dialog', undefined, opt_domHelper);
 
     this.setTitle('This is your profile!');
     this.setModal(false);
 
-    this.setModel(model);
-    this.graphics_ = new ga.ui.Profile.Graphics(this.getModel());
+    this.graphics_ = new ga.ui.Profile.Graphics();
     this.addChild(this.graphics_.getComponent(), true);
 };
 

@@ -13,7 +13,7 @@ var prof = null;
 var profileHandler = function () {
     'use strict';
     if (!prof) {
-        prof = new ga.control.Profile({'mymap': map});
+        prof = new ga.control.Profile({'map': map});
     }
     prof.toggleActive();
 };

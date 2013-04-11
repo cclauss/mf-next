@@ -13,13 +13,23 @@ goog.require('goog.array');
 
 /**
  * @constructor
- * @extends {ol.control.Control} NOTE: not really an extension, as we don't add it to the map as normal.
- * But this should be changed
+ * @extends {ol.control.Control}
  * @param {ga.control.ProfileOptions} profileOptions
  */
 ga.control.Profile = function(profileOptions) {
     'use strict';
-    ol.control.Control.call(this, ga.control.Profile.createOLControlOptions_(profileOptions));
+
+    var options = goog.isDef(profileOptions) ? profileOptions : {};
+    var element = goog.dom.createDom(goog.dom.TagName.DIV, {
+        'class': 'ga-control-profile'
+    });
+
+    this.layer_ = null;
+    ol.control.Control.call(this, {
+        element: element,
+        map: options.map,
+        target: options.target
+    });
 
     if (goog.DEBUG) {
         this.logger = goog.debug.Logger.getLogger('ga.control.Profile.' + goog.getUid(this));
@@ -27,48 +37,32 @@ ga.control.Profile = function(profileOptions) {
     }
 
     this.model_ = new ga.model.Profile();
-
-    this.dialog_ = new ga.ui.Profile.Dialog();
-
+    this.dialog_ = new ga.ui.Profile.Dialog(goog.dom.getDomHelper(element));
+    this.dialog_.render(element);
     this.netProfile_ = new ga.net.Profile();
-
     //the layer containing the drawings on the map
-    this.layer_ = null;
-
     this.lastPointDrawn_ = -1;
-
-    //note: once we (TODO: make it a 'real' ol3 control)
-    // - wrap and export our profileOptions object literals
-    // - export the ol3 object literals
-    //we will not need this anymore (because ol.control.Control contains a map reference)a
-    /*jshint sub: true*/
-    this.map_ = profileOptions['mymap'];
-    /*jshint sub: false*/
-
-    this.initMapLayer();
-
     this.active_ = false;
 
-
-    this.map_.on('click', this.onMouseClick, this);
-    this.map_.on('dblclick', this.onMouseDblClick, this);
     goog.events.listen(this.dialog_, goog.ui.Dialog.EventType.SELECT, this.onDialogSelected, false, this);
 
 };
 
 goog.inherits(ga.control.Profile, ol.control.Control);
 
-
-//STATIC FUNCTIONS
-ga.control.Profile.createOLControlOptions_ = function (profileOptions) {
+ga.control.Profile.prototype.setMap = function (map) {
     'use strict';
+    ga.control.Profile.superClass_.setMap.call(this, map);
 
-    var olControlOptions = profileOptions || {};
-
-    return olControlOptions;
+    if (!goog.isNull(map)) {
+        this.listenerKeys.push(
+            goog.events.listen(map, goog.events.EventType.CLICK, this.onMouseClick, false, this),
+            goog.events.listen(map, goog.events.EventType.DBLCLICK, this.onMouseDblClick, false, this)
+        );
+        this.initMapLayer();
+    }
 };
 
-//INSTANCE FUNCTIONS
 ga.control.Profile.prototype.initMapLayer = function () {
     'use strict';
     //should be brought to seperate view...(we are in controller here)
@@ -107,7 +101,7 @@ ga.control.Profile.prototype.initMapLayer = function () {
             })
         });
 
-        this.map_.addLayer(this.layer_);
+        this.getMap().addLayer(this.layer_);
     }
 };
 
