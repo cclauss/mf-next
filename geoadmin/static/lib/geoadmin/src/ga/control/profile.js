@@ -35,6 +35,8 @@ ga.control.Profile = function(profileOptions) {
     //the layer containing the drawings on the map
     this.layer_ = null;
 
+    this.lastPointDrawn_ = -1;
+
     //note: once we (TODO: make it a 'real' ol3 control)
     // - wrap and export our profileOptions object literals
     // - export the ol3 object literals
@@ -43,10 +45,15 @@ ga.control.Profile = function(profileOptions) {
     this.map_ = profileOptions['mymap'];
     /*jshint sub: false*/
 
+    this.initMapLayer();
+
+    this.active_ = false;
+
+
     this.map_.on('click', this.onMouseClick, this);
     this.map_.on('dblclick', this.onMouseDblClick, this);
+    goog.events.listen(this.dialog_, goog.ui.Dialog.EventType.SELECT, this.onDialogSelected, false, this);
 
-    this.initMapLayer();
 };
 
 goog.inherits(ga.control.Profile, ol.control.Control);
@@ -104,7 +111,6 @@ ga.control.Profile.prototype.initMapLayer = function () {
     }
 };
 
-
 ga.control.Profile.prototype.updateMapLayer = function () {
     'use strict';
     var sharedVertices = this.layer_.getLineVertices();
@@ -115,17 +121,31 @@ ga.control.Profile.prototype.updateMapLayer = function () {
     }
 
     //TODO: we always draw the complete model, without removing the old features first (ol3 does not support this yet)
-    goog.array.forEach(this.model_.inPoints(), function (point) {
-        if (prevPoint) {
-            var feature = new ol.Feature({
-                'where': 'finished'
-            });
-            var lineString = new ol.geom.LineString([[prevPoint.x, prevPoint.y], [point.x, point.y]], sharedVertices);
-            feature.setGeometry(lineString);
-            layer.addFeatures([feature]);
+    if (this.lastPointDrawn_ >= 0) {
+        prevPoint = this.model_.inPoints()[this.lastPointDrawn_];
+    }
+    var pointsToDraw = [];
+    if (prevPoint) {
+        pointsToDraw.push([prevPoint.x, prevPoint.y]);
+    }
+    var i =  this.lastPointDrawn_ + 1;
+    for (var len = this.model_.inPoints().length; i < len; i += 1) {
+        var point = this.model_.inPoints()[i];
+        pointsToDraw.push([point.x, point.y]);
+    }
+    if (pointsToDraw.length > 1) {
+        this.lastPointDrawn_ = i - 1;
+        var feature = new ol.Feature({
+            'where': 'finished'
+        });
+        if (goog.DEBUG) {
+            this.logger.info('draw point linestring with points ' + pointsToDraw);
         }
-        prevPoint = point;
-    });
+        var lineString = new ol.geom.LineString(pointsToDraw, sharedVertices);
+        feature.setGeometry(lineString);
+        layer.addFeatures([feature]);
+
+    }
 };
 
 ga.control.Profile.prototype.getModel = function () {
@@ -144,31 +164,64 @@ ga.control.Profile.prototype.update = function () {
     this.updateMapLayer();
 };
 
-ga.control.Profile.prototype.show = function (show) {
+ga.control.Profile.prototype.onDialogSelected = function () {
+    'use strict';
+    if (this.isActive()) {
+        this.active_ = false;
+    }
+};
+
+ga.control.Profile.prototype.isActive = function () {
+    'use strict';
+    return this.active_;
+};
+
+ga.control.Profile.prototype.toggleActive = function () {
+    'use strict';
+    this.activate(!this.isActive());
+};
+
+ga.control.Profile.prototype.activate = function (doActivate) {
     'use strict';
 
-    this.dialog_.setVisible(show);
+    if (doActivate === this.isActive()) {
+        return;
+    }
+
+    this.active_ = doActivate;
+    this.dialog_.setVisible(doActivate);
 };
 
 ga.control.Profile.prototype.onMouseClick = function (evt) {
     'use strict';
-    var myCoord = new goog.math.Coordinate(evt.getCoordinate()[0], evt.getCoordinate()[1]);
-
-    this.model_.inPoints().push(myCoord);
-
-    if (goog.DEBUG) {
-        this.logger.info('Adding point to model (' + this.model_.inPoints().length + ')');
+    if (!this.isActive()) {
+        return;
     }
 
-    this.updateMapLayer();
+    var myCoord = new goog.math.Coordinate(evt.getCoordinate()[0], evt.getCoordinate()[1]);
+    var len = this.model_.inPoints().length;
+
+    if (len === 0 ||
+        goog.math.Coordinate.distance(this.model_.inPoints()[len-1], myCoord) >= 0.001) {
+
+        this.model_.inPoints().push(myCoord);
+        if (goog.DEBUG) {
+            this.logger.info('Adding point to model (' + this.model_.inPoints().length + ')');
+        }
+        this.updateMapLayer();
+    }
 };
 
 ga.control.Profile.prototype.onMouseDblClick = function (evt) {
     'use strict';
+    if (!this.isActive()) {
+        return;
+    }
     if (goog.DEBUG) {
         this.logger.info('Double clicked...sending profile request now.');
     }
-    evt.stopPropagation(); //this does not seem to work
+    //unfort., the blow does not work.
+    evt.stopPropagation();
 
     this.netProfile_.addEventListener(ga.net.Profile.EventType.DONE, this.profileDataArrived, false, this);
 

@@ -46,7 +46,7 @@ ga.ui.Profile.Dialog.prototype.update = function (model) {
  */
 ga.ui.Profile.Graphics = function () {
     'use strict';
-    this.width_ = 400;
+    this.width_ = 600;
     this.height_ = 200;
     this.canvas_ = goog.graphics.createGraphics(this.width_, this.height_, this.width_, this.height_);
 };

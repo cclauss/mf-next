@@ -118,7 +118,8 @@ ga.model.Profile.prototype.updateOutPoints = function (json) {
     var tempArray = [],
         tempBoundingRect = null,
         rect= new goog.math.Rect(0.0, 0.0, 0.0, 0.0),
-        error = false;
+        error = false,
+        self = this;
 
     if (!goog.isDefAndNotNull(json) ||
         !goog.isArray(json['profile'])) {
@@ -137,7 +138,7 @@ ga.model.Profile.prototype.updateOutPoints = function (json) {
                 !goog.isDefAndNotNull(element['alts']) ||
                 !goog.isNumber(element['alts']['COMB'])) {
                 if (goog.DEBUG) {
-                    this.logger.warning('Invalid element' + element);
+                    self.logger.warning('Invalid element' + element);
                 }
                 error = true;
             } else {
