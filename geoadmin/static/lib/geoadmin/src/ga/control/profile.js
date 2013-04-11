@@ -3,6 +3,7 @@ goog.provide('ga.control.Profile');
 
 goog.require('ga.model.Profile');
 goog.require('ga.ui.Profile.Dialog');
+goog.require('ga.ui.Profile.Overlay');
 goog.require('ga.net.Profile');
 
 goog.require('ol.control.Control');
@@ -37,14 +38,25 @@ ga.control.Profile = function(profileOptions) {
     }
 
     this.model_ = new ga.model.Profile();
+    this.dialog_ = null;
+    /* 
+    //Show profile in dialog
     this.dialog_ = new ga.ui.Profile.Dialog(goog.dom.getDomHelper(element));
     this.dialog_.render(element);
+    */
+    this.overlay_ = null;
+    //Show profile in overlay
+    this.overlay_ = new ga.ui.Profile.Overlay();
+    this.overlay_.render(element);
+
     this.netProfile_ = new ga.net.Profile();
     //the layer containing the drawings on the map
     this.lastPointDrawn_ = -1;
     this.active_ = false;
 
-    goog.events.listen(this.dialog_, goog.ui.Dialog.EventType.SELECT, this.onDialogSelected, false, this);
+    if (this.dialog_) {
+        goog.events.listen(this.dialog_, goog.ui.Dialog.EventType.SELECT, this.onDialogSelected, false, this);
+    }
 
 };
 
@@ -152,7 +164,12 @@ ga.control.Profile.prototype.update = function () {
     'use strict';
 
     //update profile dialog
-    this.dialog_.update(this.model_);
+    if (this.dialog_) {
+        this.dialog_.update(this.model_);
+    }
+    if (this.overlay_) {
+        this.overlay_.update(this.model_);
+    }
 
     //update vector layer on map
     this.updateMapLayer();
@@ -183,7 +200,12 @@ ga.control.Profile.prototype.activate = function (doActivate) {
     }
 
     this.active_ = doActivate;
-    this.dialog_.setVisible(doActivate);
+    if (this.dialog_) {
+        this.dialog_.setVisible(doActivate);
+    }
+    if (this.overlay_) {
+        this.overlay_.setVisible(doActivate);
+    }
 };
 
 ga.control.Profile.prototype.onMouseClick = function (evt) {

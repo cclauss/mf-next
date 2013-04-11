@@ -17,6 +17,7 @@ goog.require('ga.ui.LayerTree');
 goog.require('ga.ui.Profile');
 goog.require('ga.ui.Profile.Dialog');
 goog.require('ga.ui.Profile.Graphics');
+goog.require('ga.ui.Profile.Overlay');
 //net
 goog.require('ga.net.SwissSearch');
 goog.require('ga.net.SwissSearch.Event');

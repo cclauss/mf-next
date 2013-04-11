@@ -6,6 +6,7 @@ goog.provide('ga.ui.Profile.Graphics');
 
 goog.require('ga.model.Profile');
 
+goog.require('goog.ui.Control');
 goog.require('goog.ui.Dialog');
 goog.require('goog.graphics');
 goog.require('goog.array');
@@ -23,7 +24,7 @@ ga.ui.Profile.Dialog = function (opt_domHelper) {
     this.setModal(false);
 
     this.graphics_ = new ga.ui.Profile.Graphics();
-    this.addChild(this.graphics_.getComponent(), true);
+    this.addChild(this.graphics_, true);
 };
 
 goog.inherits(ga.ui.Profile.Dialog, goog.ui.Dialog);
@@ -40,15 +41,20 @@ ga.ui.Profile.Dialog.prototype.update = function (model) {
  * Component should always be independant of parent in order for it
  * to be able to be attached to any component/container
  * @constructor
+ * @extends {goog.ui.Control}
  * @param {goog.dom.DomHelper} domHelper The DOM helper object for the
  *      document we want to render in.
  */
 ga.ui.Profile.Graphics = function () {
     'use strict';
-    this.width_ = 600;
-    this.height_ = 200;
+    goog.ui.Control.call(this, null);
+    this.width_ = '100%';
+    this.height_ = '100%';
     this.canvas_ = goog.graphics.createGraphics(this.width_, this.height_, this.width_, this.height_);
+    this.addChild(this.canvas_, true);
 };
+
+goog.inherits(ga.ui.Profile.Graphics, goog.ui.Control);
 
 ga.ui.Profile.Graphics.prototype.getComponent = function () {
     'use strict';

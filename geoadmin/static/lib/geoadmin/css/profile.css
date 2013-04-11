@@ -1,7 +1,20 @@
+.profile-overlay {
+    background: rgba(0,60,136,0.6);
+    bottom: 8px;
+    right: 8px;
+    padding: 2px;
+    position: absolute;
+    height: 200px;
+    width: 90%;
+}
+
+
 .profile-dialog {
     background: #c1d9ff;
     border: 1px solid #3a5774;
     color: #000;
+    height: 300px;
+    width: 800px;
     padding: 4px;
     position: absolute;
 }
