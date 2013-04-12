@@ -70,5 +70,24 @@ describe('ga.model.Profile', function () {
             expect(myProfile.outPoints().length).to.be(0);
         });
     });
+
+    describe('Get nearest outpoint based on distance', function () {
+
+        it ('should find correct point', function () {
+            myProfile.updateOutPoints(testdata);
+
+            expect(myProfile.lookupNearestOutPoint(998.70000000000005).dh_.y).to.be(-1599.7);
+            expect(myProfile.lookupNearestOutPoint(998.0).dh_.y).to.be(-1599.7);
+            expect(myProfile.lookupNearestOutPoint(999.0).dh_.y).to.be(-1599.7);
+
+            expect(myProfile.lookupNearestOutPoint(0.0).dh_.y).to.be(-1415.9);
+            expect(myProfile.lookupNearestOutPoint(-1.0).dh_.y).to.be(-1415.9);
+            expect(myProfile.lookupNearestOutPoint(1.0).dh_.y).to.be(-1415.9);
+
+            expect(myProfile.lookupNearestOutPoint(1498.0).dh_.y).to.be(-1698.7);
+            expect(myProfile.lookupNearestOutPoint(1497.0).dh_.y).to.be(-1698.7);
+            expect(myProfile.lookupNearestOutPoint(1499.0).dh_.y).to.be(-1698.7);
+        });
+    });
 });
 

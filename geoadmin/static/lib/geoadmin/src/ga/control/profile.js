@@ -49,6 +49,13 @@ ga.control.Profile = function(profileOptions) {
     this.overlay_ = new ga.ui.Profile.Overlay();
     this.overlay_.render(element);
 
+    //Adding popover
+    this.popover_ = goog.dom.createDom(goog.dom.TagName.DIV, {
+        'class': 'ga-control-profile-popover'
+    });
+    goog.dom.appendChild(element, this.popover_);
+
+
     this.netProfile_ = new ga.net.Profile();
     //the layer containing the drawings on the map
     this.lastPointDrawn_ = -1;
@@ -56,6 +63,10 @@ ga.control.Profile = function(profileOptions) {
 
     if (this.dialog_) {
         goog.events.listen(this.dialog_, goog.ui.Dialog.EventType.SELECT, this.onDialogSelected, false, this);
+    }
+
+    if (this.overlay_) {
+        goog.events.listen(this.overlay_.getGraphics(), 'update_point', this.onUpdatePoint, false, this);
     }
 
 };
@@ -73,6 +84,18 @@ ga.control.Profile.prototype.setMap = function (map) {
         );
         this.initMapLayer();
     }
+};
+
+ga.control.Profile.prototype.onUpdatePoint = function (evt) {
+    'use strict';
+    var map = this.getMap();
+    var pop = this.popover_;
+    var pixels = map.getPixelFromCoordinate([evt.data_.en_.x, evt.data_.en_.y]);
+
+    pop.innerHTML = Math.floor(-evt.data_.dh_.y) + ' [m]';
+    pop.style.top = pixels.y - 20 + 'px';
+    pop.style.left = pixels.x + 'px';
+    pop.style.display = 'inline-block';
 };
 
 ga.control.Profile.prototype.initMapLayer = function () {
@@ -242,6 +265,11 @@ ga.control.Profile.prototype.onMouseDblClick = function (evt) {
     this.netProfile_.addEventListener(ga.net.Profile.EventType.DONE, this.profileDataArrived, false, this);
 
     this.netProfile_.query(this.model_.inPoints());
+
+    //TODO: this should be done via eventing...
+    if (this.overlay_) {
+        this.overlay_.waitingForProfile();
+    }
 };
 
 

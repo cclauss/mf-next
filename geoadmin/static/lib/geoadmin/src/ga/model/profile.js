@@ -165,6 +165,49 @@ ga.model.Profile.prototype.updateOutPoints = function (json) {
     this.outPoints_ = tempArray;
     this.boundingRect_ = tempBoundingRect;
 
+    if (goog.DEBUG) {
+        this.logger.info('Added ' + this.outPoints_.length + ' points to model');
+    }
+
     return true;
+};
+
+ga.model.Profile.prototype.lookupNearestOutPoint = function (distance) {
+    'use strict';
+    //function assumes that array is sorted by incresing dist
+
+    var compareFunction = function (first, second) {
+        var d1 = first.dh_.x;
+        var d2 = second.dh_.x;
+        if (d1 < d2) {
+            return -1;
+        } else if (d1 > d2) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    };
+
+    var point = new ga.model.ProfilePoint(
+                    new goog.math.Coordinate(0.0, 0.0),
+                    new goog.math.Coordinate(distance, 0.0));
+
+    var index = goog.array.binarySearch(this.outPoints_, point, compareFunction);
+
+    if (index < 0) {
+        index = Math.abs(index) - 1;
+        if (index >= this.outPoints_.length) {
+            index = this.outPoints_.length - 1;
+        } else if (index <= 0) {
+            index = 0;
+        } else {
+            if (Math.abs(this.outPoints_[index].dh_.x - distance) >
+                Math.abs(this.outPoints_[index - 1].dh_.x - distance)) {
+                index = index - 1;
+            }
+        }
+    }
+    return this.outPoints_[index];
 };
 
