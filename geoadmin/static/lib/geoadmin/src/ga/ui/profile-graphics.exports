@@ -1,7 +1,4 @@
 @exportProperty ga.ui.Profile
-@exportProperty ga.ui.Profile.Dialog
-@exportProperty ga.ui.Profile.Dialog.prototype.update
-
 @exportProperty ga.ui.Profile.Graphics
 @exportProperty ga.ui.Profile.Graphics.prototype.getComponent
 @exportProperty ga.ui.Profile.Graphics.prototype.draw
