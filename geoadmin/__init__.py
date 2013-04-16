@@ -3,10 +3,8 @@ from pyramid.config import Configurator
 from pyramid.events import BeforeRender, NewRequest
 from geoadmin.subscribers import *
 from pyramid.renderers import JSON, JSONP
-from sqlalchemy import engine_from_config
 
 from geoadmin.models import initialize_sql
-from geoadmin.views.mapservice import *
 from geoadmin.lib import helpers
 
 
@@ -31,7 +29,6 @@ def main(global_config, **settings):
     config.add_renderer('jsonp', JSONP(param_name='cb', indent=4))
     initialize_sql(settings)
 
-    config.scan('geoadmin.models')
     # Static config
     config.add_static_view('static', 'geoadmin:static', cache_max_age=3600)
     config.add_route('home', '/')
