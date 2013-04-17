@@ -5,11 +5,8 @@ from geoadmin.subscribers import *
 from pyramid.renderers import JSON, JSONP
 
 from geoadmin.models import initialize_sql
-from geoadmin.lib import helpers
 
 
-def add_render_globals(event):
-    event['h'] = helpers
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
