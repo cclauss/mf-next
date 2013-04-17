@@ -58,7 +58,7 @@ class MapService(object):
         return models
 
     def getLayerListFromMap(self):
-        model = self.getBodModel()
+        model = get_bod_model(self.lang)
         query = Session.query(model.idBod).filter(model.maps.ilike('%%%s%%' % self.mapName))
         return [idBod for idBod in query]
 
