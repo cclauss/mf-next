@@ -13,4 +13,10 @@ before_script:
     - buildout/bin/buildout
 
 script:
-    - karma start geoadmin/static/lib/geoadmin/test/karma.conf.js --single-run
+    - karma start geoadmin/static/lib/geoadmin/test/karma_conf.js --single-run
+    - karma start geoadmin/static/lib/geoadmin/test/karma_conf_debug.js --single-run
+
+notifications:
+    email:
+        recipients:
+            - git-mf-next@bgdi.ch

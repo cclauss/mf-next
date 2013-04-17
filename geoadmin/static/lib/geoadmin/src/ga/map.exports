@@ -1,0 +1,4 @@
+@exportProperty ga.Map 
+
+@exportProperty ga.Map.prototype.addLayerWithDef
+

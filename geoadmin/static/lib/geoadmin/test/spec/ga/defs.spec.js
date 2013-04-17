@@ -1,4 +1,3 @@
-/*global ga: true, describe: true, it: true, expect: true */
 
 describe('ga.defs', function () {
     'use strict';

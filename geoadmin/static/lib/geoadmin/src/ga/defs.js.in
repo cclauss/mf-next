@@ -1,6 +1,3 @@
-/*global goog:true, ga:true*/
-/*jslint nomen: true, vars: true */
-
 /**
  * @fileoverview ga.defs contains static functions and static variables
  * * @author gilbert.jeiziner@swisstopo.ch
@@ -14,7 +11,7 @@ goog.provide('ga.defs');
 ga.defs.protocol_ = null;
 
 /**
- * @export
+ * @public
  */
 ga.defs.protocol = function () {
     'use strict';
@@ -25,7 +22,7 @@ ga.defs.protocol = function () {
 };
 
 /**
- * @export
+ * @public
  */
 ga.defs.webServiceUrl = function () {
     'use strict';

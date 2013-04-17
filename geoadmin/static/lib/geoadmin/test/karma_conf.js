@@ -5,7 +5,7 @@
 
 
 // base path, that will be used to resolve files and exclude
-basePath = '/home/ltjeg/mf-next/geoadmin/static/';
+basePath = '../../../';
 
 
 // list of files / patterns to load in the browser
@@ -16,14 +16,8 @@ files = [
     {pattern: 'lib/ol3/test/sinon-1.6.0/sinon.js'},
     {pattern: 'lib/proj4js/proj4js-compressed.js'},
     {pattern: 'lib/proj4js/EPSG21781.js'},
-    {pattern: 'lib/closure/closure/goog/base.js'},
-    {pattern: 'build/ol3_deps.js'},
-    {pattern: 'build/ga_deps.js'},
-    {pattern: 'lib/geoadmin/src/geoadmin.js'},
-    {pattern: 'lib/geoadmin/test/spec/ga/**/*.js'},
-    {pattern: 'lib/closure/closure/goog/**/*.js', watched: false, included: false},
-    {pattern: 'lib/ol3/src/ol/**/*.js', watched: false, included: false},
-    {pattern: 'lib/geoadmin/src/**/*.js', included: false}
+    {pattern: 'build/geoadmin.js'},
+    {pattern: 'lib/geoadmin/test/spec/ga/**/*.js'}
 ];
 
 

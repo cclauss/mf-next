@@ -1,5 +1,5 @@
-/*global goog:true, ga:true, ol:true*/
 
+goog.provide('ga.factory');
 goog.provide('ga.factory.olLayer');
 
 goog.require('ol.source.SingleImageWMS');
@@ -10,7 +10,6 @@ goog.require('ol.tilegrid.WMTS');
 
 goog.require('goog.debug.Logger');
 
-/** @export */
 ga.factory.olLayer = function (options) {
     'use strict';
     if (goog.DEBUG) {

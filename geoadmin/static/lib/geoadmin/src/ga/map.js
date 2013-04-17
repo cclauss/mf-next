@@ -1,6 +1,3 @@
-/*global goog:true, ga:true, ol:true */
-/*jslint nomen: true, vars: true */
-
 /**
  * @fileoverview ga.Map contains the geoadmin Map class and additional definitions concerning this map
  * @author gilbert.jeiziner@swisstopo.ch
@@ -31,7 +28,7 @@ ga.MapDefs = {
  * Create a new map
  * @constructor
  * @extends {ol.Map}
- * @export
+ * @params {ol.MapOptions}
  */
 ga.Map = function (mapOptions) {
     'use strict';
@@ -57,7 +54,6 @@ goog.inherits(ga.Map, ol.Map);
 
 /**
  * Adding a layer to the map based on a layer definition found in ga.model.layers
- * @export
  */
 ga.Map.prototype.addLayerWithDef = function (layerdef) {
     'use strict';
@@ -86,8 +82,9 @@ ga.Map.createOLMapOptions_ = function (mapOptions) {
         !goog.isDef(olMapOptions.view)) {
         olMapOptions.view = new ol.View2D({
             projection: ga.MapDefs.PROJECTION,
-            center: new ol.Coordinate(660000, 190000),
-            zoom: 2
+            center: [660000, 190000],
+            resolution: 250.0,
+            resolutions: [650.0, 500.0, 250.0, 100.0, 50.0, 20.0, 10.0, 5.0 ,2.5, 2.0, 1.5, 1.0, 0.5, 0.25, 0.1]
         });
     }
 
@@ -104,11 +101,11 @@ ga.Map.createOLMapOptions_ = function (mapOptions) {
 
     olMapOptions.controls = ol.control.defaults({}, [
         new ol.control.ZoomSlider({
-            minResolution: 0.04186713600158692,
-            maxResolution: 1371.9023125
+            minResolution: 0.1,
+            maxResolution: 650.0
         }),
         new ol.control.MousePosition({
-            coordinateFormat: ol.Coordinate.toStringXY,
+            coordinateFormat: ol.coordinate.toStringXY,
             projection: 'EPSG:21781',
             undefinedHTML: '&nbsp;'
         }),
@@ -119,3 +116,5 @@ ga.Map.createOLMapOptions_ = function (mapOptions) {
 
     return olMapOptions;
 };
+
+

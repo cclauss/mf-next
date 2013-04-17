@@ -1,6 +1,3 @@
-/*global goog:true */
-/*jslint nomen: true, vars: true */
-
 /**
  * This file contains all require statements for geoadmin namespace
  * It should be used to create an api file with closure-compiler
@@ -22,9 +19,5 @@ goog.require('ga.net.SwissSearch.EventType');
 goog.require('ga.defs');
 goog.require('ga.Map');
 
-
-//root namespace
 goog.provide('ga');
-
-
 

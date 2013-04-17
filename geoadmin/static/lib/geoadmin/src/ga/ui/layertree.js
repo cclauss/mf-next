@@ -1,6 +1,5 @@
-/*global goog:true, ga:true */
-/*jslint nomen: true, vars: true */
 
+goog.provide('ga.ui');
 goog.provide('ga.ui.LayerTree');
 
 goog.require('goog.ui.tree.TreeControl');
@@ -10,7 +9,6 @@ goog.require('goog.ui.tree.TreeControl');
  * @extends {goog.ui.tree.TreeControl}
  * @param {options.map} openlayers map instance
  * @param {options.listdefinition} pre-defined list of layers to display
- * @export
  */
 
 ga.ui.LayerTree = function (treeConfig) {

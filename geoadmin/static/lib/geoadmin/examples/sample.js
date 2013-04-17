@@ -92,7 +92,7 @@ window.onload = function() {
         target: 'map',
         view: new ol.View2D({
             projection: epsg21781,
-            center: new ol.Coordinate(660000, 190000),
+            center: [660000, 190000],
             zoom: 2
         })
     });

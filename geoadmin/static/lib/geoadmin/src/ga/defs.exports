@@ -1,0 +1,5 @@
+@exportProperty ga.defs
+
+@exportProperty ga.defs.protocol
+@exportProperty ga.defs.webServiceUrl
+
