@@ -29,6 +29,6 @@
       <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/test/run_tests.html'))}">Run Tests in Release Mode</a>  <br>
       <h1 id="title">Services</h1>
       <a href="rest/services/bafu/MapServer">Topic</a>  <br>
-      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryPoint&geometry=600000,200000,650000,250000&imageDisplay=600,400,96">  Identify</a> <br />
+      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&layers=all:ch.bafu.bundesinventare-bln">Identify</a> <br />
   </body>
 </html>
