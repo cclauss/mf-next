@@ -16,6 +16,7 @@ requires = [
     'geoalchemy',
     'transaction',
     'pyramid_tm',
+    'papyrus',
     'geojson',
     'shapely',
     'Babel',
