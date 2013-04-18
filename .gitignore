@@ -8,6 +8,7 @@ buildout/bin/
 buildout/develop-eggs/
 buildout/eggs/
 buildout/parts/
+buildout/node_modules/
 geoadmin/static/build/*
 MANIFEST
 .coverage
