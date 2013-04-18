@@ -3,6 +3,10 @@
 @exportProperty ga.model.Profile.prototype.outPoints
 @exportProperty ga.model.Profile.prototype.boundingRect
 @exportProperty ga.model.Profile.prototype.updateOutPoints
+@exportProperty ga.model.Profile.prototype.lookupNearestOutPoint
 
 @exportProperty ga.model.ProfilePoint
+@exportProperty ga.model.ProfilePoint.prototype.en
+@exportProperty ga.model.ProfilePoint.prototype.dh
+
 

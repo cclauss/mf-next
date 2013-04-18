@@ -61,25 +61,6 @@ https://github.com/geoadmin/mf-next/wiki/Git-Workflows
 
 ### How to have jshint checking javascript pre-commit
 
-#### Install node locally
-
-    wget http://nodejs.org/dist/v0.8.21/node-v0.8.21-linux-x64.tar.gz
-    gzip -d node-v0.8.21-linux-x64.tar.gz
-    tar -xvf node-v0.8.21-linux-x64.tar
-
-#### Install jshint locally
- 
-    ./node-v0.8.21-linux-x64/bin/npm install jshint
-
-#### Give access to jshint
-
-Put in .bahrc the following lines:
-
-    if [ -d ~/node_modules/jshint/bin ] ; then
-        PATH=~/node_modules/jshint/bin:"${PATH}"
-    fi
-
-#### Use jshint before the commits
 Add the following line to your **.git/hooks/pre-commit** file
     
     exec buildout/bin/buildout install jshint
@@ -87,6 +68,16 @@ Add the following line to your **.git/hooks/pre-commit** file
 You will be unable to commit when there are jshint errors in your javascript files.
 
 Note: pre-commit hooks can't be shared across clones. One idea would be to establish a pre-recieve hook on the server to jshint our code.
+
+### Run javascript unit tests during development
+
+JavaScript unit tests are included in the standard buildout (`[js-tests]` and
+`[js-tests-debug]` targets). In addition to this, it's possible to run javascript
+tests during development in watch mode with:
+
+    ./buildout/node_modules/karma/bin/karma start geoadmin/static/lib/geoadmin/test/karma_conf_debug.js
+
+This will launch karma in watch mode. Any changes to files will relaunch the tests automatically.
 
 ### How to update submodules to track latest trunk
 

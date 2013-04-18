@@ -35,6 +35,15 @@ ga.model.ProfilePoint = function (eastnorth, distheight) {
     this.dh_ = distheight;
 };
 
+ga.model.ProfilePoint.prototype.en = function () {
+    'use strict';
+    return this.en_;
+};
+
+ga.model.ProfilePoint.prototype.dh = function () {
+    'use strict';
+    return this.dh_;
+};
 
 /*
  * Simple data model for Profile(s) data
