@@ -28,6 +28,7 @@ ga.factory.olLayer = function (options) {
                     'LAYERS': options.technicalname
                 },
                 projection: options.projection,
+                resolutions: options.resolutions,
                 extent: options.extent,
                 ratio: 1,
                 crossOrigin: 'anonymous'
@@ -43,7 +44,7 @@ ga.factory.olLayer = function (options) {
                 format: 'image/' + options.formatExtension,
                 projection: options.projection,
                 dimensions: {
-                    'Time': '20130213'
+                    'Time': options.timestamp
                 },
                 tileGrid: new ol.tilegrid.WMTS({
                     origin: options.extent.getTopLeft(),

@@ -1,5 +1,3 @@
-/*global goog:true, ga: true*/
-
 
 goog.require('goog.debug.Console');
 goog.require('goog.debug.Logger');
