@@ -18,6 +18,7 @@ goog.require('ga.ui.Profile');
 goog.require('ga.ui.Profile.Dialog');
 goog.require('ga.ui.Profile.Graphics');
 goog.require('ga.ui.Profile.Overlay');
+goog.require('ga.ui.Accordeon');
 //net
 goog.require('ga.net.SwissSearch');
 goog.require('ga.net.SwissSearch.Event');

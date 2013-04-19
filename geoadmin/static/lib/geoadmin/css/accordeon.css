@@ -1,0 +1,15 @@
+.ga-accordeon {
+    background: rgba(0,60,136,0.6);
+    color: white;
+    padding: 4px 8px;
+    width: 400px;
+    top: 10px;
+    left: 60px;
+    position: absolute;
+}
+
+.ga-zippy-header {
+    padding: 0px;
+    color: white;
+}
+
