@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from pyramid.mako_templating import renderer_factory as mako_renderer_factory
 from pyramid.config import Configurator
 from pyramid.events import BeforeRender, NewRequest

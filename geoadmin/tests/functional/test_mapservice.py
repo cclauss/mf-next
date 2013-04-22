@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from geoadmin.tests.functional import TestsBase
 from pyramid import testing
 

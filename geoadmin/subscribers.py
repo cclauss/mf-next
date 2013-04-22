@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from pyramid.i18n import get_localizer, TranslationStringFactory
 from geoadmin.lib import helpers
 

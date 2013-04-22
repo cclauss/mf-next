@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from geoadmin.models import  *
 from geoadmin.models.vector import Vector
 

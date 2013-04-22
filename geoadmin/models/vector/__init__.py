@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from shapely.geometry.point import Point
 from shapely.geometry.linestring import LineString
 from shapely.geometry.polygon import Polygon
