@@ -56,13 +56,17 @@ class MapService(object):
             self.layers = self.getLayerListFromMap()
         else:
             self.layers = layers.split(':')[1].split(',')
-        models = [models_from_name(layer) for layer in self.layers]
+        models = list()
+        for layer in self.layers:
+            model = models_from_name(layer)
+            if model is not None:
+                models.append(model)
         return models
 
     def getLayerListFromMap(self):
         model = get_bod_model(self.lang)
-        query = Session.query(model.idBod).filter(model.maps.ilike('%%%s%%' % self.mapName))
-        return [idBod for idBod in query]
+        query = Session.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
+        return [q.idBod for q in query]
 
     # Validation methods section
     def validateGeometry(self):

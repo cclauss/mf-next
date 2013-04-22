@@ -35,5 +35,6 @@
       <h1 id="title">Services</h1>
       <a href="rest/services/bafu/MapServer">Topic</a>  <br>
       <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&layers=all:ch.bafu.bundesinventare-bln">Identify</a> <br />
+      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&layers=all">Identify - get all the available models for a given map (topic)</a> <br />
   </body>
 </html>
