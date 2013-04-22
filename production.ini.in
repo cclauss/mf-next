@@ -6,6 +6,7 @@
 [app:main]
 use = egg:geoadmin
 app_version = ${app_version}
+available_languages = de fr it en rm
 
 pyramid.reload_templates = false
 pyramid.debug_authorization = false

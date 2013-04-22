@@ -3,12 +3,10 @@
 from pyramid.mako_templating import renderer_factory as mako_renderer_factory
 from pyramid.config import Configurator
 from pyramid.events import BeforeRender, NewRequest
-from geoadmin.subscribers import *
+from geoadmin.subscribers import add_localizer, add_renderer_globals
 from pyramid.renderers import JSON, JSONP
 
 from geoadmin.models import initialize_sql
-
-
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.

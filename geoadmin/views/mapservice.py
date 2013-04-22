@@ -5,7 +5,7 @@ import pyramid.httpexceptions as exc
 
 from geoadmin.models import Session, models_from_name
 from geoadmin.models.bod import get_bod_model, computeHeader
-from geoadmin.lib.helpers import check_even
+from geoadmin.lib.helpers import locale_negotiator, check_even
 
 import logging
 
@@ -15,7 +15,7 @@ class MapService(object):
         self.request = request
         self.mapName = request.matchdict.get('map') # The topic
         self.cbName = request.params.get('cb')
-        self.lang = request.params.get('lang') if request.params.get('lang') is not None else 'de'
+        self.lang = locale_negotiator(request)
         self.searchText = request.params.get('searchText')
 
     @view_config(route_name='mapservice', renderer='jsonp')    

@@ -10,12 +10,13 @@ def add_renderer_globals(event):
         event['localizer'] = request.localizer
         event['h'] = helpers
 
-
 tsf = TranslationStringFactory('geoadmin')
 
 def add_localizer(event):
     request = event.request
+    request._LOCALE_ = helpers.locale_negotiator(request)
     localizer = get_localizer(request)
+    request.lang = localizer.locale_name
     def auto_translate(string):
         return localizer.translate(tsf(string))
     request.localizer = localizer
