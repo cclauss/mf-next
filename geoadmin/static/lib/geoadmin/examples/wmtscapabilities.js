@@ -24,14 +24,14 @@ window.onload = function() {
     }
 
     extent = new ol.Extent(485869.5728, 76443.1884, 837076.5648, 299941.7864);
-    projection = new ol.Projection('urn:ogc:def:crs:EPSG:21781', ol.ProjectionUnits.METERS, extent);
+    projection = new ol.Projection('EPSG:21781', ol.ProjectionUnits.METERS, extent);
     ol.projection.addProjection(projection);
 
     parser = new ol.parser.ogc.WMTSCapabilities();
     url = 'http://wmts.geo.admin.ch/1.0.0/WMTSCapabilities.xml';
 
     goog.net.XhrIo.send(url, function(e) {
-        var xhr, xml, obj, serviceIdentification, serviceProvider, operationsMetadata, contactInfo, html;
+        var xhr, xml, obj, serviceIdentification, serviceProvider, contactInfo, html, layers;
 
         xhr = e.target;
         xml = xhr.getResponseXml();
@@ -39,12 +39,17 @@ window.onload = function() {
         obj = parser.read(xml);
         serviceIdentification = obj.serviceIdentification;
         serviceProvider = obj.serviceProvider;
-        operationsMetadata = obj.operationsMetadata;
         contactInfo = serviceProvider.serviceContact.contactInfo;
+        layers = obj.contents.layers;
 
         html = '<a>Title: ' + serviceIdentification.title + '</a><br>';
         html += '<a>Abstract: ' + serviceIdentification.abstract + '</a><br>';
+        html += '<a>Provider Name: ' + serviceProvider.providerName + '</a><br>';
         html += '<a>Provider Site: ' + serviceProvider.providerSite + '</a><br>';
+
+        for (var i = 0; i<layers.length; i+=1) {
+            html += '<a>' + layers[i].identifier + '</a><br>';
+        }
 
         document.getElementById('wmtscapabilities').innerHTML = html;
     });
