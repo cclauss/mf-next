@@ -15,7 +15,7 @@ files = [
     {pattern: 'lib/ol3/test/expect-0.2.0-ol3/expect.js'},
     {pattern: 'lib/ol3/test/sinon-1.6.0/sinon.js'},
     {pattern: 'lib/proj4js/proj4js-compressed.js'},
-    {pattern: 'lib/proj4js/EPSG21781.js'},
+    {pattern: 'lib/proj4js/defs/EPSG21781.js'},
     {pattern: 'build/geoadmin.js'},
     {pattern: 'lib/geoadmin/test/spec/ga/**/*.js'}
 ];
