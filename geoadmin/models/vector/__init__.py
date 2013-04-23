@@ -4,9 +4,12 @@ from sys import maxint
 from shapely.geometry.point import Point
 from shapely.geometry.linestring import LineString
 from shapely.geometry.polygon import Polygon
+from shapely.geometry import asShape
 from geoalchemy import WKBSpatialElement, functions
 
-__all__ = ['bafu']
+from geoalchemy import GeometryColumn, Geometry
+from papyrus.geo_interface import GeoInterface
+from geojson import Feature
 
 def getScale(imageDisplay, mapExtent):
     screen_width_px = imageDisplay[0] # in pixel
@@ -16,9 +19,47 @@ def getScale(imageDisplay, mapExtent):
     scale = map_width_m/screen_width_m
     return scale
     
-class Vector(object):
+
+class Vector(GeoInterface):
     __minscale__ = 0
     __maxscale__ = maxint
+    attributes = {}
+
+    @property
+    def srid(self):
+        return self.geometry_column().type.srid
+
+    @property
+    def geometry22(self):
+        return loads(binascii.hexlify(session.scalar(s.geom.wkb)))
+
+    @property
+    def __geo_interface__(self):
+        feature = self.__read__()
+        display_column = self.display_field()
+        shape = None
+        try: 
+           shape = asShape(feature.geometry)
+        except:
+            pass
+
+        
+
+        return Feature(
+            id=self.id, 
+            geometry=feature.geometry,
+            bbox= shape.bounds if shape else None,
+            properties=feature.properties,
+            # For ESRI
+            layerId = self.__esriId__,
+            layerBodId = self.__bodId__,
+            layerName =  "${%s}" % self.__bodId__,
+            featureId = self.id,
+            value = getattr(self, display_column) if display_column != '' else '',
+            displayFieldName = display_column,
+            geometryType = feature.type
+         
+            )
     
     def featureMetadata(self, returnGeometry, layerName):
         display_column = self.display_field().name

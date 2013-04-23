@@ -6,6 +6,11 @@ from pyramid.events import BeforeRender, NewRequest
 from geoadmin.subscribers import add_localizer, add_renderer_globals
 from pyramid.renderers import JSONP
 
+
+from papyrus.renderers import GeoJSON
+
+from geoadmin.renderers import EsriJSON
+
 from geoadmin.models import initialize_sql
 
 def main(global_config, **settings):
@@ -23,6 +28,8 @@ def main(global_config, **settings):
     config.add_renderer('.html', mako_renderer_factory)
     config.add_renderer('.js', mako_renderer_factory)
     config.add_renderer('jsonp', JSONP(param_name='cb', indent=4))
+    config.add_renderer('geojson', GeoJSON(jsonp_param_name='cb'))
+    config.add_renderer('esrijson', EsriJSON())
     initialize_sql(settings)
 
     # Static config

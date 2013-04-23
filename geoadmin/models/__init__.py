@@ -6,6 +6,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import Column, Text, Integer, Unicode
 
 from geoalchemy import Geometry
+from papyrus.geo_interface import GeoInterface
 
 dbs = ['bod','bafu','search','stopo']
 
@@ -15,7 +16,7 @@ bodmap = {}
 Session = scoped_session(sessionmaker())
 
 for db in dbs:
-    bases[db] = declarative_base()
+    bases[db] = declarative_base(cls=GeoInterface)
 
 def initialize_sql(settings):
     for db in dbs:

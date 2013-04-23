@@ -56,7 +56,17 @@ class MapService(object):
             return response.body
             
 
-    @view_config(route_name='identify', renderer='jsonp')
+    # order matters, last route is the default!
+    @view_config(route_name='identify', renderer='geojson', request_param='f=geojson')
+    def view_identify_geosjon(self):
+        return self.identify()
+
+
+    @view_config(route_name='identify', renderer='esrijson')
+    def view_identify_esrijson(self):
+        return self.identify()
+
+
     def identify(self):
         self.geometry = validateGeometry(self.request)
         self.geometryType = validateGeometryType(self.request)
@@ -67,8 +77,11 @@ class MapService(object):
         layers = self.request.params.get('layers','all')
         models = self.getModelsFromLayerName(layers)
         queries = list(self.buildQueries(models))
-        features = list(self.getFeaturesFromQueries(returnGeometry, queries))
-        return {'results': features}
+        for query in queries:
+            for feature in query:
+                #feature = feature.featureMetadata(returnGeometry)
+                features.append(feature.__geo_interface__)
+        return {'results': features} 
 
     @view_config(route_name='getfeature', renderer='jsonp')
     def getfeature(self):

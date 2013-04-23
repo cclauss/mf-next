@@ -50,5 +50,8 @@
       <a href="rest/services/bafu/MapServer/ch.bafu.bundesinventare-jagdbanngebiete/145/htmlpopup?lang=fr&cb=cb">Get Html Popup Ex 2 with callback</a> <br>
       <a href="rest/services/bafu/MapServer/ch.bafu.bundesinventare-bln/getlegend">Get Legend Ex 1</a> <br>
       <a href="rest/services/bafu/MapServer/ch.bafu.bundesinventare-jagdbanngebiete/getlegend?lang=fr&cb=cb">Get Legend Ex 2 with callback</a> <br>
+      <a href="rest/services/bafu/MapServer">Topic</a>  <br>
+      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=630000.5,200000,631000,201000.5&imageDisplay=500,600,96&layers=all:ch.bafu.bundesinventare-bln">Identify (default to esri geojson)</a> <br />
+      <a href="rest/services/bafu/MapServer/identify?f=geojson&geometryType=esriGeometryEnvelope&geometry=630000.5,200000,631000,201000.5&imageDisplay=500,600,96&layers=all:ch.bafu.bundesinventare-bln">Identify (requesting f=geosjon)</a> <br />
   </body>
 </html>
