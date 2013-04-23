@@ -1,6 +1,7 @@
 from geoadmin.models import  *
 from geoadmin.models.vector import Vector
 
+
 Base = bases['bafu']
 
 class BLN(Base, Vector):
@@ -12,7 +13,8 @@ class BLN(Base, Vector):
     __bodId__ = 'ch.bafu.bundesinventare-bln'
     __displayFieldName__ = 'bln_name'
     id = Column('gid', Integer, primary_key=True)
-    the_geom = Column(Geometry)
+    #the_geom = Column(Geometry)
+    the_geom = GeometryColumn(Geometry(dimension=2, srid=21781))
 
 register('ch.bafu.bundesinventare-bln', BLN)
 

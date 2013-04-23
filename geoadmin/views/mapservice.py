@@ -26,7 +26,7 @@ class MapService(object):
         results['layers'].append(layers)
         return results
 
-    @view_config(route_name='identify', renderer='jsonp')
+    @view_config(route_name='identify', renderer='geojson')
     def identify(self):
         self.validateGeometry()
         self.validateGeometryType()
@@ -38,7 +38,7 @@ class MapService(object):
         queries = list(self.buildQueries(models))
         for query in queries:
             for feature in query:
-                feature = feature.featureMetadata(returnGeometry)
+                #feature = feature.featureMetadata(returnGeometry)
                 features.append(feature)
         return {'results': features}
 

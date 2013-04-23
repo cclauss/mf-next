@@ -3,6 +3,8 @@ from shapely.geometry.linestring import LineString
 from shapely.geometry.polygon import Polygon
 from geoalchemy import WKBSpatialElement, functions
 
+from geoalchemy import GeometryColumn, Geometry
+
 __all__ = ['bafu']
 
 class Vector(object):
