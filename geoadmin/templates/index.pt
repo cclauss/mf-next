@@ -35,8 +35,9 @@
       <h1 id="title">Services</h1>
       <a href="rest/services/bafu/MapServer">Topic</a> <br>
       <a href="rest/services/bafu/MapServer?searchText=bern">Topic with fulltext search on the column "volltextsuche"</a> <br>
-      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&layers=all:ch.bafu.bundesinventare-bln">Identify</a> <br>
-      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&layers=all">Identify - get all the available models for a given map (topic)</a> <br>
-      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&layers=all:ch.bafu.bundesinventare-bln&searchText=pied">Identify with full text search on the column "displayField"</a> <br>
+      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all:ch.bafu.bundesinventare-bln">Identify</a> <br>
+      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all">Identify - get all the available models for a given map (topic)</a> <br>
+      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all:ch.bafu.bundesinventare-bln&searchText=pied">Identify with full text search on the column "displayField"</a> <br>
+      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all&cb=cb">Identify - example with callback</a> <br>
   </body>
 </html>

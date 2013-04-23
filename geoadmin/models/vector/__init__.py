@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from sys import maxint
 from shapely.geometry.point import Point
 from shapely.geometry.linestring import LineString
 from shapely.geometry.polygon import Polygon
@@ -7,7 +8,17 @@ from geoalchemy import WKBSpatialElement, functions
 
 __all__ = ['bafu']
 
+def getScale(imageDisplay, mapExtent):
+    screen_width_px = imageDisplay[0] # in pixel
+    map_width_m = abs(mapExtent[0] - mapExtent[2]) # in meters
+    screen_px_per_m = imageDisplay[2]*(1.0/0.0254) # on the screen
+    screen_width_m = screen_width_px/screen_px_per_m
+    scale = map_width_m/screen_width_m
+    return scale
+    
 class Vector(object):
+    __minscale__ = 0
+    __maxscale__ = maxint
     
     def featureMetadata(self, returnGeometry):
         display_column = self.display_field().name
@@ -54,8 +65,10 @@ class Vector(object):
         return cls.__table__.primary_key 
     
     @classmethod
-    def geom_filter(cls, scale, geometry, geometryType, tolerance=0):
+    def geom_filter(cls, geometry, geometryType, imageDisplay, mapExtent, tolerance):
         myFilter = None
+        tolerance = tolerance*0.0254
+        scale = getScale(imageDisplay, mapExtent)
         if scale is None or (scale >= cls.__minscale__ and scale <= cls.__maxscale__): 
             geom = esriRest2Shapely(geometry, geometryType)
             wkb_geometry = WKBSpatialElement(buffer(geom.wkb), 21781)
