@@ -23,7 +23,7 @@ class MapService(object):
         model = get_bod_model(self.lang)
         results = computeHeader(self.mapName)
         query = Session.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
-        query = query.filter(model.fullTextSearch.ilike('%%%s%%' % self.searchText)) if self.searchText is not None else query
+        query = self.fullTextSearch(query, model.fullTextSearch)
         layers = [layer.layerMetadata() for layer in query]
         results['layers'].append(layers)
         return results
@@ -44,11 +44,16 @@ class MapService(object):
                 features.append(feature)
         return {'results': features}
 
+    def fullTextSearch(self, query, orm_column):
+        query = query.filter(orm_column.ilike('%%%s%%' % self.searchText)) if self.searchText is not None else query
+        return query
+
     def buildQueries(self, models):
         for layer in models:
             for model in layer:
                 geom_filter = model.geom_filter(None, self.geometry, self.geometryType)
                 query = Session.query(model).filter(geom_filter)
+                query = self.fullTextSearch(query, model.display_field())
                 yield query
 
     def getModelsFromLayerName(self, layers):

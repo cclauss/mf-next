@@ -10,7 +10,7 @@ __all__ = ['bafu']
 class Vector(object):
     
     def featureMetadata(self, returnGeometry):
-        display_column = self.display_field()
+        display_column = self.display_field().name
         featureMeta = {
             "layerId" : self.__esriId__,
             "layerBodId": self.__bodId__,
@@ -43,7 +43,7 @@ class Vector(object):
 
     @classmethod
     def display_field(cls):
-        return cls.__displayFieldName__ if cls.__displayFieldName__ is not None else ''
+        return cls.__table__.columns[cls.__displayFieldName__] if cls.__displayFieldName__ is not None else ''
 
     @classmethod
     def geometry_column(cls):
