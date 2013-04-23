@@ -1,5 +1,6 @@
 from geoadmin.models import  *
 from geoadmin.models.vector import Vector
+from geoalchemy import GeometryColumn, Geometry
 
 
 Base = bases['bafu']
