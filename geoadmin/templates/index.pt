@@ -30,9 +30,9 @@
       <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/test/run_tests_debug.html'))}">Run Tests in Debug Mode</a> <br>
       <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/test/run_tests.html'))}">Run Tests in Release Mode</a> <br>
       <h1 id="title">Python translations</h1>
-      <a href="wsgi/testi18n/?lang=de">Default to de</a> <br>
-      <a href="wsgi/testi18n/?lang=en">En to en</a> <br>
-      <a href="wsgi/testi18n/?lang=toto">If not in available languages to de</a> <br>
+      <a href="testi18n?lang=de">Default to de</a> <br>
+      <a href="testi18n?lang=en">En to en</a> <br>
+      <a href="testi18n?lang=toto">If not in available languages to de</a> <br>
       <h1 id="title">Services</h1>
       <a href="checker_api">Check the availability of the api</a> <br>
       <a href="rest/services/bafu/MapServer">Topic</a> <br>
