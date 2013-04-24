@@ -3,7 +3,11 @@ from pyramid.config import Configurator
 from pyramid.events import BeforeRender, NewRequest
 from geoadmin.subscribers import *
 from pyramid.renderers import JSON, JSONP
+
+
 from papyrus.renderers import GeoJSON
+
+from geoadmin.renderers import EsriJSON
 
 from geoadmin.models import initialize_sql
 
@@ -26,6 +30,7 @@ def main(global_config, **settings):
     config.add_renderer('json', JSON(indent=4))
     config.add_renderer('jsonp', JSONP(param_name='cb', indent=4))
     config.add_renderer('geojson', GeoJSON(jsonp_param_name='cb'))
+    config.add_renderer('esrijson', EsriJSON())
     initialize_sql(settings)
 
     # Static config

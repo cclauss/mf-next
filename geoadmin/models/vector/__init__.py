@@ -4,9 +4,36 @@ from shapely.geometry.polygon import Polygon
 from geoalchemy import WKBSpatialElement, functions
 
 from geoalchemy import GeometryColumn, Geometry
+from papyrus.geo_interface import GeoInterface
 
 
-class Vector(object):
+class Vector(GeoInterface):
+    attributes = {}
+
+    @property
+    def srid(self):
+        return self.geometry_column().type.srid
+
+    @property
+    def geometry22(self):
+        return loads(binascii.hexlify(session.scalar(s.geom.wkb)))
+
+    @property
+    def __geo_interface__(self):
+        display_column = self.display_field()
+        feature = self.__read__()
+        feature.layerId = self.__esriId__
+        feature.layerBodId = self.__bodId__
+        feature.featureId = self.id
+        feature.displayFieldName = display_column
+        feature.value = getattr(self, display_column) if display_column != '' else '',
+
+
+        return feature
+
+    #    return Feature(id=self.id, geometry=self.geometry,
+    #        bbox=self.geometry.bounds,
+    #        properties=self.attributes)
     
     def featureMetadata(self, returnGeometry):
         display_column = self.display_field()

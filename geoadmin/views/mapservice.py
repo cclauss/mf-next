@@ -26,7 +26,17 @@ class MapService(object):
         results['layers'].append(layers)
         return results
 
+    # order matters, last route is the default!
+    @view_config(route_name='identify', renderer='geojson', request_param='f=geojson')
+    def view_identify_geosjon(self):
+        return self.identify()
+
+
     @view_config(route_name='identify', renderer='esrijson')
+    def view_identify_esrijson(self):
+        return self.identify()
+
+
     def identify(self):
         self.validateGeometry()
         self.validateGeometryType()
@@ -39,7 +49,7 @@ class MapService(object):
         for query in queries:
             for feature in query:
                 #feature = feature.featureMetadata(returnGeometry)
-                features.append(feature)
+                features.append(feature.__geo_interface__)
         return {'results': features}
 
     def buildQueries(self, models):
