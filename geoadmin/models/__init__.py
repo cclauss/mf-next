@@ -11,17 +11,19 @@ dbs = ['bod','bafu','search','stopo']
 
 engines = {}
 bases = {}
+sessions = {}
 bodmap = {}
-
-Session = scoped_session(sessionmaker())
 
 for db in dbs:
     bases[db] = declarative_base()
 
 def initialize_sql(settings):
     for db in dbs:
+        Session = scoped_session(sessionmaker())
         engine = engine_from_config(settings, 'sqlalchemy.%s.' % db, pool_reset_on_return=True, pool_recycle = 55)
         engines[db] = engine
+        session = Session(bind=engine)
+        sessions[db] = session
         bases[db].metadata.bind = engine
 
 def register(name, klass):

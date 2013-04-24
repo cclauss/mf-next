@@ -2,7 +2,7 @@
 
 from pyramid.view import view_config
 
-from geoadmin.models import Session, models_from_name
+from geoadmin.models import sessions, models_from_name
 from geoadmin.models.bod import get_bod_model, computeHeader
 from geoadmin.lib.helpers import locale_negotiator
 from geoadmin.lib.validation import (
@@ -26,6 +26,7 @@ class MapService(object):
     def index(self):
         model = get_bod_model(self.lang)
         results = computeHeader(self.mapName)
+        Session = sessions[model.__dbname__]
         query = Session.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
         query = self.fullTextSearch(query, model.fullTextSearch)
         layers = [layer.layerMetadata() for layer in query]
@@ -55,10 +56,21 @@ class MapService(object):
         idfeature = self.request.matchdict.get('idfeature')
         idlayer = self.request.matchdict.get('idlayer')
         model = validateLayerId(idlayer)[0]
+        Session = sessions[model.__dbname__]
         query = Session.query(model).filter(model.id==idfeature)
         for f in query:
             feature = f.featureMetadata(True, self.translate(f.__bodId__))
         return {'feature': feature}
+
+    @view_config(route_name='htmlpopup')
+    def htmlpopup(self):
+        idfeature = self.request.matchdict.get('idfeature')
+        idlayer = self.request.matchdict.get('idlayer')
+        model = validateLayerId(idlayer)[0]
+        Session = sessions[model.__dbname__]
+        query = Session.query(model).filter(model.id==idfeature)
+        from pyramid import mako_templating
+        from mako.template import Template
 
     def fullTextSearch(self, query, orm_column):
         query = query.filter(orm_column.ilike('%%%s%%' % self.searchText)) if self.searchText is not None else query
@@ -68,6 +80,7 @@ class MapService(object):
         for layer in models:
             for model in layer:
                 geom_filter = model.geom_filter(self.geometry, self.geometryType, self.imageDisplay, self.mapExtent, self.tolerance)
+                Session = sessions[model.__dbname__]
                 query = Session.query(model).filter(geom_filter)
                 query = self.fullTextSearch(query, model.display_field())
                 yield query
@@ -86,6 +99,7 @@ class MapService(object):
 
     def getLayerListFromMap(self):
         model = get_bod_model(self.lang)
+        Session = sessions[model.__dbname__]
         query = Session.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
         # only return layers which have a model
         layerList = list()

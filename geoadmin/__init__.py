@@ -38,6 +38,7 @@ def main(global_config, **settings):
     config.add_route('mapservice', '/rest/services/{map}/MapServer')
     config.add_route('identify', '/rest/services/{map}/MapServer/identify')
     config.add_route('getfeature', '/rest/services/{map}/MapServer/{idlayer}/{idfeature}')
+    config.add_route('htmlpopup', '/rest/services/{map}/MapServer/{idlayer}/{idfeature}/htmlpopup')
 
     # Checker section
     config.add_route('checker_api', '/checker_api')

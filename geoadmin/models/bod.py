@@ -10,6 +10,7 @@ from geoadmin.models import bases
 Base = bases['bod']
 
 class Bod(object):
+    __dbname__ = 'bod'
     id = 0 # Temporary until a fixed integer is defined for each layer
     idBod = Column('bod_layer_id', Text, primary_key=True)
     idGeoCat = Column('geocat_uuid', Text)
