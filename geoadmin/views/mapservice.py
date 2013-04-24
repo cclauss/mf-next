@@ -26,7 +26,7 @@ class MapService(object):
         results['layers'].append(layers)
         return results
 
-    @view_config(route_name='identify', renderer='geojson')
+    @view_config(route_name='identify', renderer='esrijson')
     def identify(self):
         self.validateGeometry()
         self.validateGeometryType()
