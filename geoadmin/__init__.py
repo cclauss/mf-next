@@ -4,7 +4,7 @@ from pyramid.mako_templating import renderer_factory as mako_renderer_factory
 from pyramid.config import Configurator
 from pyramid.events import BeforeRender, NewRequest
 from geoadmin.subscribers import add_localizer, add_renderer_globals
-from pyramid.renderers import JSON, JSONP
+from pyramid.renderers import JSONP
 
 from geoadmin.models import initialize_sql
 
@@ -22,7 +22,6 @@ def main(global_config, **settings):
 
     config.add_renderer('.html', mako_renderer_factory)
     config.add_renderer('.js', mako_renderer_factory)
-    config.add_renderer('json', JSON(indent=4))
     config.add_renderer('jsonp', JSONP(param_name='cb', indent=4))
     initialize_sql(settings)
 
@@ -36,6 +35,7 @@ def main(global_config, **settings):
     # Application specific
     config.add_route('mapservice', '/rest/services/{map}/MapServer')
     config.add_route('identify', '/rest/services/{map}/MapServer/identify')
+    config.add_route('getfeature', '/rest/services/{map}/MapServer/{idlayer}/{idfeature}')
 
     config.scan(ignore='geoadmin.tests') # required to find code decorated by view_config
     return config.make_wsgi_app()

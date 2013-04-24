@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pyramid.httpexceptions as exc
+from geoadmin.models import models_from_name
 from geoadmin.lib.helpers import check_even
 
 def validateGeometry(request):
@@ -60,3 +61,9 @@ def validateTolerance(request):
     except ValueError:
         raise exc.HTTPBadRequest('Please provide an integer value for the pixel tolerance')
     return tolerance
+
+def validateLayerId(idlayer):
+    models = models_from_name(idlayer)
+    if models is None:
+        raise exc.HTTPBadRequest('Please provide a valid layer Id (what you provided: %s)' %idlayer)
+    return models

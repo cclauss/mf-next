@@ -35,9 +35,11 @@
       <h1 id="title">Services</h1>
       <a href="rest/services/bafu/MapServer">Topic</a> <br>
       <a href="rest/services/bafu/MapServer?searchText=bern">Topic with fulltext search on the column "volltextsuche"</a> <br>
-      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all:ch.bafu.bundesinventare-bln">Identify</a> <br>
+      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all:ch.bafu.bundesinventare-bln">Identify using an envelope (bbox)</a> <br>
+      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryPoint&geometry=653246,173129&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=5&layers=all:ch.bafu.bundesinventare-bln">Identify using a point and a tolerance of 5 pixels</a> <br>
       <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all">Identify - get all the available models for a given map (topic)</a> <br>
       <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all:ch.bafu.bundesinventare-bln&searchText=pied">Identify with full text search on the column "displayField"</a> <br>
       <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all&cb=cb">Identify - example with callback</a> <br>
+      <a href="rest/services/bafu/MapServer/ch.bafu.bundesinventare-bln/362">Get Feature with id 362</a> <br>
   </body>
 </html>

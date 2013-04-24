@@ -20,12 +20,12 @@ class Vector(object):
     __minscale__ = 0
     __maxscale__ = maxint
     
-    def featureMetadata(self, returnGeometry):
+    def featureMetadata(self, returnGeometry, layerName):
         display_column = self.display_field().name
         featureMeta = {
             "layerId" : self.__esriId__,
             "layerBodId": self.__bodId__,
-            "layerName" : "",
+            "layerName" : layerName,
             "featureId": self.id,
             "value": getattr(self, display_column) if display_column != '' else '',
             "displayFieldName" : display_column,

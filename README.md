@@ -20,6 +20,10 @@ Make sure that all submodules are up to date:
     cd mf-next
     git submodule update --init
 
+Make sure PGUSER is set in your .baschrc (in order to run nosetests)
+
+    export PGUSER=${user} // replace ${user} with the approriate value
+
 Bootstrap your build environment:
 
     python bootstrap.py --version 1.5.2 --distribute --download-base http://pypi.camptocamp.net/distribute-0.6.22_fix-issue-227/ --setup-source http://pypi.camptocamp.net/distribute-0.6.22_fix-issue-227/distribute_setup.py

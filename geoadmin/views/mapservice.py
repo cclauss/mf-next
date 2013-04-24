@@ -7,7 +7,8 @@ from geoadmin.models.bod import get_bod_model, computeHeader
 from geoadmin.lib.helpers import locale_negotiator
 from geoadmin.lib.validation import (
     validateGeometry, validateGeometryType, 
-    validateImageDisplay, validateMapExtent, validateTolerance)
+    validateImageDisplay, validateMapExtent,
+    validateTolerance, validateLayerId)
 
 import logging
 
@@ -19,6 +20,7 @@ class MapService(object):
         self.cbName = request.params.get('cb')
         self.lang = locale_negotiator(request)
         self.searchText = request.params.get('searchText')
+        self.translate = request.translate
 
     @view_config(route_name='mapservice', renderer='jsonp')    
     def index(self):
@@ -44,9 +46,19 @@ class MapService(object):
         queries = list(self.buildQueries(models))
         for query in queries:
             for feature in query:
-                feature = feature.featureMetadata(returnGeometry)
+                feature = feature.featureMetadata(returnGeometry, self.translate(feature.__bodId__))
                 features.append(feature)
         return {'results': features}
+
+    @view_config(route_name='getfeature', renderer='jsonp')
+    def getfeature(self):
+        idfeature = self.request.matchdict.get('idfeature')
+        idlayer = self.request.matchdict.get('idlayer')
+        model = validateLayerId(idlayer)[0]
+        query = Session.query(model).filter(model.id==idfeature)
+        for f in query:
+            feature = f.featureMetadata(True, self.translate(f.__bodId__))
+        return {'feature': feature}
 
     def fullTextSearch(self, query, orm_column):
         query = query.filter(orm_column.ilike('%%%s%%' % self.searchText)) if self.searchText is not None else query
@@ -67,7 +79,7 @@ class MapService(object):
             self.layers = layers.split(':')[1].split(',')
         models = list()
         for layer in self.layers:
-            model = models_from_name(layer)
+            model = validateLayerId(layer)
             if model is not None:
                 models.append(model)
         return models
@@ -75,4 +87,9 @@ class MapService(object):
     def getLayerListFromMap(self):
         model = get_bod_model(self.lang)
         query = Session.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
-        return [q.idBod for q in query]
+        # only return layers which have a model
+        layerList = list()
+        for q in query:
+            if models_from_name(q.idBod) is not None:
+                layerList.append(q.idBod)
+        return layerList

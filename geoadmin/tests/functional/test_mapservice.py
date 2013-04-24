@@ -64,3 +64,7 @@ class TestMapServiceView(TestsBase):
         resp = self.testapp.get('/rest/services/bafu/MapServer/identify', params=params, status=200)
         self.failUnless(resp.content_type == 'application/json')
         self.failUnless(len(resp.json) == 1)
+
+    def test_getfeature_wrong_idlayer(self):
+        resp = self.testapp.get('/rest/services/bafu/MapServer/toto/362', status=400)
+        resp.mustcontain('Please provide a valid layer Id')
