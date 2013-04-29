@@ -5,10 +5,7 @@ from geoadmin.models.vector import Vector
 
 Base = bases['bafu']
 
-class Bafu(Vector):
-    __dbname__ = 'bafu'
-
-class BLN(Base, Bafu):
+class BLN(Base, Vector):
     # view in a schema
     __tablename__ = 'bln'
     __table_args__ = ({'schema': 'bundinv', 'autoload': True})
@@ -22,7 +19,7 @@ class BLN(Base, Bafu):
 
 register('ch.bafu.bundesinventare-bln', BLN)
 
-class JB(Base, Bafu):
+class JB(Base, Vector):
     # view in a schema
     __tablename__ = 'jb'
     __table_args__ = ({'schema': 'bundinv', 'autoload': True})
