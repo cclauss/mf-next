@@ -28,6 +28,11 @@ class Checker(object):
     def make_response(self, msg):
         return Response(body=msg, status_int=self.status_int)
 
+    @view_config(route_name='checker_home')
+    def home(self):
+        _url = self.request.route_url('home')
+        return self.make_response(self.testurl(_url))
+
     @view_config(route_name='checker_api')
     def api_js(self):
         _url = self.request.route_url('api')

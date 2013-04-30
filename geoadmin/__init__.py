@@ -41,6 +41,7 @@ def main(global_config, **settings):
     config.add_route('htmlpopup', '/rest/services/{map}/MapServer/{idlayer}/{idfeature}/htmlpopup')
 
     # Checker section
+    config.add_route('checker_home', '/checker_home')
     config.add_route('checker_api', '/checker_api')
 
     config.scan(ignore='geoadmin.tests') # required to find code decorated by view_config

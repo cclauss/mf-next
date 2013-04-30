@@ -36,7 +36,8 @@
       <a href="testi18n?lang=toto">If not in available languages to de</a> <br>
       <h1 id="title">Services</h1>
       <a href="checker_api">Check the availability of the api</a> <br>
-      <a href="rest/services/bafu/MapServer">Topic</a> <br>
+      <a href="checker_home">Checker for home</a> <br>
+      <a href="rest/services/bafu/MapServer">Topic (bafu)</a> <br>
       <a href="rest/services/bafu/MapServer?searchText=bern">Topic with fulltext search on the column "volltextsuche"</a> <br>
       <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all:ch.bafu.bundesinventare-bln">Identify using an envelope (bbox)</a> <br>
       <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryPoint&geometry=653246,173129&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=5&layers=all:ch.bafu.bundesinventare-bln">Identify using a point and a tolerance of 5 pixels</a> <br>
