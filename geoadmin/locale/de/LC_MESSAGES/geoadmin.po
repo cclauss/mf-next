@@ -23,3 +23,18 @@ msgstr "BLN"
 msgid "ch.bafu.bundesinventare-jagdbanngebiete"
 msgstr "Jagdbanngebiete"
 
+msgid "flaeche_ha"
+msgstr "Fläche [ha]"
+
+msgid "gesamtflaeche_ha"
+msgstr "Gesamtfläche [ha]"
+
+msgid "kategorie"
+msgstr "Kategorie"
+
+msgid "objektname"
+msgstr "Objektname"
+
+msgid "objektnr"
+msgstr "Objektnr."
+

@@ -52,8 +52,20 @@ class MapService(object):
 
     @view_config(route_name='getfeature', renderer='jsonp')
     def getfeature(self):
+        feature, template = self.getFeature()
+        return feature
+
+    @view_config(route_name='htmlpopup')
+    def htmlpopup(self):
+        from pyramid.renderers import render_to_response
+        feature, template = self.getFeature()
+        return render_to_response('geoadmin:' + template,
+                                    feature,
+                                    request = self.request)
+
+    def getFeature(self):
         idfeature = self.request.matchdict.get('idfeature')
-        idlayer = self.request.matchdict.get('idlayer')
+        idlayer = self.request.matchdict.get('idlayer') 
         model = validateLayerId(idlayer)[0]
         session = Session()
         query = session.query(model).filter(model.id==idfeature)
@@ -62,17 +74,9 @@ class MapService(object):
                 _feature in query
         ]
         session.close()
-        return {'feature': feature.pop()}
-
-    @view_config(route_name='htmlpopup')
-    def htmlpopup(self):
-        idfeature = self.request.matchdict.get('idfeature')
-        idlayer = self.request.matchdict.get('idlayer')
-        model = validateLayerId(idlayer)[0]
-        session = Session()
-        query = session.query(model).filter(model.id==idfeature)
-        from pyramid import mako_templating
-        from mako.template import Template
+        feature = {'feature': feature.pop()} if len(feature) > 0 else {'feature': []}
+        template = model.__template__
+        return feature, template
 
     def fullTextSearch(self, query, orm_column):
         query = query.filter(
@@ -86,12 +90,13 @@ class MapService(object):
                 yield feature.featureMetadata(
                         returnGeometry,
                         self.translate(feature.__bodId__)
-                      ) 
+                      )
+            query.session.close() 
 
     def buildQueries(self, models):
-        session = Session()
         for layer in models:
             for model in layer:
+                session = Session()
                 geom_filter = model.geom_filter(
                     self.geometry,
                     self.geometryType,
@@ -102,7 +107,6 @@ class MapService(object):
                 query = session.query(model).filter(geom_filter)
                 query = self.fullTextSearch(query, model.display_field())
                 yield query
-        session.close()
 
     def getModelsFromLayerName(self, layers_param):
         ''' As a layer can possess multiple models,

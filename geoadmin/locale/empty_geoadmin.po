@@ -5,3 +5,18 @@ msgstr ""
 
 msgid "ch.bafu.bundesinventare-jagdbanngebiete"
 msgstr ""
+
+msgid "objektname"
+msgstr ""
+
+msgid "objektnr"
+msgstr ""
+
+msgid "flaeche_ha"
+msgstr ""
+
+msgid "kategorie"
+msgstr ""
+
+msgid "gesamtflaeche_ha"
+msgstr ""

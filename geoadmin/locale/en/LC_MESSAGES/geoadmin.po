@@ -23,3 +23,18 @@ msgstr "ILNM"
 msgid "ch.bafu.bundesinventare-jagdbanngebiete"
 msgstr "Swiss game reserves"
 
+msgid "flaeche_ha"
+msgstr "Area [ha]"
+
+msgid "gesamtflaeche_ha"
+msgstr "Total area [ha]"
+
+msgid "kategorie"
+msgstr "Category"
+
+msgid "objektname"
+msgstr "Object name"
+
+msgid "objektnr"
+msgstr "Object Nr."
+

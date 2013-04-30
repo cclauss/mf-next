@@ -23,3 +23,18 @@ msgstr "IFP"
 msgid "ch.bafu.bundesinventare-jagdbanngebiete"
 msgstr "Districts francs"
 
+msgid "flaeche_ha"
+msgstr "Surface [ha]"
+
+msgid "gesamtflaeche_ha"
+msgstr "Surface totale [ha]"
+
+msgid "kategorie"
+msgstr "Catégorie"
+
+msgid "objektname"
+msgstr "Nom de l'objet"
+
+msgid "objektnr"
+msgstr "Numéro de l'objet"
+

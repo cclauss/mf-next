@@ -23,3 +23,18 @@ msgstr "Inventari IFC"
 msgid "ch.bafu.bundesinventare-jagdbanngebiete"
 msgstr "Territoris scumandads de la chatscha"
 
+msgid "flaeche_ha"
+msgstr "Fläche [ha]"
+
+msgid "gesamtflaeche_ha"
+msgstr "Gesamtfläche [ha]"
+
+msgid "kategorie"
+msgstr "Categoria"
+
+msgid "objektname"
+msgstr "Objektname"
+
+msgid "objektnr"
+msgstr "Objektnr."
+
