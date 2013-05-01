@@ -35,6 +35,7 @@ def main(global_config, **settings):
     config.add_view(route_name='api', renderer='geoadmin:templates/loader.js', http_cache=0)
 
     # Application specific
+    config.add_route('ogcproxy', '/ogcproxy')
     config.add_route('mapservice', '/rest/services/{map}/MapServer')
     config.add_route('identify', '/rest/services/{map}/MapServer/identify')
     config.add_route('getfeature', '/rest/services/{map}/MapServer/{idlayer}/{idfeature}')
