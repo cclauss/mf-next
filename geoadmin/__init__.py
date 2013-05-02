@@ -26,6 +26,7 @@ def main(global_config, **settings):
     initialize_sql(settings)
 
     # Static config
+    config.add_static_view('static', 'geoadmin:static')
     config.add_route('home', '/')
     config.add_route('testi18n', '/testi18n')
     config.add_route('api', '/loader.js')
