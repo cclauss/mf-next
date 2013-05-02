@@ -8,6 +8,6 @@ class TestsBase(TestCase):
         from paste.deploy import loadapp
         import os
         current = os.path.dirname( __file__ )
-        app = loadapp('config:' + current.replace('geoadmin/tests/functional', 'development.ini'))
+        app = loadapp('config:' + current.replace('geoadmin/tests/integration', 'development.ini'))
         from webtest import TestApp
         self.testapp = TestApp(app)

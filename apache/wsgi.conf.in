@@ -25,6 +25,7 @@ WSGIPassAuthorization On
 
 # Static files with aggressive cache:
 RewriteRule ^/${vars:instanceid}/wsgi/[0-9a-fA-F]*/(static)/(.*)$  ${buildout:directory/geoadmin/$1/$2}
+RewriteRule ^/${vars:instanceid}/wsgi/(static)/(.*)$  ${buildout:directory/geoadmin/$1/$2}
 <LocationMatch "/${vars:instanceid}/wsgi/[0-9a-fA-F]*/(static)/">
     ExpiresDefault "now plus 1 year"
     Header merge Cache-Control "public"
@@ -49,4 +50,4 @@ WSGIScriptAlias /${vars:instanceid}/wsgi ${buildout:directory/buildout/parts/mod
     WSGIApplicationGroup %{GLOBAL}
 </Location>
 
-RewriteRule ^${vars:apache-entry-point}(rest/services|ogcproxy|testi18n|loader.js|checker_home|checker_api)(.*)$ /${vars:instanceid}/wsgi/$1$2 [PT]
+RewriteRule ^${vars:apache-entry-point}(rest/services|ogcproxy|testi18n|loader.js|checker_home|checker_api|static)(.*)$ /${vars:instanceid}/wsgi/$1$2 [PT]

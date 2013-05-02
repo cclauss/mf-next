@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from geoadmin.tests.functional import TestsBase
+from geoadmin.tests.integration import TestsBase
 from pyramid import testing
 
 class TestMapServiceView(TestsBase):
