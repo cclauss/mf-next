@@ -17,6 +17,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.5\n"
 
+msgid "Datenbezug"
+msgstr "Distribution des données"
+
+msgid "Datenstand"
+msgstr "État d'actualité"
+
+msgid "Gueltiger Massstabsbereich"
+msgstr "Plage de validité des données"
+
+msgid "Information"
+msgstr "Informations"
+
+msgid "Legend"
+msgstr "Légende"
+
+msgid "Metadaten"
+msgstr "Métadonnées"
+
+msgid "Thematisches Geoportal"
+msgstr "Géoportail thématique"
+
+msgid "WMS Dienst"
+msgstr "Service WMS"
+
 msgid "ch.bafu.bundesinventare-bln"
 msgstr "IFP"
 
@@ -26,15 +50,30 @@ msgstr "Districts francs"
 msgid "flaeche_ha"
 msgstr "Surface [ha]"
 
+msgid "geobasisdatensatz"
+msgstr "ID Géodonnées de base"
+
 msgid "gesamtflaeche_ha"
 msgstr "Surface totale [ha]"
 
 msgid "kategorie"
 msgstr "Catégorie"
 
+msgid "layer_geocat_text"
+msgstr "Lien vers geocat.ch"
+
+msgid "layer_url_download_text"
+msgstr "Lien vers la distribution des données"
+
+msgid "layer_url_portal_text"
+msgstr "Lien vers le portail"
+
 msgid "objektname"
 msgstr "Nom de l'objet"
 
 msgid "objektnr"
 msgstr "Numéro de l'objet"
+
+msgid "wms_resource_text"
+msgstr "Lien vers le wms"
 

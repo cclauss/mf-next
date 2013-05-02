@@ -17,6 +17,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.5\n"
 
+msgid "Datenbezug"
+msgstr "Distribuzione dei dati"
+
+msgid "Datenstand"
+msgstr "Stato d'attualità"
+
+msgid "Gueltiger Massstabsbereich"
+msgstr "Selezione della scala dei valori"
+
+msgid "Information"
+msgstr "Informazioni"
+
+msgid "Legend"
+msgstr "Legenda"
+
+msgid "Metadaten"
+msgstr "Metadati"
+
+msgid "Thematisches Geoportal"
+msgstr "Geoportale tematico"
+
+msgid "WMS Dienst"
+msgstr "Servizio WMS"
+
 msgid "ch.bafu.bundesinventare-bln"
 msgstr "IFP"
 
@@ -26,15 +50,30 @@ msgstr "Bandite federali di caccia"
 msgid "flaeche_ha"
 msgstr "Surface [ha]"
 
+msgid "geobasisdatensatz"
+msgstr "ID geodati di base"
+
 msgid "gesamtflaeche_ha"
 msgstr "Surface totale [ha]"
 
 msgid "kategorie"
 msgstr "Categoria"
 
+msgid "layer_geocat_text"
+msgstr "Link per geocat.ch"
+
+msgid "layer_url_download_text"
+msgstr "Link per le fonti dei dati"
+
+msgid "layer_url_portal_text"
+msgstr "Link per il portale"
+
 msgid "objektname"
 msgstr "Nom de l'objet"
 
 msgid "objektnr"
 msgstr "Numéro de l'objet"
+
+msgid "wms_resource_text"
+msgstr "Link verso WMS"
 

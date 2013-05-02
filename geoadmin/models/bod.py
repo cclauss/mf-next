@@ -33,6 +33,7 @@ class Bod(object):
     inspireAbstract = Column('inspire_abstract', Text)
     inspireName = Column('inspire_name', Text)
     bundCollectionNumber = Column('geobasisdatensatz_name', Text)
+    bundCollection = Column('fk_geobasisdaten_sammlung_bundesrecht', Text)
     scaleLimit = Column('scale_limit', Text)
 
     def layerMetadata(self):
@@ -63,6 +64,7 @@ class Bod(object):
                 'inspireAbstract': self.inspireAbstract,
                 'inspireName': self.inspireName,
                 'bundCollectionNumber': self.bundCollectionNumber,
+                'bundCollection': self.bundCollection,
                 'scaleLimit': self.scaleLimit
             }
         }

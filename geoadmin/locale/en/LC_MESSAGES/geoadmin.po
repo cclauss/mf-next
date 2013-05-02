@@ -17,6 +17,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.5\n"
 
+msgid "Datenbezug"
+msgstr "Order data"
+
+msgid "Datenstand"
+msgstr "Data status"
+
+msgid "Gueltiger Massstabsbereich"
+msgstr "Valid scale range"
+
+msgid "Information"
+msgstr "Information"
+
+msgid "Legend"
+msgstr "Legend"
+
+msgid "Metadaten"
+msgstr "Metadata"
+
+msgid "Thematisches Geoportal"
+msgstr "Thematic geoportal"
+
+msgid "WMS Dienst"
+msgstr "WMS service"
+
 msgid "ch.bafu.bundesinventare-bln"
 msgstr "ILNM"
 
@@ -26,15 +50,30 @@ msgstr "Swiss game reserves"
 msgid "flaeche_ha"
 msgstr "Area [ha]"
 
+msgid "geobasisdatensatz"
+msgstr "Basic geodata ID"
+
 msgid "gesamtflaeche_ha"
 msgstr "Total area [ha]"
 
 msgid "kategorie"
 msgstr "Category"
 
+msgid "layer_geocat_text"
+msgstr "Link to geocat.ch"
+
+msgid "layer_url_download_text"
+msgstr "Link for download"
+
+msgid "layer_url_portal_text"
+msgstr "Link to portal"
+
 msgid "objektname"
 msgstr "Object name"
 
 msgid "objektnr"
 msgstr "Object Nr."
+
+msgid "wms_resource_text"
+msgstr "Link to WMS"
 

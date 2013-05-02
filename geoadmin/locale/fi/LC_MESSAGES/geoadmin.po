@@ -17,6 +17,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.5\n"
 
+msgid "Datenbezug"
+msgstr "Retratga da datas"
+
+msgid "Datenstand"
+msgstr "Stadi da las datas"
+
+msgid "Gueltiger Massstabsbereich"
+msgstr "Sectur da scala valaivel"
+
+msgid "Information"
+msgstr "Infurmaziuns"
+
+msgid "Legend"
+msgstr "Legenda"
+
+msgid "Metadaten"
+msgstr "Metadatas"
+
+msgid "Thematisches Geoportal"
+msgstr "Geoportal tematic"
+
+msgid "WMS Dienst"
+msgstr "Servetsch da WMS"
+
 msgid "ch.bafu.bundesinventare-bln"
 msgstr "Inventari IFC"
 
@@ -26,15 +50,30 @@ msgstr "Territoris scumandads de la chatscha"
 msgid "flaeche_ha"
 msgstr "Fläche [ha]"
 
+msgid "geobasisdatensatz"
+msgstr "ID d'acta da geobasisdatas"
+
 msgid "gesamtflaeche_ha"
 msgstr "Gesamtfläche [ha]"
 
 msgid "kategorie"
 msgstr "Categoria"
 
+msgid "layer_geocat_text"
+msgstr "Link tar geocat.ch"
+
+msgid "layer_url_download_text"
+msgstr "Link per retrair datas"
+
+msgid "layer_url_portal_text"
+msgstr "Link tar il portal"
+
 msgid "objektname"
 msgstr "Objektname"
 
 msgid "objektnr"
 msgstr "Objektnr."
+
+msgid "wms_resource_text"
+msgstr "Link tar il WMS"
 
