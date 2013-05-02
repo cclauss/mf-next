@@ -36,6 +36,26 @@ class MapService(object):
         results['layers'].append(layers)
         return results
 
+    @view_config(route_name='getlegend', renderer='jsonp')
+    def getlegend(self):
+        from pyramid.renderers import render_to_response
+        idlayer = self.request.matchdict.get('idlayer')
+        model = get_bod_model(self.lang)
+        session = Session()
+        query = session.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
+        query = query.filter(model.idBod==idlayer)
+        for layer in query:
+            legend = {'layer': layer.layerMetadata()}
+        session.close()
+        response = render_to_response('geoadmin:templates/legend.mako',
+                                        legend,
+                                        request = self.request)
+        if self.cbName is None:
+            return response 
+        else:
+            return response.body
+            
+
     @view_config(route_name='identify', renderer='jsonp')
     def identify(self):
         self.geometry = validateGeometry(self.request)
@@ -55,13 +75,17 @@ class MapService(object):
         feature, template = self.getFeature()
         return feature
 
-    @view_config(route_name='htmlpopup')
+    @view_config(route_name='htmlpopup', renderer='jsonp')
     def htmlpopup(self):
         from pyramid.renderers import render_to_response
         feature, template = self.getFeature()
-        return render_to_response('geoadmin:' + template,
+        response = render_to_response('geoadmin:' + template,
                                     feature,
                                     request = self.request)
+        if self.cbName is None:
+            return response
+        else:
+            return response.body
 
     def getFeature(self):
         idfeature = self.request.matchdict.get('idfeature')
