@@ -19,9 +19,9 @@ goog.require('ga.model.layers');
 ga.MapDefs = {
     PROJECTION: ol.projection.configureProj4jsProjection({
         code: 'EPSG:21781',
-        extent: new ol.Extent(485869.5728, 76443.1884, 837076.5648, 299941.7864)
+        extent: [485869.5728, 837076.5648, 76443.1884, 299941.7864]
     }),
-    DEFAULT_LAYER_EXTENT: new ol.Extent(420000, 30000, 900000, 350000)
+    DEFAULT_LAYER_EXTENT: [420000, 900000, 30000, 350000]
 };
 
 /**

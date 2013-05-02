@@ -6,7 +6,6 @@ goog.require('goog.debug.Logger.Level');
 
 goog.require('goog.net.XhrIo');
 
-goog.require('ol.Extent');
 goog.require('ol.parser.ogc.WMTSCapabilities');
 
 window.onload = function() {
@@ -23,7 +22,7 @@ window.onload = function() {
         goog.debug.Logger.getLogger('ol').setLevel(goog.debug.Logger.Level.OFF);
     }
 
-    extent = new ol.Extent(485869.5728, 76443.1884, 837076.5648, 299941.7864);
+    extent = [485869.5728, 837076.5648, 76443.1884, 299941.7864];
     projection = new ol.Projection('EPSG:21781', ol.ProjectionUnits.METERS, extent);
     ol.projection.addProjection(projection);
 
