@@ -44,7 +44,23 @@ class Vector(GeoInterface):
             pass
 
         
+    @property
+    def srid(self):
+        return self.geometry_column().type.srid
 
+    @property
+    def geometry22(self):
+        return loads(binascii.hexlify(session.scalar(s.geom.wkb)))
+
+    @property
+    def __geo_interface__(self):
+        feature = self.__read__()
+        display_column = self.display_field().name
+        shape = None
+        try: 
+           shape = asShape(feature.geometry)
+        except:
+            pass
         return Feature(
             id=self.id, 
             geometry=feature.geometry,

@@ -7,6 +7,10 @@ from geoadmin.subscribers import add_localizer, add_renderer_globals
 from pyramid.renderers import JSONP
 
 
+from geoadmin.renderers import EsriJSON
+
+from geoadmin.models import initialize_sql
+
 from papyrus.renderers import GeoJSON
 
 from geoadmin.renderers import EsriJSON
