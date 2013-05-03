@@ -36,7 +36,7 @@ class Vector(GeoInterface):
     @property
     def __geo_interface__(self):
         feature = self.__read__()
-        display_column = self.display_field()
+        display_column = self.display_field().name
         shape = None
         try: 
            shape = asShape(feature.geometry)

@@ -74,6 +74,7 @@ class MapService(object):
         self.mapExtent = validateMapExtent(self.request)
         self.tolerance = validateTolerance(self.request)
         returnGeometry = self.request.params.get('returnGeometry')
+        features = list()
         layers = self.request.params.get('layers','all')
         models = self.getModelsFromLayerName(layers)
         queries = list(self.buildQueries(models))
