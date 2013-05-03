@@ -1,28 +1,4 @@
 
-
-
-"""
-This is the "example" module.
-
-The example module supplies one function, factorial().  For example,
-
->>> import geojson
->>> from esrigeojsonencoder import dumps, EsriGeoJSONEncoder
->>> feat = geojson.Feature(id=1, geometry=geojson.Point([2,3.40]), properties= {'name':'feature-1'})
-
-Output to standard GeoJSON string
-
->>> geojson.dumps(feat, sort_keys=True)  # doctest: +ELLIPSIS
-'{"geometry": {"coordinates": [2, 3.4], "type": "Point"}, "id": 1, "properties": {"name": "feature-1"}, "type": "Feature"}'
-
-Output to ESRI-style GeoJSON string
-
->>> dumps(feat, sort_keys=True)  # doctest: +ELLIPSIS
-'{"attributes": {"name": "feature-1"}, "geometry": {"spatialReference": {"wkid": 4326}, "type": "point", "x": 2, "y": 3.4}, "id": 1, "spatialReference": {"wkid": 4326}, "type": "Feature"}'
-
-
-"""
-
 import datetime
 import decimal
 
