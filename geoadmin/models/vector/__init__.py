@@ -1,10 +1,14 @@
 from shapely.geometry.point import Point
 from shapely.geometry.linestring import LineString
 from shapely.geometry.polygon import Polygon
+from shapely.geometry import asShape
 from geoalchemy import WKBSpatialElement, functions
 
 from geoalchemy import GeometryColumn, Geometry
 from papyrus.geo_interface import GeoInterface
+from geojson import Feature
+
+from geoadmin.subscribers import tsf as _
 
 
 class Vector(GeoInterface):
@@ -20,20 +24,38 @@ class Vector(GeoInterface):
 
     @property
     def __geo_interface__(self):
-        display_column = self.display_field()
         feature = self.__read__()
+        display_column = self.display_field()
+        shape = None
+        try: 
+           shape = asShape(feature.geometry)
+        except:
+            pass
+        '''
         feature.layerId = self.__esriId__
         feature.layerBodId = self.__bodId__
         feature.featureId = self.id
         feature.displayFieldName = display_column
-        feature.value = getattr(self, display_column) if display_column != '' else '',
+        feature.value = getattr(self, display_column) if display_column != '' else '','''
 
+        
+        #return feature
 
-        return feature
-
-    #    return Feature(id=self.id, geometry=self.geometry,
-    #        bbox=self.geometry.bounds,
-    #        properties=self.attributes)
+        return Feature(
+            id=self.id, 
+            geometry=feature.geometry,
+            bbox= shape.bounds if shape else None,
+            properties=feature.properties,
+            # For ESRI
+            layerId = self.__esriId__,
+            layerBodId = self.__bodId__,
+            layerName =  "${%s}" % self.__bodId__,
+            featureId = self.id,
+            value = getattr(self, display_column) if display_column != '' else '',
+            displayFieldName = display_column,
+            geometryType = feature.type
+         
+            )
     
     def featureMetadata(self, returnGeometry):
         display_column = self.display_field()

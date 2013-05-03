@@ -50,7 +50,7 @@ class MapService(object):
             for feature in query:
                 #feature = feature.featureMetadata(returnGeometry)
                 features.append(feature.__geo_interface__)
-        return {'results': features}
+        return {'results': features} 
 
     def buildQueries(self, models):
         for layer in models:
