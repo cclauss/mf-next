@@ -20,8 +20,8 @@ import sys
 
 class EsriGeoJSONEncoder(GeoJSONEncoder):
     
-    
-    srs = 4326
+ 
+    srs = 21781
     
     def _cleanup(self, ret):
             if 'coordinates' in ret.keys():

@@ -27,13 +27,14 @@ def main(global_config, **settings):
     # configure 'locale' dir as the translation dir for geoadmin app
     config.add_translation_dirs('geoadmin:locale/')
     config.add_subscriber(add_localizer, NewRequest)
+
     config.add_subscriber(add_renderer_globals, BeforeRender)
 
     config.add_renderer('.html', mako_renderer_factory)
     config.add_renderer('.js', mako_renderer_factory)
     config.add_renderer('jsonp', JSONP(param_name='cb', indent=4))
     config.add_renderer('geojson', GeoJSON(jsonp_param_name='cb'))
-    config.add_renderer('esrijson', EsriJSON())
+    config.add_renderer('esrijson', EsriJSON(jsonp_param_name='cb'))
     initialize_sql(settings)
 
     # Static config

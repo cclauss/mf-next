@@ -5,8 +5,9 @@ from geoadmin.esrigeojsonencoder import dumps as esri_dumps
 
 
 class EsriJSON(GeoJSON):
-    def __init__(self):
+    def __init__(self, jsonp_param_name='callback'):
         GeoJSON.__init__(self)
+        self.jsonp_param_name = jsonp_param_name
         
         
     def __call__(self, info):
