@@ -73,7 +73,7 @@ class MapService(object):
         self.imageDisplay = validateImageDisplay(self.request)
         self.mapExtent = validateMapExtent(self.request)
         self.tolerance = validateTolerance(self.request)
-        returnGeometry = self.request.params.get('returnGeometry')
+        self.returnGeometry = self.request.params.get('returnGeometry', True)
         features = list()
         layers = self.request.params.get('layers','all')
         models = self.getModelsFromLayerName(layers)
@@ -90,12 +90,14 @@ class MapService(object):
         return self.getfeature()
 
     def getfeature(self):
+        self.returnGeometry = self.request.params.get('returnGeometry', True)
         feature, template = self.getFeature()
         return feature
 
     @view_config(route_name='htmlpopup', renderer='jsonp')
     def htmlpopup(self):
         from pyramid.renderers import render_to_response
+        self.returnGeometry = False
         feature, template = self.getFeature()
         response = render_to_response('geoadmin:' + template,
                                     feature,
@@ -111,10 +113,10 @@ class MapService(object):
         model = validateLayerId(idlayer)[0]
         session = Session()
         query = session.query(model).filter(model.id==idfeature)
-        feature = [
-                _feature.__geo_interface__ for
-                _feature in query
-        ]
+        if self.returnGeometry:
+            feature = [f.__geo_interface__ for f in query]
+        else:
+            feature = [f.interface for f in query]
         session.close()
         feature = {'feature': feature.pop()} if len(feature) > 0 else {'feature': []}
         template = model.__template__

@@ -60,6 +60,19 @@ class Vector(GeoInterface):
             geometryType = feature.type
             )
 
+    @property
+    def interface(self):
+        display_column = self.display_field().name
+        return {
+            "layerId" : self.__esriId__, 
+            "layerBodId": self.__bodId__,
+            "layerName" : "",
+            "featureId": self.id,
+            "value": getattr(self, display_column) if display_column != '' else '',
+            "displayFieldName" : display_column,
+            "attributes": self.getAttributes(display_column)
+            }
+
     @classmethod
     def display_field(cls):
         return cls.__table__.columns[cls.__displayFieldName__] if cls.__displayFieldName__ is not None else ''
@@ -83,6 +96,22 @@ class Vector(GeoInterface):
             geom_column = cls.geometry_column()
             myFilter = functions.within_distance(geom_column, wkb_geometry, tolerance)
         return myFilter
+
+    def getAttributes(self, display_column):
+        attributes = dict()
+        fid_column = self.primary_key_column().name
+        geom_column = self.geometry_column().name
+        for column in self.__table__.columns:
+            columnName = str(column.key)
+            if columnName not in (fid_column, geom_column, display_column) and hasattr(self, columnName):
+                attribute = getattr(self, columnName)
+                if attribute.__class__.__name__ == 'Decimal':
+                    attributes[columnName] = attribute.__float__()
+                elif attribute.__class__.__name__ == 'datetime':
+                    attributes[columnName] = attribute.strftime("%d.%m.%Y")
+                else:
+                    attributes[columnName] = attribute 
+        return attributes
 
 def esriRest2Shapely(geometry, geometryType):
     if geometryType == 'esriGeometryPoint':
