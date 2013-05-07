@@ -2,6 +2,8 @@
 
 from geoadmin.models import  *
 from geoadmin.models.vector import Vector
+from geoalchemy import GeometryColumn, Geometry
+
 
 Base = bases['bafu']
 
@@ -15,7 +17,8 @@ class BLN(Base, Vector):
     __displayFieldName__ = 'bln_name'
     __template__ = 'templates/htmlpopup/bln.mako'
     id = Column('gid', Integer, primary_key=True)
-    the_geom = Column(Geometry)
+    #the_geom = Column(Geometry)
+    the_geom = GeometryColumn(Geometry(dimension=2, srid=21781))
 
 register('ch.bafu.bundesinventare-bln', BLN)
 
