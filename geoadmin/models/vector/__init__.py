@@ -12,11 +12,13 @@ from papyrus.geo_interface import GeoInterface
 from geojson import Feature
 
 def getScale(imageDisplay, mapExtent):
-    screen_width_px = imageDisplay[0] # in pixel
-    map_width_m = abs(mapExtent[0] - mapExtent[2]) # in meters
-    screen_px_per_m = imageDisplay[2]*(1.0/0.0254) # on the screen
-    screen_width_m = screen_width_px/screen_px_per_m
-    scale = map_width_m/screen_width_m
+    inches_per_meter = 1.0/0.0254
+    dots_per_inch = imageDisplay[2]
+    pixel_width = imageDisplay[0]
+    meter_width = abs(mapExtent[0] - mapExtent[2])
+    inches_per_pixel = (meter_width*inches_per_meter)/pixel_width
+    resolution = meter_width/(pixel_width*dots_per_inch*inches_per_pixel)
+    scale = resolution*inches_per_meter*dots_per_inch
     return scale
     
 
@@ -44,10 +46,10 @@ class Vector(GeoInterface):
         except:
             pass
         return Feature(
-            id=self.id, 
-            geometry=feature.geometry,
-            bbox= shape.bounds if shape else None,
-            properties=feature.properties,
+            id = self.id, 
+            geometry = feature.geometry,
+            bbox = shape.bounds if shape else None,
+            properties = feature.properties,
             # For ESRI
             layerId = self.__esriId__,
             layerBodId = self.__bodId__,
@@ -57,22 +59,6 @@ class Vector(GeoInterface):
             displayFieldName = display_column,
             geometryType = feature.type
             )
-
-    def getAttributes(self, display_column):
-        attributes = dict()
-        fid_column = self.primary_key_column().name
-        geom_column = self.geometry_column().name
-        for column in self.__table__.columns:
-            columnName = str(column.key)
-            if columnName not in (fid_column, geom_column, display_column) and hasattr(self, columnName):
-                attribute = getattr(self, columnName)
-                if attribute.__class__.__name__ == 'Decimal':
-                    attributes[columnName] = attribute.__float__()
-                elif attribute.__class__.__name__ == 'datetime':
-                    attributes[columnName] = attribute.strftime("%d.%m.%Y")
-                else:
-                    attributes[columnName] = attribute
-        return attributes
 
     @classmethod
     def display_field(cls):
