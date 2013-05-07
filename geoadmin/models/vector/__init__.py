@@ -25,9 +25,6 @@ class Vector(GeoInterface):
     __maxscale__ = maxint
     attributes = {}
 
-
-
-        
     @property
     def srid(self):
         return self.geometry_column().type.srid
@@ -40,6 +37,7 @@ class Vector(GeoInterface):
     def __geo_interface__(self):
         feature = self.__read__()
         display_column = self.display_field().name
+        layername = ''
         shape = None
         try: 
            shape = asShape(feature.geometry)
@@ -53,29 +51,12 @@ class Vector(GeoInterface):
             # For ESRI
             layerId = self.__esriId__,
             layerBodId = self.__bodId__,
-            layerName =  "${%s}" % self.__bodId__,
+            layerName =  layername,
             featureId = self.id,
             value = getattr(self, display_column) if display_column != '' else '',
             displayFieldName = display_column,
             geometryType = feature.type
-         
             )
-    
-    def featureMetadata(self, returnGeometry, layerName):
-        display_column = self.display_field().name
-        featureMeta = {
-            "layerId" : self.__esriId__,
-            "layerBodId": self.__bodId__,
-            "layerName" : layerName,
-            "featureId": self.id,
-            "value": getattr(self, display_column) if display_column != '' else '',
-            "displayFieldName" : display_column,
-            "attributes": "",
-            "geometryType": "",
-            "geometry": ""
-            }
-        featureMeta["attributes"] = self.getAttributes(display_column)
-        return featureMeta
 
     def getAttributes(self, display_column):
         attributes = dict()

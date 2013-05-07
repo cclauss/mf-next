@@ -78,13 +78,17 @@ class MapService(object):
         layers = self.request.params.get('layers','all')
         models = self.getModelsFromLayerName(layers)
         queries = list(self.buildQueries(models))
-        for query in queries:
-            for feature in query:
-                #feature = feature.featureMetadata(returnGeometry)
-                features.append(feature.__geo_interface__)
+        features = list(self.getFeaturesFromQueries(queries))
         return {'results': features} 
 
-    @view_config(route_name='getfeature', renderer='jsonp')
+    @view_config(route_name='getfeature', renderer='geojson', request_param='f=geojson')
+    def view_getfeature_geojson(self):
+        return self.getfeature()
+
+    @view_config(route_name='getfeature', renderer='esrijson')
+    def view_getfeature_esrijson(self):
+        return self.getfeature()
+
     def getfeature(self):
         feature, template = self.getFeature()
         return feature
@@ -108,7 +112,7 @@ class MapService(object):
         session = Session()
         query = session.query(model).filter(model.id==idfeature)
         feature = [
-                _feature.featureMetadata(True, self.translate(_feature.__bodId__)) for
+                _feature.__geo_interface__ for
                 _feature in query
         ]
         session.close()
@@ -122,13 +126,10 @@ class MapService(object):
         ) if self.searchText is not None else query
         return query
 
-    def getFeaturesFromQueries(self, returnGeometry, queries):
+    def getFeaturesFromQueries(self, queries):
        for query in queries:
             for feature in query:
-                yield feature.featureMetadata(
-                        returnGeometry,
-                        self.translate(feature.__bodId__)
-                      )
+                yield feature.__geo_interface__
             query.session.close() 
 
     def buildQueries(self, models):
