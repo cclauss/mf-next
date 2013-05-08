@@ -34,6 +34,9 @@ sqlalchemy.evd.url = postgresql://${vars:dbhost}:${vars:dbport}/evd
 # Mako specific
 mako.directories = geoadmin:templates
 
+data_path = /var/local/cartoweb/
+geodata_staging = ${geodata_staging}
+
 ###
 # wsgi server configuration
 ###
