@@ -6,10 +6,6 @@ from geoadmin.models import Session, models_from_name
 from geoadmin.models.vector.swisssearch import SwissSearch
 from geoadmin.models.bod import get_bod_model, computeHeader
 from geoadmin.lib.helpers import locale_negotiator
-from geoadmin.lib.validation import (
-    validateGeometry, validateGeometryType, 
-    validateImageDisplay, validateMapExtent,
-    validateTolerance, validateLayerId)
 
 import pyramid.httpexceptions as exc
 
