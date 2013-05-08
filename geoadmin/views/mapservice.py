@@ -5,18 +5,16 @@ from pyramid.view import view_config
 from geoadmin.models import Session, models_from_name
 from geoadmin.models.bod import get_bod_model, computeHeader
 from geoadmin.lib.helpers import locale_negotiator
-from geoadmin.lib.validation import (
-    validateGeometry, validateGeometryType, 
-    validateImageDisplay, validateMapExtent,
-    validateTolerance, validateLayerId)
+from geoadmin.lib.validation import Validation, validateLayerId
 
 import logging
 logging.basicConfig()
 logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
-class MapService(object):
+class MapService(Validation):
 
     def __init__(self, request):
+        super(MapService, self).__init__()
         self.request = request
         self.mapName = request.matchdict.get('map') # The topic
         self.cbName = request.params.get('cb')
@@ -25,14 +23,13 @@ class MapService(object):
         self.translate = request.translate
 
     @view_config(route_name='mapservice', renderer='jsonp')    
-    def index(self):
+    def metadata(self):
         model = get_bod_model(self.lang)
         results = computeHeader(self.mapName)
-        session = Session()
-        query = session.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
+        query = Session.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
         query = self.fullTextSearch(query, model.fullTextSearch)
         layers = [layer.layerMetadata() for layer in query]
-        session.close()
+        query.session.close()
         results['layers'].append(layers)
         return results
 
@@ -41,12 +38,11 @@ class MapService(object):
         from pyramid.renderers import render_to_response
         idlayer = self.request.matchdict.get('idlayer')
         model = get_bod_model(self.lang)
-        session = Session()
-        query = session.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
+        query = Session.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
         query = query.filter(model.idBod==idlayer)
         for layer in query:
             legend = {'layer': layer.layerMetadata()}
-        session.close()
+        query.session.close()
         response = render_to_response('geoadmin:templates/legend.mako',
                                         legend,
                                         request = self.request)
@@ -54,34 +50,30 @@ class MapService(object):
             return response 
         else:
             return response.body
-            
 
     # order matters, last route is the default!
-    @view_config(route_name='identify', renderer='geojson', request_param='f=geojson')
+    @view_config(route_name='identify', renderer='geojson', request_param='geometryFormat=geojson')
     def view_identify_geosjon(self):
         return self.identify()
-
 
     @view_config(route_name='identify', renderer='esrijson')
     def view_identify_esrijson(self):
         return self.identify()
 
-
     def identify(self):
-        self.geometry = validateGeometry(self.request)
-        self.geometryType = validateGeometryType(self.request)
-        self.imageDisplay = validateImageDisplay(self.request)
-        self.mapExtent = validateMapExtent(self.request)
-        self.tolerance = validateTolerance(self.request)
+        self.geometry = self.request.params.get('geometry')
+        self.geometryType = self.request.params.get('geometryType')
+        self.imageDisplay = self.request.params.get('imageDisplay')
+        self.mapExtent = self.request.params.get('mapExtent')
+        self.tolerance = self.request.params.get('tolerance')
         self.returnGeometry = self.request.params.get('returnGeometry', True)
-        features = list()
         layers = self.request.params.get('layers','all')
         models = self.getModelsFromLayerName(layers)
         queries = list(self.buildQueries(models))
         features = list(self.getFeaturesFromQueries(queries))
         return {'results': features} 
 
-    @view_config(route_name='getfeature', renderer='geojson', request_param='f=geojson')
+    @view_config(route_name='getfeature', renderer='geojson', request_param='geometryFormat=geojson')
     def view_getfeature_geojson(self):
         return self.getfeature()
 
@@ -111,13 +103,12 @@ class MapService(object):
         idfeature = self.request.matchdict.get('idfeature')
         idlayer = self.request.matchdict.get('idlayer') 
         model = validateLayerId(idlayer)[0]
-        session = Session()
-        query = session.query(model).filter(model.id==idfeature)
+        query = Session.query(model).filter(model.id==idfeature)
         if self.returnGeometry:
             feature = [f.__geo_interface__ for f in query]
         else:
             feature = [f.interface for f in query]
-        session.close()
+        query.session.close()
         feature = {'feature': feature.pop()} if len(feature) > 0 else {'feature': []}
         template = model.__template__
         return feature, template
@@ -137,7 +128,6 @@ class MapService(object):
     def buildQueries(self, models):
         for layer in models:
             for model in layer:
-                session = Session()
                 geom_filter = model.geom_filter(
                     self.geometry,
                     self.geometryType,
@@ -145,14 +135,11 @@ class MapService(object):
                     self.mapExtent,
                     self.tolerance
                 )
-                query = session.query(model).filter(geom_filter)
+                query = Session.query(model).filter(geom_filter)
                 query = self.fullTextSearch(query, model.display_field())
                 yield query
 
     def getModelsFromLayerName(self, layers_param):
-        ''' As a layer can possess multiple models,
-        this function returns lists of models within 
-        a main list'''
         layers = self.getLayerListFromMap() if layers_param == 'all' else layers_param.split(':')[1].split(',')
         models = [
             validateLayerId(layer) for
@@ -163,7 +150,6 @@ class MapService(object):
 
     def getLayerListFromMap(self):
         model = get_bod_model(self.lang)
-        session = Session()
         query = Session.query(model).filter(
             model.maps.ilike('%%%s%%' % self.mapName)
         )
@@ -173,4 +159,5 @@ class MapService(object):
             q in query
             if models_from_name(q.idBod) is not None
         ]
+        query.session.close()
         return layerList
