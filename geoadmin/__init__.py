@@ -7,14 +7,10 @@ from geoadmin.subscribers import add_localizer, add_renderer_globals
 from pyramid.renderers import JSONP
 
 
-from geoadmin.renderers import EsriJSON
-
+from geoadmin.renderers import EsriJSON, CSVRenderer
 from geoadmin.models import initialize_sql
-
 from papyrus.renderers import GeoJSON
-
 from geoadmin.renderers import EsriJSON
-
 from geoadmin.models import initialize_sql
 
 def main(global_config, **settings):
@@ -39,6 +35,7 @@ def main(global_config, **settings):
     config.add_renderer('jsonp', JSONP(param_name='cb', indent=4))
     config.add_renderer('geojson', GeoJSON(jsonp_param_name='cb'))
     config.add_renderer('esrijson', EsriJSON(jsonp_param_name='cb'))
+    config.add_renderer('csv', CSVRenderer)
     initialize_sql(settings)
 
     # Static config
@@ -55,7 +52,8 @@ def main(global_config, **settings):
     config.add_route('getlegend', '/rest/services/{map}/MapServer/{idlayer}/getlegend')
     config.add_route('getfeature', '/rest/services/{map}/MapServer/{idlayer}/{idfeature}')
     config.add_route('htmlpopup', '/rest/services/{map}/MapServer/{idlayer}/{idfeature}/htmlpopup')
-    #config.add_route('profile', '/rest/services/profile')
+    config.add_route('profile_json', '/rest/services/profile.json')
+    config.add_route('profile_csv', '/rest/services/profile.csv')
     config.add_route('height', '/rest/services/height')
 
     # Checker section

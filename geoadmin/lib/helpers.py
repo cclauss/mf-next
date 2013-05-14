@@ -26,3 +26,7 @@ def check_even(number):
     if number%2==0:
         return True
     return False
+
+def round(val):
+    import math
+    return math.floor(val + 0.5)

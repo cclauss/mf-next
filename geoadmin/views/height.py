@@ -12,10 +12,10 @@ log = logging.getLogger(__name__)
 # cache of GeoRaster instances in function of the layer name
 _rasters = {}
 
-class HeightController(HeightValidation):
+class Height(HeightValidation):
 
     def __init__(self, request):
-        super(HeightController, self).__init__()
+        super(Height, self).__init__()
         if request.params.has_key('easting'):
             self.lon = request.params.get('easting')
         elif request.params.has_key('lon'):
@@ -32,7 +32,7 @@ class HeightController(HeightValidation):
             self.layers = ['DTM25']
         self.request = request
 
-    @view_config(route_name='height', renderer='jsonp')
+    @view_config(route_name='height', renderer='jsonp', http_cache=0)
     def height(self):
         rasters = [self._get_raster(layer) for layer in self.layers]
         alt = self._filter_alt(rasters[0].getVal(self.lon, self.lat))

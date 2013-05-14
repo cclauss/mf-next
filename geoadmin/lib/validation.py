@@ -143,7 +143,83 @@ class HeightValidation(object):
             for i in value:
                 if i not in ('DTM25', 'DTM2', 'COMB'):
                     raise exc.HTTPBadRequest("Please provide a valid name for the elevation model DTM25, DTM2 or COMB")
-        self._layers = value 
+        self._layers = value
+
+
+class ProfileValidation(object):
+    def __init__(self):
+        self._linestring = None
+        self._layers = None
+        self._nb_points = None
+        self._ma_offset = None
+
+    @property
+    def linestring(self):
+        return self._linestring
+
+    @property
+    def layers(self):
+        return self._layers
+
+    @property
+    def nb_points(self):
+        return self._nb_points
+
+    @property
+    def ma_offset(self):
+        return self._ma_offset
+
+    @linestring.setter
+    def linestring(self, value):
+        import geojson
+        from shapely.geometry import asShape
+        if value is None:
+            raise exc.HTTPBadRequest("Missing parameter geom")
+        try:
+            geom = geojson.loads(value, object_hook=geojson.GeoJSON.to_instance)
+        except:
+            raise exc.HTTPBadRequest("Error loading geometry in JSON string")
+        try:
+            value = asShape(geom)
+        except:
+            raise exc.HTTPBadRequest("Error converting JSON to Shape")
+        if value.length == 0:
+            raise exc.HTTPBadRequest("Linestring has a length of 0")
+        if not value.is_valid:
+            raise exc.HTTPBadRequest("Invalid Linestring syntax")
+        self._linestring = value
+
+    @layers.setter
+    def layers(self, value):
+        if value is None:
+            self._layers = ['DTM25']
+        else:
+            value = value.split(',')
+            for i in value:
+                if i not in ('DTM25', 'DTM2', 'COMB'):
+                     raise exc.HTTPBadRequest("Please provide a valid name for the elevation model DTM25, DTM2 or COMB")    
+            value.sort()
+            self._layers = value
+
+    @nb_points.setter
+    def nb_points(self, value):
+        if value is None:
+            self._nb_points = 200
+        else:
+            try:
+                self._nb_points = int(value)
+            except ValueError:
+                raise exc.HTTPBadRequest("Please provide a numerical value for the parameter 'NbPoints'/'nb_points'")
+
+    @ma_offset.setter
+    def ma_offset(self, value):
+        if value is None:
+            self._ma_offset = 3
+        else:
+            try:
+                self._ma_offset = int(value)
+            except ValueError:
+                raise exc.HTTPBadRequest("Please provide a numerical value for the parameter 'offset'")
 
 
 def validateLayerId(idlayer):
