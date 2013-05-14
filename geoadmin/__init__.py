@@ -24,6 +24,10 @@ def main(global_config, **settings):
     settings['app_version'] = app_version
     config = Configurator(settings=settings)
 
+    # ogcproxy
+    import papyrus_ogcproxy
+    config.include(papyrus_ogcproxy)
+
     # configure 'locale' dir as the translation dir for geoadmin app
     config.add_translation_dirs('geoadmin:locale/')
     config.add_subscriber(add_localizer, NewRequest)
@@ -46,12 +50,13 @@ def main(global_config, **settings):
     config.add_view(route_name='api', renderer='geoadmin:templates/loader.js', http_cache=0)
 
     # Application specific
-    config.add_route('ogcproxy', '/ogcproxy')
     config.add_route('mapservice', '/rest/services/{map}/MapServer')
     config.add_route('identify', '/rest/services/{map}/MapServer/identify')
     config.add_route('getlegend', '/rest/services/{map}/MapServer/{idlayer}/getlegend')
     config.add_route('getfeature', '/rest/services/{map}/MapServer/{idlayer}/{idfeature}')
     config.add_route('htmlpopup', '/rest/services/{map}/MapServer/{idlayer}/{idfeature}/htmlpopup')
+    #config.add_route('profile', '/rest/services/profile')
+    config.add_route('height', '/rest/services/height')
 
     # Checker section
     config.add_route('checker_home', '/checker_home')

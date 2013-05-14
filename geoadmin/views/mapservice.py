@@ -5,13 +5,13 @@ from pyramid.view import view_config
 from geoadmin.models import Session, models_from_name
 from geoadmin.models.bod import get_bod_model, computeHeader
 from geoadmin.lib.helpers import locale_negotiator
-from geoadmin.lib.validation import Validation, validateLayerId
+from geoadmin.lib.validation import MapServiceValidation, validateLayerId
 
 import logging
 logging.basicConfig()
 logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
-class MapService(Validation):
+class MapService(MapServiceValidation):
 
     def __init__(self, request):
         super(MapService, self).__init__()

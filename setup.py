@@ -24,6 +24,7 @@ requires = [
     'nose',
     'coverage',
     'PyYAML',
+    'papyrus_ogcproxy',
     ]
 
 setup(name='geoadmin',
