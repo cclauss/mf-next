@@ -17,43 +17,60 @@
   </head>
   <body>
       <h1 id="title">Examples</h1>
-      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/sample-debug.html'))}">Sample Debug</a> <br>
-      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/sample-app.html'))}">Sample App</a> <br>
-      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/map.html'))}">Map Ol3</a> <br>
-      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/api.html'))}">API</a> <br>
-      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/wmscapabilities.html'))}">WMS Capabilities of wms.geo.admin.ch</a> <br>
-      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/wmtscapabilities.html'))}">WMTS GetCapabilities</a> <br>
-      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/wmsbrowser.html'))}">WMS Browser</a> <br>
-      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/profile.html'))}">Profile Example</a> <br>
-      <a href="loader.js">Load the api with the css</a> <br>
-      <a href="loader.js?mode=debug">Load the api in debug mode</a> <br>
-      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/accordeon.html'))}">Accordeon Example</a> <br>
+          <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/sample-debug.html'))}">Sample Debug</a> <br>
+          <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/sample-app.html'))}">Sample App</a> <br>
+          <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/map.html'))}">Map Ol3</a> <br>
+          <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/api.html'))}">API</a> <br>
+          <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/wmscapabilities.html'))}">WMS Capabilities of wms.geo.admin.ch</a> <br>
+          <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/wmtscapabilities.html'))}">WMTS GetCapabilities</a> <br>
+          <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/wmsbrowser.html'))}">WMS Browser</a> <br>
+          <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/profile.html'))}">Profile Example</a> <br>
+          <a href="loader.js">Load the api with the css</a> <br>
+          <a href="loader.js?mode=debug">Load the api in debug mode</a> <br>
+          <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/examples/accordeon.html'))}">Accordeon Example</a> <br>
       <h1 id="title">Tests</h1>
-      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/test/run_tests_debug.html'))}">Run Tests in Debug Mode</a> <br>
-      <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/test/run_tests.html'))}">Run Tests in Release Mode</a> <br>
+          <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/test/run_tests_debug.html'))}">Run Tests in Debug Mode</a> <br>
+          <a href="${h.versioned(request.static_url('geoadmin:static/lib/geoadmin/test/run_tests.html'))}">Run Tests in Release Mode</a> <br>
       <h1 id="title">Python translations</h1>
-      <a href="testi18n?lang=de">Default to de</a> <br>
-      <a href="testi18n?lang=en">En to en</a> <br>
-      <a href="testi18n?lang=toto">If not in available languages to de</a> <br>
+          <a href="testi18n?lang=de">Default to de</a> <br>
+          <a href="testi18n?lang=en">En to en</a> <br>
+          <a href="testi18n?lang=toto">If not in available languages to de</a> <br>
       <h1 id="title">Services</h1>
-      <a href="checker_api">Check the availability of the api</a> <br>
-      <a href="checker_home">Checker for home</a> <br>
-      <a href="rest/services/bafu/MapServer">Topic (bafu)</a> <br>
-      <a href="rest/services/bafu/MapServer?searchText=bern">Topic with fulltext search on the column "volltextsuche"</a> <br>
-      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all:ch.bafu.bundesinventare-bln">Identify using an envelope (bbox)</a> <br>
-      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryPoint&geometry=653246,173129&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=5&layers=all:ch.bafu.bundesinventare-bln">Identify using a point and a tolerance of 5 pixels</a> <br>
-      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all">Identify - get all the available models for a given map (topic)</a> <br>
-      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all:ch.bafu.bundesinventare-bln&searchText=pied">Identify with full text search on the column "displayField"</a> <br>
-      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all&cb=cb">Identify - example with callback</a> <br>
-      <a href="rest/services/bafu/MapServer/ch.bafu.bundesinventare-bln/362">Get Feature with id 362</a> <br>
-      <a href="rest/services/bafu/MapServer/ch.bafu.bundesinventare-bln/362/htmlpopup">Get Html Popup Ex 1</a> <br>
-      <a href="rest/services/bafu/MapServer/ch.bafu.bundesinventare-jagdbanngebiete/145/htmlpopup?lang=fr&cb=cb">Get Html Popup Ex 2 with callback</a> <br>
-      <a href="rest/services/bafu/MapServer/ch.bafu.bundesinventare-bln/getlegend">Get Legend Ex 1</a> <br>
-      <a href="rest/services/bafu/MapServer/ch.bafu.bundesinventare-jagdbanngebiete/getlegend?lang=fr&cb=cb">Get Legend Ex 2 with callback</a> <br>
-      <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=630000.5,200000,631000,201000.5&imageDisplay=500,600,96&layers=all:ch.bafu.bundesinventare-bln&mapExtent=548945.5,147956,549402,148103.5&tolerance=1">Identify (default to esri geojson)</a> <br>
-      <a href="rest/services/bafu/MapServer/identify?geometryFormat=geojson&geometryType=esriGeometryEnvelope&geometry=630000.5,200000,631000,201000.5&imageDisplay=500,600,96&layers=all:ch.bafu.bundesinventare-bln&mapExtent=548945.5,147956,549402,148103.5&tolerance=1">Identify (requesting geometryFormat=geojson)</a> <br>
-      <a href="rest/services/height?easting=600000&northing=200000">Height example</a> <br>
-      <a href='rest/services/profile.json?geom={"type"%3A"LineString"%2C"coordinates"%3A[[550050%2C206550]%2C[556950%2C204150]%2C[561050%2C207950]]}&elevation_models=DTM25,DTM2'>Profile in json format</a> <br>
-      <a href='rest/services/profile.csv?geom={"type"%3A"LineString"%2C"coordinates"%3A[[550050%2C206550]%2C[556950%2C204150]%2C[561050%2C207950]]}&elevation_models=DTM25,DTM2'>Profile in csv format</a> <br>
+      <h2 id="checkers">Checkers</h2>
+          <a href="checker_api">Check the availability of the api</a> <br>
+          <a href="checker_home">Checker for home</a> <br>
+      <h2 id="mapservices">Map Services</h2>
+          <a href="rest/services/bafu/MapServer">Topic (bafu)</a> <br>
+          <a href="rest/services/bafu/MapServer?searchText=bern">Topic with fulltext search on the column "volltextsuche"</a> <br>
+          <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all:ch.bafu.bundesinventare-bln">Identify using an envelope (bbox)</a> <br>
+          <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryPoint&geometry=653246,173129&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=5&layers=all:ch.bafu.bundesinventare-bln">Identify using a point and a tolerance of 5 pixels</a> <br>
+          <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all">Identify - get all the available models for a given map (topic)</a> <br>
+          <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all:ch.bafu.bundesinventare-bln&searchText=pied">Identify with full text search on the column "displayField"</a> <br>
+          <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=548945.5,147956,549402,148103.5&imageDisplay=500,600,96&mapExtent=548945.5,147956,549402,148103.5&tolerance=1&layers=all&cb=cb">Identify - example with callback</a> <br>
+          <a href="rest/services/bafu/MapServer/ch.bafu.bundesinventare-bln/362">Get Feature with id 362</a> <br>
+          <a href="rest/services/bafu/MapServer/ch.bafu.bundesinventare-bln/362/htmlpopup">Get Html Popup Ex 1</a> <br>
+          <a href="rest/services/bafu/MapServer/ch.bafu.bundesinventare-jagdbanngebiete/145/htmlpopup?lang=fr&cb=cb">Get Html Popup Ex 2 with callback</a> <br>
+          <a href="rest/services/bafu/MapServer/ch.bafu.bundesinventare-bln/getlegend">Get Legend Ex 1</a> <br>
+          <a href="rest/services/bafu/MapServer/ch.bafu.bundesinventare-jagdbanngebiete/getlegend?lang=fr&cb=cb">Get Legend Ex 2 with callback</a> <br>
+          <a href="rest/services/bafu/MapServer/identify?geometryType=esriGeometryEnvelope&geometry=630000.5,200000,631000,201000.5&imageDisplay=500,600,96&layers=all:ch.bafu.bundesinventare-bln&mapExtent=548945.5,147956,549402,148103.5&tolerance=1">Identify (default to esri geojson)</a> <br>
+          <a href="rest/services/bafu/MapServer/identify?geometryFormat=geojson&geometryType=esriGeometryEnvelope&geometry=630000.5,200000,631000,201000.5&imageDisplay=500,600,96&layers=all:ch.bafu.bundesinventare-bln&mapExtent=548945.5,147956,549402,148103.5&tolerance=1">Identify (requesting geometryFormat=geojson)</a> <br>
+          <a href="rest/services/height?easting=600000&northing=200000">Height example</a> <br>
+          <a href='rest/services/profile.json?geom={"type"%3A"LineString"%2C"coordinates"%3A[[550050%2C206550]%2C[556950%2C204150]%2C[561050%2C207950]]}&elevation_models=DTM25,DTM2'>Profile in json format</a> <br>
+          <a href='rest/services/profile.csv?geom={"type"%3A"LineString"%2C"coordinates"%3A[[550050%2C206550]%2C[556950%2C204150]%2C[561050%2C207950]]}&elevation_models=DTM25,DTM2'>Profile in csv format</a> <br>
+      <h2 id="search">Geocoding</h2>
+          <a href="rest/services/GeocodeServer/findaddresscandidates?lang=fr&all=maisonnex"><strong>Toponomy ('all' means all services)</strong>: rest/services/GeocodeServer/findaddresscandidates?lang=fr&all=maisonnex</a> <br />
+          <a href="rest/services/GeocodeServer/findaddresscandidates?all=1290"><strong>Postcode:</strong> rest/services/GeocodeServer/findaddresscandidates?all=1290</a> <br />
+          <a href="rest/services/GeocodeServer/findaddresscandidates?all=dorfstr"><strong>Addresses:</strong> rest/services/GeocodeServer/findaddresscandidates?all=dorfstr</a> <br />
+          <a href="rest/services/GeocodeServer/findaddresscandidates?egid=867194"><strong>Addresses with EGID:</strong> rest/services/GeocodeServer/findaddresscandidates?egid=867194</a> <br />
+          <a href="rest/services/GeocodeServer/findaddresscandidates?cities=5514&all=saug"><strong>Addresses with city number (no need for bfsnr parameter. if number, bfsnr is asusmed) :</strong> rest/services/GeocodeServer/findaddresscandidates?cities=5514&all=saug</a> <br />
+          <a href="rest/services/GeocodeServer/findaddresscandidates?swissnames=Beau"><strong>Search only swissnames:</strong> rest/services/GeocodeServer/findaddresscandidates?swissnames=Beau</a> <br />
+          <a href="rest/services/GeocodeServer/findaddresscandidates?address=Beaulieustr"><strong>Search for address:</strong>rest/services/GeocodeServer/findaddresscandidates?address=Beaulieustr</a> <br />
+          <h3 id="todo geocoding">TODO geocoding</h3>
+              - correct formate to return (see specs) <br />
+              - handle cb parameter <br />
+              - bsfnr (in cities parameters) in combination with all parameter <br />
+              - correct geometry to return (geojson and esrigeojson) <br />
+              - layer search (if needed...) <br />
+              - filter results if multiple addressfields are provided (mix of swissnames, cities, address, etc etc) <br />
   </body>
 </html>

@@ -56,6 +56,9 @@ def main(global_config, **settings):
     config.add_route('profile_csv', '/rest/services/profile.csv')
     config.add_route('height', '/rest/services/height')
 
+    config.add_route('geocodeservice','/rest/services/GeocodeServer')
+    config.add_route('findaddresscandidates','/rest/services/GeocodeServer/findaddresscandidates')
+
     # Checker section
     config.add_route('checker_home', '/checker_home')
     config.add_route('checker_api', '/checker_api')
