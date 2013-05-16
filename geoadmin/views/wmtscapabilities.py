@@ -2,7 +2,6 @@
 
 from pyramid.view import view_config
 
-from geoadmin.models import Session
 from geoadmin.models.bod import get_wmts_models
 from geoadmin.lib.helpers import locale_negotiator
 
@@ -20,13 +19,10 @@ class WMTSCapabilites(object):
         scheme = self.request.headers.get('X-Forwarded-Proto', self.request.scheme)
         request_uri = self.request.environ.get("REQUEST_URI", "")
         onlineressource = "%s://wmts.geo.admin.ch" % scheme if request_uri.find("1.0.0") else "%s://api.geo.admin.ch/wmts" % scheme
-        cap = Session.query(self.models['GetCap']).filter(self.models['GetCap'].projekte.ilike('%%%s%%' % self.mapName)).all()
-        Session.close()
-        themes = Session.query(self.models['GetCapThemes']).all()
-        Session.close()
-        metadata = Session.query(self.models['ServiceMetadata']).\
+        cap = self.request.db.query(self.models['GetCap']).filter(self.models['GetCap'].projekte.ilike('%%%s%%' % self.mapName)).all()
+        themes = self.request.db.query(self.models['GetCapThemes']).all()
+        metadata = self.request.db.query(self.models['ServiceMetadata']).\
             filter(self.models['ServiceMetadata'].pk_map_name.like('%wmts-bgdi%')).first()
-        Session.close()
         wmts = {'layers': cap, 'themes': themes, 'metadata': metadata, 'scheme': scheme, 'onlineressource': onlineressource}
         response = render_to_response('geoadmin:templates/wmtscapabilities.mako', wmts, request = self.request)
         response.content_type = 'text/xml'

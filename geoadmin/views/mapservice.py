@@ -2,7 +2,7 @@
 
 from pyramid.view import view_config
 
-from geoadmin.models import Session, models_from_name
+from geoadmin.models import models_from_name
 from geoadmin.models.bod import get_bod_model, computeHeader
 from geoadmin.lib.helpers import locale_negotiator
 from geoadmin.lib.validation import MapServiceValidation, validateLayerId
@@ -26,10 +26,9 @@ class MapService(MapServiceValidation):
     def metadata(self):
         model = get_bod_model(self.lang)
         results = computeHeader(self.mapName)
-        query = Session.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
+        query = self.request.db.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
         query = self.fullTextSearch(query, model.fullTextSearch)
         layers = [layer.layerMetadata() for layer in query]
-        query.session.close()
         results['layers'].append(layers)
         return results
 
@@ -38,11 +37,10 @@ class MapService(MapServiceValidation):
         from pyramid.renderers import render_to_response
         idlayer = self.request.matchdict.get('idlayer')
         model = get_bod_model(self.lang)
-        query = Session.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
+        query = self.request.db.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
         query = query.filter(model.idBod==idlayer)
         for layer in query:
             legend = {'layer': layer.layerMetadata()}
-        query.session.close()
         response = render_to_response('geoadmin:templates/legend.mako', legend, request = self.request)
         if self.cbName is None:
             return response 
@@ -99,12 +97,11 @@ class MapService(MapServiceValidation):
         idfeature = self.request.matchdict.get('idfeature')
         idlayer = self.request.matchdict.get('idlayer') 
         model = validateLayerId(idlayer)[0]
-        query = Session.query(model).filter(model.id==idfeature)
+        query = self.request.db.query(model).filter(model.id==idfeature)
         if self.returnGeometry:
             feature = [f.__geo_interface__ for f in query]
         else:
             feature = [f.interface for f in query]
-        query.session.close()
         feature = {'feature': feature.pop()} if len(feature) > 0 else {'feature': []}
         template = model.__template__
         return feature, template
@@ -119,7 +116,6 @@ class MapService(MapServiceValidation):
        for query in queries:
             for feature in query:
                 yield feature.__geo_interface__
-            query.session.close() 
 
     def buildQueries(self, models):
         for layer in models:
@@ -131,7 +127,7 @@ class MapService(MapServiceValidation):
                     self.mapExtent,
                     self.tolerance
                 )
-                query = Session.query(model).filter(geom_filter)
+                query = self.request.db.query(model).filter(geom_filter)
                 query = self.fullTextSearch(query, model.display_field())
                 yield query
 
@@ -146,7 +142,7 @@ class MapService(MapServiceValidation):
 
     def getLayerListFromMap(self):
         model = get_bod_model(self.lang)
-        query = Session.query(model).filter(
+        query = self.request.db.query(model).filter(
             model.maps.ilike('%%%s%%' % self.mapName)
         )
         # only return layers which have a model
@@ -155,5 +151,4 @@ class MapService(MapServiceValidation):
             q in query
             if models_from_name(q.idBod) is not None
         ]
-        query.session.close()
         return layerList

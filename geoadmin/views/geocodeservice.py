@@ -2,7 +2,7 @@
 
 from pyramid.view import view_config
 
-from geoadmin.models import Session, models_from_name
+from geoadmin.models import models_from_name
 from geoadmin.models.vector.swisssearch import SwissSearch
 from geoadmin.models.bod import get_bod_model, computeHeader
 from geoadmin.lib.helpers import locale_negotiator
@@ -52,7 +52,7 @@ class GeoCodeService(object):
         ##TODO: search on layers?
 
         if self.afs['egid'] is not None:
-            query = Session.query(SwissSearch).filter(SwissSearch.egid == '' + self.afs['egid'])
+            query = self.request.db.query(SwissSearch).filter(SwissSearch.egid == '' + self.afs['egid'])
             ftsOrderBy = 'egid'
         else:
             ftsOrderBy = "rank asc, CASE WHEN origin = 'address' THEN 1/gid::float WHEN origin = 'parcel' THEN 1/SUBSTRING(name FROM '([0-9]+)')::float ELSE similarity(search_name,'%(query)s') END desc" % {'query': st.replace("'","''").replace('"','\"') }
@@ -61,7 +61,7 @@ class GeoCodeService(object):
             tsvector = 'to_tsvector(\'english\',search_name)'
             terms1 =  terms1.replace("'", "''").replace('"', '\"')
             ftsFilter = "%(tsvector)s @@ to_tsquery('english', remove_accents('%(terms1)s'))" %{'tsvector': tsvector, 'terms1': terms1}
-            query = Session.query(SwissSearch).filter(ftsFilter)
+            query = self.request.db.query(SwissSearch).filter(ftsFilter)
         
         if onlyOneTerm:
             query = query.filter(SwissSearch.origin != 'parcel')
@@ -82,8 +82,6 @@ class GeoCodeService(object):
 
         allresults = query.all()
 
-        ##TODO: we have to close session each time by hand. Should be improved
-        query.session.close()
         ##Create json (right now, same as old)
         return {'results': [f.json(translate = self.translate) for f in allresults]}
 

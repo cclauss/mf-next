@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy import engine_from_config
 from sqlalchemy import Column, Text, Integer, Unicode
 
@@ -13,7 +12,6 @@ dbs = ['bod','bafu','search','stopo']
 engines = {}
 bases = {}
 bodmap = {}
-Session = scoped_session(sessionmaker())
 
 for db in dbs:
     bases[db] = declarative_base(cls=GeoInterface)

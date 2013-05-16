@@ -5,13 +5,24 @@ from pyramid.config import Configurator
 from pyramid.events import BeforeRender, NewRequest
 from geoadmin.subscribers import add_localizer, add_renderer_globals
 from pyramid.renderers import JSONP
-
+from sqlalchemy.orm import scoped_session, sessionmaker
 
 from geoadmin.renderers import EsriJSON, CSVRenderer
 from geoadmin.models import initialize_sql
 from papyrus.renderers import GeoJSON
 from geoadmin.renderers import EsriJSON
 from geoadmin.models import initialize_sql
+
+def db(request):
+    maker = request.registry.dbmaker
+    session = maker()
+    
+    def cleanup(request):
+        session.close()
+    request.add_finished_callback(cleanup)
+    
+    return session
+
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
@@ -27,15 +38,19 @@ def main(global_config, **settings):
     # configure 'locale' dir as the translation dir for geoadmin app
     config.add_translation_dirs('geoadmin:locale/')
     config.add_subscriber(add_localizer, NewRequest)
-
     config.add_subscriber(add_renderer_globals, BeforeRender)
 
+    # renderers
     config.add_renderer('.html', mako_renderer_factory)
     config.add_renderer('.js', mako_renderer_factory)
     config.add_renderer('jsonp', JSONP(param_name='cb', indent=4))
     config.add_renderer('geojson', GeoJSON(jsonp_param_name='cb'))
     config.add_renderer('esrijson', EsriJSON(jsonp_param_name='cb'))
     config.add_renderer('csv', CSVRenderer)
+
+    # sql section
+    config.registry.dbmaker = scoped_session(sessionmaker())
+    config.add_request_method(db, reify=True)
     initialize_sql(settings)
 
     # Static config
