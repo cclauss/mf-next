@@ -43,9 +43,7 @@ class MapService(MapServiceValidation):
         for layer in query:
             legend = {'layer': layer.layerMetadata()}
         query.session.close()
-        response = render_to_response('geoadmin:templates/legend.mako',
-                                        legend,
-                                        request = self.request)
+        response = render_to_response('geoadmin:templates/legend.mako', legend, request = self.request)
         if self.cbName is None:
             return response 
         else:
@@ -91,9 +89,7 @@ class MapService(MapServiceValidation):
         from pyramid.renderers import render_to_response
         self.returnGeometry = False
         feature, template = self.getFeature()
-        response = render_to_response('geoadmin:' + template,
-                                    feature,
-                                    request = self.request)
+        response = render_to_response('geoadmin:' + template, feature, request = self.request)
         if self.cbName is None:
             return response
         else:
