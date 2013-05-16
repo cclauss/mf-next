@@ -18,11 +18,11 @@ class Height(HeightValidation):
         super(Height, self).__init__()
         if request.params.has_key('easting'):
             self.lon = request.params.get('easting')
-        elif request.params.has_key('lon'):
+        else:
             self.lon = request.params.get('lon')
         if request.params.has_key('northing'):
             self.lat = request.params.get('northing')
-        elif request.params.has_key('lat'):
+        else:
             self.lat = request.params.get('lat')
         if request.params.has_key('layers'):
             self.layers = request.params.get('layers')
