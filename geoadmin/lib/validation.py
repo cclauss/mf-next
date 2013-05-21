@@ -5,6 +5,9 @@ import pyramid.httpexceptions as exc
 from geoadmin.models import models_from_name
 from geoadmin.lib.helpers import check_even
 
+from geoadmin.esrigeojsonencoder import loads
+from shapely.geometry import asShape
+
 
 class MapServiceValidation(object):
     def __init__(self):
@@ -44,13 +47,12 @@ class MapServiceValidation(object):
     def geometry(self, value):
         if value is None:
             raise exc.HTTPBadRequest('Please provide the parameter geometry  (Required)')
-        value = value.split(',')
-        if check_even(len(value)) is False:
-            raise exc.HTTPBadRequest('Please provide an even number of float numbers for the parameter geometry')
-        try:
-            self._geometry = map(float, value)
-        except ValueError:
-            raise exc.HTTPBadRequest('Please provide numerical values in a comma separated list for the parameter geometry')
+        else:
+            try:
+                self._geometry = loads(value)
+            except ValueError:
+                raise exc.HTTPBadRequest('Please provide a valide geometry')
+       
 
     @geometryType.setter
     def geometryType(self, value):
@@ -66,7 +68,7 @@ class MapServiceValidation(object):
             raise exc.HTTPBadRequest('Please provide the parameter imageDisplay  (Required)')
         value = value.split(',')
         if len(value) != 3:
-            raise exc.HTTPBadRequest('Please provide the parameter imageDisplay in a comma separated list of 3 arguments')
+            raise exc.HTTPBadRequest('Please provide the parameter imageDisplay in a comma separated list of 3 arguments (width,height,dpi)')
         try:
             self._imageDisplay = map(float, value)
         except ValueError:
@@ -75,14 +77,14 @@ class MapServiceValidation(object):
     @mapExtent.setter
     def mapExtent(self, value):
         if value is None:
-            raise exc.HTTPBadRequest('Please provide the parameter mapExtent  (Required)')
-        value = value.split(',')
-        if len(value) != 4:
-            raise exc.HTTPBadRequest('The parameter mapExtent must contain 4 coordinates in a comma-separated list')
-        try:
-            self._mapExtent = map(float, value)
-        except ValueError:
-            raise exc.HTTPBadRequest('Please provide numerical values for the parameter mapExtent')
+            raise exc.HTTPBadRequest('Please provide the parameter geometry  (Required)')
+        else:
+            try:
+                feat = loads(value)
+                self._mapExtent = asShape(feat)
+            except ValueError:
+                raise exc.HTTPBadRequest('Please provide a valide geometry  (Required)')
+            
 
     @tolerance.setter
     def tolerance(self, value):

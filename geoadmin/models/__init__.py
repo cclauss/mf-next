@@ -12,6 +12,7 @@ dbs = ['bod','bafu','search','stopo']
 engines = {}
 bases = {}
 bodmap = {}
+esrimap = {}
 
 for db in dbs:
     bases[db] = declarative_base(cls=GeoInterface)
@@ -27,9 +28,25 @@ def register(name, klass):
     if name not in bodmap:
         bodmap[name] = []
         bodmap[name].append(klass)
+        if hasattr(klass, '__esriId__'):
+            esrimap[klass.__esriId__] = name
 
-def models_from_name(name):
-    if name in bodmap:
-        return bodmap[name]
+def models_from_bodid(bodid):
+       
+    if bodid in bodmap:
+        return bodmap[bodid]
     else:
         return None
+
+def models_from_name(name):   
+    models = models_from_bodid(name)
+    if models is not None:
+        return models
+    else:
+        try:
+           id = int(name)
+           if id in esrimap:
+                bodid = esrimap[id]
+                return models_from_bodid(bodid)
+        except:
+            return None

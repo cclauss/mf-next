@@ -10,12 +10,15 @@ from geoalchemy import WKBSpatialElement, functions
 from geoalchemy import GeometryColumn, Geometry
 from papyrus.geo_interface import GeoInterface
 from geojson import Feature
+from geoadmin.esrigeojsonencoder import loads
+from shapely.geometry import asShape
 
 def getScale(imageDisplay, mapExtent):
     inches_per_meter = 1.0/0.0254
     dots_per_inch = imageDisplay[2]
     pixel_width = imageDisplay[0]
-    meter_width = abs(mapExtent[0] - mapExtent[2])
+    bounds = mapExtent.bounds
+    meter_width = abs(bounds[0] - bounds[2])
     inches_per_pixel = (meter_width*inches_per_meter)/pixel_width
     resolution = meter_width/(pixel_width*dots_per_inch*inches_per_pixel)
     scale = resolution*inches_per_meter*dots_per_inch
@@ -114,16 +117,9 @@ class Vector(GeoInterface):
         return attributes
 
 def esriRest2Shapely(geometry, geometryType):
-    if geometryType == 'esriGeometryPoint':
-        geom = Point(geometry[0], geometry[1])
-    else:
-        coordinates = list()
-        for i in range(len(geometry)-1):
-            coordinates.append((geometry[i], geometry[i+1]))
-        if  geometryType == 'esriGeometryPolyline':
-            geom = LineString(coordinates)
-        elif geometryType == 'esriGeometryPolygon' or 'esriGeometryEnvelope':
-            geom = Polygon(coordinates)
-        else:
-            geom = None
-    return geom
+    
+    try:
+        return  asShape(geometry)
+    except ValueError:
+        return geometry
+
