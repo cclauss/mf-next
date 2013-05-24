@@ -32,6 +32,6 @@ class JB(Base, Vector):
     __displayFieldName__ = 'jb_name'
     __template__ = 'templates/htmlpopup/jb.mako'
     id = Column('gid', Integer, primary_key=True)
-    the_geom = Column(Geometry)
+    the_geom = GeometryColumn(Geometry(dimension=2, srid=21781))
 
 register('ch.bafu.bundesinventare-jagdbanngebiete', JB)
