@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/mf-chsdi/!svn/ver/2574/trunk/chsdi/chsdi/tests/functional/wmts/1.0/examples
+END
+wmtsGetFeatureInfo_response_SOAP.xml
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/mf-chsdi/!svn/ver/2574/trunk/chsdi/chsdi/tests/functional/wmts/1.0/examples/wmtsGetFeatureInfo_response_SOAP.xml
+END
+wmtsGetCapabilities_response.xml
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/mf-chsdi/!svn/ver/2574/trunk/chsdi/chsdi/tests/functional/wmts/1.0/examples/wmtsGetCapabilities_response.xml
+END
+wmtsGetCapabilities_response_RESTful.xml
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/mf-chsdi/!svn/ver/2574/trunk/chsdi/chsdi/tests/functional/wmts/1.0/examples/wmtsGetCapabilities_response_RESTful.xml
+END
+wmtsConcrete.wsdl
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/mf-chsdi/!svn/ver/2574/trunk/chsdi/chsdi/tests/functional/wmts/1.0/examples/wmtsConcrete.wsdl
+END
+wmtsExceptionReport_SOAP.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/mf-chsdi/!svn/ver/2574/trunk/chsdi/chsdi/tests/functional/wmts/1.0/examples/wmtsExceptionReport_SOAP.xml
+END
+wmtsGetFeatureInfo_response_GML.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/mf-chsdi/!svn/ver/2574/trunk/chsdi/chsdi/tests/functional/wmts/1.0/examples/wmtsGetFeatureInfo_response_GML.xsd
+END
+wmtsGetCapabilities_request_SOAP.xml
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/mf-chsdi/!svn/ver/2574/trunk/chsdi/chsdi/tests/functional/wmts/1.0/examples/wmtsGetCapabilities_request_SOAP.xml
+END
+wmtsGetFeatureInfo_response_GML.xml
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/mf-chsdi/!svn/ver/2574/trunk/chsdi/chsdi/tests/functional/wmts/1.0/examples/wmtsGetFeatureInfo_response_GML.xml
+END
+wmtsGetTile_request_SOAP.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/mf-chsdi/!svn/ver/2574/trunk/chsdi/chsdi/tests/functional/wmts/1.0/examples/wmtsGetTile_request_SOAP.xml
+END
+wmtsGetFeatureInfo_response_SOAP2.xml
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/mf-chsdi/!svn/ver/2574/trunk/chsdi/chsdi/tests/functional/wmts/1.0/examples/wmtsGetFeatureInfo_response_SOAP2.xml
+END
+wmtsGetCapabilities_response_SOAP.xml
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/mf-chsdi/!svn/ver/2574/trunk/chsdi/chsdi/tests/functional/wmts/1.0/examples/wmtsGetCapabilities_response_SOAP.xml
+END
+wmtsGetFeatureInfo_response_SOAP3.xml
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/mf-chsdi/!svn/ver/2574/trunk/chsdi/chsdi/tests/functional/wmts/1.0/examples/wmtsGetFeatureInfo_response_SOAP3.xml
+END
+wmtsExceptionReport.xml
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/mf-chsdi/!svn/ver/2574/trunk/chsdi/chsdi/tests/functional/wmts/1.0/examples/wmtsExceptionReport.xml
+END
+wmtsGetTile_response_SOAP.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/mf-chsdi/!svn/ver/2574/trunk/chsdi/chsdi/tests/functional/wmts/1.0/examples/wmtsGetTile_response_SOAP.xml
+END
+wmtsGetFeatureInfo_request_SOAP.xml
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/mf-chsdi/!svn/ver/2574/trunk/chsdi/chsdi/tests/functional/wmts/1.0/examples/wmtsGetFeatureInfo_request_SOAP.xml
+END
