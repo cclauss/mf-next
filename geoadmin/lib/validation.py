@@ -9,15 +9,32 @@ from geoadmin.esrigeojsonencoder import loads
 from shapely.geometry import asShape
 
 
-class MapServiceValidation(object):
+class MapNameValidation(object):
     def __init__(self):
+        self._mapName = None
+        self.availableMaps = ('api-free', 'api-notfree', 'are', 'bafu', 'bazl', 'blw', 'chsdi', 'cw-ga', 'fuksender', 'geoadmin', 'geol', 'ivs', 'kgs', 'sachplan', 'swissmaponline', 'wms-bgdi', 'wms-swisstopowms')
+
+    @property
+    def mapName(self):
+        return self._mapName
+
+    @mapName.setter
+    def mapName(self, value):
+        if value not in self.availableMaps:
+            raise exc.HTTPBadRequest('The map you provided does not exist')
+        self._mapName = value
+ 
+
+class MapServiceValidation(MapNameValidation):
+    def __init__(self):
+        super(MapServiceValidation, self).__init__()
         self._geometry = None
         self._geometryType = None
         self._imageDisplay = None
         self._mapExtent = None
         self._tolerance = None
         self._models = None
-        self.esriGeometryTypes = ['esriGeometryPoint', 'esriGeometryPolyline', 'esriGeometryPolygon', 'esriGeometryEnvelope']
+        self.esriGeometryTypes = ('esriGeometryPoint', 'esriGeometryPolyline', 'esriGeometryPolygon', 'esriGeometryEnvelope')
 
     @property
     def geometry(self):

@@ -4,10 +4,12 @@ from pyramid.view import view_config
 
 from geoadmin.models.bod import get_wmts_models
 from geoadmin.lib.helpers import locale_negotiator
+from geoadmin.lib.validation import MapNameValidation
 
-class WMTSCapabilites(object):
+class WMTSCapabilites(MapNameValidation):
 
     def __init__(self, request):
+        super(WMTSCapabilites, self).__init__()
         self.mapName = request.matchdict.get('map')
         self.lang = locale_negotiator(request)
         self.models = get_wmts_models(self.lang)
