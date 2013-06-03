@@ -94,13 +94,13 @@ class MapServiceValidation(MapNameValidation):
     @mapExtent.setter
     def mapExtent(self, value):
         if value is None:
-            raise exc.HTTPBadRequest('Please provide the parameter geometry  (Required)')
+            raise exc.HTTPBadRequest('Please provide the parameter mapExtent  (Required)')
         else:
             try:
                 feat = loads(value)
                 self._mapExtent = asShape(feat)
             except ValueError:
-                raise exc.HTTPBadRequest('Please provide a valide geometry  (Required)')
+                raise exc.HTTPBadRequest('Please provide numerical values for the parameter mapExtent')
             
 
     @tolerance.setter

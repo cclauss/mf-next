@@ -42,7 +42,7 @@ class TestMapServiceView(TestsBase):
     def test_identify_without_mapextent(self):
         params = {'geometry': '548945.5,147956,549402,148103.5', 'geometryType': 'esriGeometryEnvelope', 'imageDisplay': '500,600,96', 'tolerance': '1', 'layers': 'all'}
         resp = self.testapp.get('/rest/services/bafu/MapServer/identify', params=params, status=400)
-        resp.mustcontain('Please provide the parameter mapExtent')
+        resp.mustcontain('')
 
     def test_identify_without_tolerance(self):
         params = {'geometry': '548945.5,147956,549402,148103.5', 'geometryType': 'esriGeometryEnvelope', 'imageDisplay': '500,600,96', 'mapExtent': '548945.5,147956,549402,148103.5', 'layers': 'all'}
@@ -55,7 +55,7 @@ class TestMapServiceView(TestsBase):
         self.failUnless(resp.content_type == 'application/json')
 
     def test_identify_valid_with_cb(self):
-        params = {'geometry': '548945.5,147956,549402,148103.5', 'geometryType': 'esriGeometryEnvelope', 'imageDisplay': '500,600,96', 'mapExtent': '548945.5,147956,549402,148103.5', 'tolerance': '1', 'layers': 'all', 'cb': 'cb'}
+        params = {'geometry': '548945.5,147956,549402,148103.5', 'geometryType': 'esriGeometryEnvelope', 'imageDisplay': '500,600,96', 'mapExtent': '548945.5,147956,549402,148103.5', 'tolerance': '1', 'layers': 'all', 'callback': 'cb'}
         resp = self.testapp.get('/rest/services/bafu/MapServer/identify', params=params, status=200)
         self.failUnless(resp.content_type == 'text/javascript')
         resp.mustcontain('cb({')
@@ -67,7 +67,7 @@ class TestMapServiceView(TestsBase):
         self.failUnless(len(resp.json) == 1)
 
     def test_identify_with_geojson(self):
-        params = {'geometry': '548945.5,147956,549402,148103.5', 'geometryType': 'esriGeometryEnvelope', 'imageDisplay': '500,600,96', 'mapExtent': '548945.5,147956,549402,148103.5', 'tolerance': '1', 'layers': 'all:ch.bafu.bundesinventare-bln', 'geometryFormat': 'geojson'}
+        params = {'geometry': '600000,200000,631000,210000', 'geometryType': 'esriGeometryEnvelope', 'imageDisplay': '500,600,96', 'mapExtent': '548945.5,147956,549402,148103.5', 'tolerance': '1', 'layers': 'all:ch.bafu.bundesinventare-bln', 'geometryFormat': 'geojson'}
         resp = self.testapp.get('/rest/services/bafu/MapServer/identify', params=params, status=200)
         self.failUnless(resp.content_type == 'application/json')
         self.failUnless(resp.json['results'][0].has_key('properties'))
@@ -92,7 +92,7 @@ class TestMapServiceView(TestsBase):
         self.failUnless(resp.json['feature']['id'] == 362)
 
     def test_getfeature_with_cb(self):
-        resp = self.testapp.get('/rest/services/bafu/MapServer/ch.bafu.bundesinventare-bln/362', params={'cb': 'cb'}, status=200)
+        resp = self.testapp.get('/rest/services/bafu/MapServer/ch.bafu.bundesinventare-bln/362', params={'callback': 'cb'}, status=200)
         self.failUnless(resp.content_type == 'text/javascript')
         resp.mustcontain('cb({')
 
