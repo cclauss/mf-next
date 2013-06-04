@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from geoadmin.tests.integration import TestsBase
-from pyramid import testing
 
 class TestMapServiceView(TestsBase):
 
@@ -17,12 +16,8 @@ class TestMapServiceView(TestsBase):
         resp = self.testapp.get('/rest/services/geoadmin/MapServer', params={'cb':'cb'}, status=200)
         self.failUnless(resp.content_type == 'application/javascript')
 
-    def test_metadata_with_cb(self):
-        resp = self.testapp.get('/rest/services/geoadmin/MapServer', params={'cb':'cb'}, status=200)
-        self.failUnless(resp.content_type == 'application/javascript')
-
     def test_identify_no_parameters(self):
-        resp = self.testapp.get('/rest/services/geoadmin/MapServer/identify', status=400)
+        self.testapp.get('/rest/services/geoadmin/MapServer/identify', status=400)
 
     def test_identify_without_geometry(self):
         params = {'geometryType': 'esriGeometryEnvelope', 'imageDisplay': '500,600,96', 'mapExtent': '548945.5,147956,549402,148103.5', 'tolerance': '1', 'layers': 'all'}

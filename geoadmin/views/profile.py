@@ -2,9 +2,7 @@
 
 import logging
 import math
-import time
 from pyramid.view import view_config
-from shapely.geometry import LineString, asShape, Polygon
 
 from geoadmin.lib.helpers import round
 from geoadmin.lib.validation import ProfileValidation

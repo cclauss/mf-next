@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from geoadmin.tests.integration import TestsBase
-from pyramid import testing
 
 class TestWmtsCapabilitiesView(TestsBase):
 
@@ -20,7 +19,7 @@ class TestWmtsCapabilitiesView(TestsBase):
         import tempfile
         import os
         if socket.gethostname() == 'bgdimf01t':
-            raise SkipTest("Cannot run this test on 'bgdimf0t'. Sorry.")
+            self.fail("Cannot run this test on 'bgdimf0t'. Sorry.")
         schema_url = os.path.join(os.path.dirname(__file__),"wmts/1.0/wmtsGetCapabilities_response.xsd")
         os.environ['XML_CATALOG_FILES'] = os.path.join(os.path.dirname(__file__),"xml/catalog")
 

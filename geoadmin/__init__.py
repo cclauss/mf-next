@@ -10,8 +10,6 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from geoadmin.renderers import EsriJSON, CSVRenderer
 from geoadmin.models import initialize_sql
 from papyrus.renderers import GeoJSON
-from geoadmin.renderers import EsriJSON
-from geoadmin.models import initialize_sql
 
 def db(request):
     maker = request.registry.dbmaker
