@@ -2,9 +2,7 @@
 
 from pyramid.view import view_config
 
-from geoadmin.models import models_from_name
 from geoadmin.models.vector.swisssearch import SwissSearch
-from geoadmin.models.bod import get_bod_model, computeHeader
 from geoadmin.lib.helpers import locale_negotiator
 
 import pyramid.httpexceptions as exc
