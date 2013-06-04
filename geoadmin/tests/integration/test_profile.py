@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from geoadmin.tests.integration import TestsBase
-from pyramid import testing
 
 class TestProfileView(TestsBase):
 

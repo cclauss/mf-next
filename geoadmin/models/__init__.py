@@ -2,7 +2,6 @@
 
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import engine_from_config
-from sqlalchemy import Column, Text, Integer, Unicode
 
 from geoalchemy import Geometry
 from papyrus.geo_interface import GeoInterface
