@@ -106,10 +106,12 @@ class MapService(MapServiceValidation):
         template = model.__template__
         return feature, template
 
-    def fullTextSearch(self, query, orm_column):
-        query = query.filter(
-            orm_column.ilike('%%%s%%' % self.searchText)
-        ) if self.searchText is not None else query
+    def fullTextSearch(self, query, *orm_column):
+        for col in orm_column:
+            if col is not None:
+                query = query.filter(
+                    col.ilike('%%%s%%' % self.searchText)
+                ) if self.searchText is not None else query
         return query
 
     def getFeaturesFromQueries(self, queries):
@@ -128,7 +130,7 @@ class MapService(MapServiceValidation):
                     self.tolerance
                 )
                 query = self.request.db.query(model).filter(geom_filter)
-                query = self.fullTextSearch(query, model.display_field())
+                query = self.fullTextSearch(query, model.queryable_attributes())
                 yield query
 
     def getModelsFromLayerName(self, layers_param):
