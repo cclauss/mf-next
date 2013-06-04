@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from pyramid.view import view_config
+from sqlalchemy import or_
 
 from geoadmin.models import models_from_name
 from geoadmin.models.bod import get_bod_model, computeHeader
@@ -20,6 +21,7 @@ class MapService(MapServiceValidation):
         self.cbName = request.params.get('cb')
         self.lang = locale_negotiator(request)
         self.searchText = request.params.get('searchText')
+        self.geodataStaging = request.registry.settings['geodata_staging']
         self.translate = request.translate
 
     @view_config(route_name='mapservice', renderer='jsonp')    
@@ -27,6 +29,7 @@ class MapService(MapServiceValidation):
         model = get_bod_model(self.lang)
         results = computeHeader(self.mapName)
         query = self.request.db.query(model).filter(model.maps.ilike('%%%s%%' % self.mapName))
+        query = self.geodataStagingFilter(query, model.staging)
         query = self.fullTextSearch(query, model.fullTextSearch)
         layers = [layer.layerMetadata() for layer in query]
         results['layers'].append(layers)
@@ -105,6 +108,14 @@ class MapService(MapServiceValidation):
         feature = {'feature': feature.pop()} if len(feature) > 0 else {'feature': []}
         template = model.__template__
         return feature, template
+
+    def geodataStagingFilter(self, query, orm_column):
+        if self.geodataStaging == 'test':
+            return query
+        elif self.geodataStaging == 'int':
+            return query.filter(or_(orm_column == self.geodataStaging, orm_column == 'prod'))
+        elif self.geodataStaging == 'prod':
+            return query.filter(orm_column == self.geodataStaging)
 
     def fullTextSearch(self, query, orm_column):
         query = query.filter(
