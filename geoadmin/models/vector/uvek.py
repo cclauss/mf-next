@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 
+from sqlalchemy import Column, Text, Integer
+from geoalchemy import GeometryColumn, Geometry
+
 from geoadmin.models import  *
 from geoadmin.models.vector import Vector
-from geoalchemy import GeometryColumn, Geometry
 
 
 Base = bases['uvek']
 
 
+# IVS NAT and REG use the same template
 class IVS_NAT(Base, Vector):
     __tablename__ = 'ivs_nat'
     __table_args__ = ({'schema': 'astra', 'autoload': True})
@@ -21,6 +24,7 @@ class IVS_NAT(Base, Vector):
 
 register('ch.astra.ivs-nat', IVS_NAT)
 register('ch.astra.ivs-nat-verlaeufe', IVS_NAT)
+
 
 class IVS_REG_LOC(Base, Vector):
     __tablename__ = 'ivs_reg_loc'
