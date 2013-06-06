@@ -1,4 +1,63 @@
 
+msgid "ivs_nat_linienfuehrung"
+msgstr ""
+
+msgid "ivs_nat_abschnitt"
+msgstr ""
+
+msgid "ivs_nat_strecke"
+msgstr ""
+
+msgid "PDF_Level_3_Name"
+msgstr ""
+
+msgid "PDF_Level_2_Nam"
+msgstr ""
+
+msgid "PDF_Level_1_Name"
+msgstr ""
+
+msgid "ch.astra.ivs-nat"
+msgstr ""
+
+msgid "ch.astra.ivs-reg_loc"
+msgstr ""
+
+msgid "ch.astra.ivs-nat-verlaeufe"
+msgstr ""
+
+msgid "ivs_objekt"
+msgstr ""
+
+msgid "ivs_signatur"
+msgstr ""
+
+msgid "gemkanton"
+msgstr ""
+
+msgid "ivs_nat_historischen"
+msgstr ""
+
+msgid "ivs_nat_morphologischen"
+msgstr ""
+
+msgid "ivs_slabedeutung"
+msgstr ""
+
+msgid "ivs_slaname"
+msgstr ""
+
+msgid "ivs_documentation"
+msgstr ""
+
+msgid "ch.astra.ivs-nat"
+msgstr ""
+
+msgid "ch.astra.ivs-nat-verlaeufe"
+msgstr ""
+
+msgid "ch.astra.ivs-reg_loc"
+msgstr ""
 
 msgid "ch.bafu.bundesinventare-bln"
 msgstr ""
