@@ -35,6 +35,9 @@ def main(global_config, **settings):
     import papyrus_ogcproxy
     config.include(papyrus_ogcproxy)
 
+    # printproxy
+    config.add_route('printproxy', '/printproxy')
+
     # configure 'locale' dir as the translation dir for geoadmin app
     config.add_translation_dirs('geoadmin:locale/')
     config.add_subscriber(add_localizer, NewRequest)
