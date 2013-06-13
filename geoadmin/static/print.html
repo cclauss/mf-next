@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+      <head>
+        <meta charset='utf-8'>
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          
+
+       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+       <script type="text/javascript" src="http://api.geo.admin.ch/loader.js"></script>
+
+       <script src="json2.js"></script>
+</head>
+<script type="text/javascript">
+    var mp,buttonPrint, printAction;
+    function init() {
+    // Exactly the same as Print in geo.admin.ch, but the POST method
+    var print = function(map, pages, options) {
+                if (map instanceof GeoExt.MapPanel) {
+                    map = map.map;
+                }
+                pages = pages instanceof Array ? pages : [pages];
+                options = options || {};
+                if (this.fireEvent("beforeprint", this, map, pages, options) === false) {
+                    return;
+                }
+
+                var jsonData = Ext.apply({
+                    units: map.getUnits(),
+                    srs: map.baseLayer.projection.getCode(),
+                    layout: this.layout.get("name"),
+                    dpi: this.dpi.get("value")
+                }, this.customParams);
+
+                var pagesLayer = pages[0].feature.layer;
+                var encodedLayers = [];
+
+                // ensure that the baseLayer is the first one in the encoded list
+                var layers = map.layers.concat();
+                layers.remove(map.baseLayer);
+                layers.unshift(map.baseLayer);
+
+                Ext.each(layers, function(layer) {
+                    if (layer !== pagesLayer && layer.getVisibility() === true) {
+                        // Only one page in GeoAdmin
+                        var scale = pages[0].scale.get("value");
+                        var enc;
+                        // Support aggregateLayer
+                        if (layer.maxScale && layer.minScale && scale && layer.aggregateChild) {
+                            if (scale >= Math.round(layer.maxScale, 2) && scale <= Math.round(layer.minScale, 2)) {
+                                enc = this.encodeLayer(layer);
+                                enc && encodedLayers.push(enc);
+                            }
+                        } else {
+                            enc = this.encodeLayer(layer);
+                            enc && encodedLayers.push(enc);
+                        }
+                    }
+                }, this);
+                jsonData.layers = encodedLayers;
+
+                var encodedPages = [];
+                Ext.each(pages, function(page) {
+                    encodedPages.push(Ext.apply({
+                        center: [page.center.lon, page.center.lat],
+                        scale: page.scale.get("value"),
+                        rotation: page.rotation
+                    }, page.customParams));
+                }, this);
+                jsonData.pages = encodedPages;
+
+                if (options.overview) {
+                    var encodedOverviewLayers = [];
+                    Ext.each(options.overview.layers, function(layer) {
+                        var enc = this.encodeLayer(layer);
+                        enc && encodedOverviewLayers.push(enc);
+                    }, this);
+                    jsonData.overviewLayers = encodedOverviewLayers;
+                }
+                /*
+                if (options.legend) {
+                    var legend = options.legend;
+                    var rendered = legend.rendered;
+                    if (!rendered) {
+                        legend = legend.cloneConfig({
+                            renderTo: document.body,
+                            hidden: true
+                        });
+                    }
+                    var encodedLegends = [];
+                    legend.items && legend.items.each(function(cmp) {
+                        if (!cmp.hidden) {
+                            var encFn = this.encoders.legends[cmp.getXType()];
+                            encodedLegends = encodedLegends.concat(
+                                encFn.call(this, cmp));
+                        }
+                    }, this);
+                    if (!rendered) {
+                        legend.destroy();
+                    }
+                    jsonData.legends = encodedLegends;
+                }  */
+                // This is the only modified part: we only need to send a form...
+                if (this.method === "POST") {
+                    var url = Ext.urlAppend(this.capabilities.printURL, ""); //"spec=" + encodeURIComponent(Ext.encode(jsonData)));
+                     var form = $('#monform');
+                     form.attr('action', url);
+                     $('#spec').val(JSON.stringify(jsonData));
+                     form.submit();
+                     this.fireEvent("beforedownload", this, url);
+                      this.fireEvent("print", this, url);
+                } else {
+                    this.fireEvent("printexception", this, response);
+                }
+              };
+      var base_url =  (window.location.host.indexOf('localhost') > -1) ? window.location.origin : "/ltmom/wsgi";
+
+      mp = new GeoAdmin.MapPanel({
+         renderTo: "mymap2",
+         width: 500,
+         height: 340,
+         map: new GeoAdmin.Map(),
+         stateId: "map",
+         tbar: ["->"
+         ]
+     });
+      mp.map.switchComplementaryLayer("ch.swisstopo.pixelkarte-grau", {opacity: 1});
+     mp.map.addLayerByName('ch.bafu.bundesinventare-bln');
+     printAction =  new GeoAdmin.Print({
+             configureTitle: true,
+             configureFooter: true,
+             configureLegend: false,
+             mapLogo: "http://www.dummy.com/myimage.png",
+             mapTitle: "My custom title",
+             mapFooter: "This is a custom footer.",
+             text: OpenLayers.i18n('print map (popup)'),
+             printBaseUrl: base_url,
+             printPanelOptions: {
+                 mapPanel: mp
+             },
+             windowOptions: {
+                 height: 300,
+                 title: OpenLayers.i18n('print map')
+             }
+             });
+     buttonPrint = new Ext.Button(printAction)
+     buttonPrint.baseAction.printProvider.print = print; 
+     mp.getTopToolbar().add([ buttonPrint 
+      ]);
+   };
+
+</script>
+<body onload="init();">
+<h1>Posting to print.pdf service </h1>
+  <div id="myprint" style="margin-left:10px !important;width: 200px;"></div>
+  <div id="mymap2" style="width:500px;height:340px;border:1px solid grey;padding: 0 0 0 0;margin:10px !important;"></div>
+<form id="monform"  method="post" enctype="application/json; charset=utf-8" action="/ltmom/wsgi/print" border="1">
+        <input type="hidden" id="spec" name="spec" value="" rows="50" cols="20">
+</form>
+</body>
+
+
+

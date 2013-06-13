@@ -37,6 +37,8 @@ def main(global_config, **settings):
 
     # printproxy
     config.add_route('printproxy', '/printproxy')
+    config.add_route('print', '/print.pdf')
+    config.add_route('info', '/info.json')
 
     # configure 'locale' dir as the translation dir for geoadmin app
     config.add_translation_dirs('geoadmin:locale/')
