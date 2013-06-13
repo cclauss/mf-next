@@ -10,7 +10,7 @@ from pyramid.httpexceptions import (HTTPForbidden, HTTPBadRequest,
 from pyramid.response import Response
 
 
-@view_config(route_name='info') #,request_method='POST')
+@view_config(route_name='info')
 def info(request):
     import httplib2
     h = httplib2.Http()
@@ -18,15 +18,13 @@ def info(request):
     resp, data = h.request(url, "GET", headers={'referer':'http://mf-next0t.bgdi.admin.ch/'} )
     status = resp.status
 
-    #data = data.replace('http://api.geo.admin.ch/print-chsdimain/pdf','') 
-
     response = Response(data, status=status, headers={'Content-Type': resp.get('content-type')})
 
     return response
 
 
 
-@view_config(route_name='print') # ,request_method='POST')
+@view_config(route_name='print')
 def printpdf(request):
 
     if request.method not in ('POST'):
