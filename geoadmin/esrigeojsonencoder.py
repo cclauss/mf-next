@@ -26,7 +26,8 @@ class EsriGeoJSONEncoder(GeoJSONEncoder):
              
             if 'properties' in ret:
                 if  ret['properties']:
-                    ret['attributes'] = ret['attributes'] or {}
+                    if 'attributes' not in ret.keys():
+                        ret['attributes'] = {}
                     ret['attributes'].update(ret['properties'])
                 del ret['properties']
             if 'crs' in ret:
